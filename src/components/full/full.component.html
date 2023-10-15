@@ -1,0 +1,82 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div id="app" class="main-wrapper">
+  <div class="navbar">
+    <!-- Toolbar -->
+    <div class="toolbar" role="banner">
+      <img
+        width="40"
+        alt="Paw"
+        src="https://upload.wikimedia.org/wikipedia/commons/5/51/Paw-print.svg"
+        id="paw"
+      />
+      <span>Pet Shop</span>
+        <div class="user"></div>
+        <div class="d-grid mr-15 text-right">
+          <span class="navbar-dropdown-email">{{ email }}</span>
+        </div>
+        <img
+          width="40"
+          src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+          id="user"
+        /> 
+    </div>
+  </div>
+
+  <mat-sidenav-container class="sidebar-container" autosize>
+    <mat-sidenav #sidenav class="sidebar mt-3" mode="side" opened fixedTopGap="true" fixedBottomGap="true" [style.width.px]="!isExpanded ? 80 : 260">
+      <mat-nav-list class="sidebar-group" dense="true" style="margin: 0;">
+        <ng-container *ngFor="let sidebarnavItem of customNavItems">
+          <li *ngIf="!sidebarnavItem.children"
+              class="sidebar-link-item"
+              routerLinkActive="sidebar-link-item__active">
+            <a [routerLink]="sidebarnavItem.url ? [sidebarnavItem.url] : null" class="d-flex">
+              <mat-icon>{{ sidebarnavItem.icon }}</mat-icon>
+              <span *ngIf="isExpanded">{{ sidebarnavItem.name }}</span>
+            </a>
+          </li>
+
+          <mat-accordion *ngIf="sidebarnavItem.children" class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <li class="sidebar-link-item" routerLinkActive="sidebar-link-item__active">
+                  <a data-toggle="collapse" class="d-flex align-items-center" data-target="#navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarTogglerDemo02" style="color: inherit;">
+                    <mat-icon>{{ sidebarnavItem.icon }}</mat-icon>
+                    <span matLine *ngIf="isExpanded">{{ sidebarnavItem.name }}</span>
+                  </a>
+                </li>
+              </mat-expansion-panel-header>
+
+              <ul>
+                <li *ngFor="let item of sidebarnavItem.children" class="sidebar-link__subitem" routerLinkActive="sidebar-link-item__active">
+                  <a [routerLink]="item.url ? [item.url] : null">
+                    <span matLine *ngIf="isExpanded">{{ item.name }}</span>
+                  </a>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </ng-container>
+      </mat-nav-list>
+      <!-- <mat-nav-list class="sidebar-group mt-3" dense="true" style="height: auto;margin-bottom: 45px;" *ngIf="roleCheck === 'administrator'">
+        <div class="sidebar-title" *ngIf="isExpanded">
+          <h3>Settings</h3>
+        </div>
+        <li routerLink="/admin" class="sidebar-link-item" routerLinkActive="sidebar-link-item__active">
+          <a class="d-flex align-items-center">
+            <mat-icon>settings</mat-icon>
+
+            <span matLine *ngIf="isExpanded">Admin panel</span>
+          </a>
+        </li>
+      </mat-nav-list> -->
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="content">
+        <div class="content-wrapper">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
