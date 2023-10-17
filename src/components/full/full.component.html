@@ -12,13 +12,16 @@
       <span>Pet Shop</span>
         <div class="user"></div>
         <div class="d-grid mr-15 text-right">
-          <span class="navbar-dropdown-email">{{ email }}</span>
+          <span class="navbar-dropdown-email">{{ user.username }}</span>
         </div>
-        <img
-          width="40"
-          src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
-          id="user"
-        /> 
+        <a [routerLink]="profile/:id" class="d-flex">
+          <img
+            width="40"
+            src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+            id="user"
+          /> 
+        </a>
+        
     </div>
   </div>
 

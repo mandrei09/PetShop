@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CustomINavData } from 'src/classes/Custom-nav';
+import { CustomINavData } from 'src/model/Custom-nav';
+import { User } from 'src/model/User';
 
 @Component({
   selector: 'app-full',
@@ -8,9 +9,8 @@ import { CustomINavData } from 'src/classes/Custom-nav';
 })
 export class FullComponent implements OnInit {
 
-  @Input() username! : string;
-  @Input() email! : string ;
-
+  @Input() user! : User;
+  
   public isExpanded = true;
   public isCollapsed = false;
   public customNavItems : CustomINavData[] = [

@@ -10,12 +10,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FullComponent } from 'src/components/full/full.component';
 import { ArticlesComponent } from 'src/components/articles/articles.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { ArticleDetailComponent } from 'src/components/articleDetail/articleDetail.component';
+import { ProfileComponent } from 'src/components/profile/profile.component';
 
 @NgModule({
   declarations: [			
     AppComponent,
       FullComponent,
-      ArticlesComponent
+      ArticlesComponent,
+      ArticleDetailComponent,
+      ProfileComponent
    ],
   imports: [
     BrowserModule,
@@ -25,7 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     MatExpansionModule,
     MatToolbarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

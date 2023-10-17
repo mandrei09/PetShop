@@ -1,0 +1,24 @@
+<!-- app.component.html -->
+<div class="app-container">
+  <header>
+    <div class="logo">User Profile</div>
+  </header>
+  <div class="profile">
+    <div class="profile-info">
+      <div *ngIf="user.profilePhoto === 'perm_identity'; else elseBlock">
+        <mat-icon>{{ user.profilePhoto }}</mat-icon>
+      </div>
+      <ng-template #elseBlock>
+        <img [src]="user.profilePhoto" alt="User Photo" />
+      </ng-template>
+      <h1>{{ user.username }}</h1>
+      <p>{{ user.email }}</p>
+      <div class="user-roles">
+        <p>Roles:</p>
+        <ul>
+          <li *ngFor="let role of user.roles">{{ role }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from 'src/classes/User';
+import { User } from 'src/model/User';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,6 +8,6 @@ import { User } from 'src/classes/User';
 export class AppComponent {
 
   title = 'PetShop';
-
-  user : User = new User('da@gmail.com','Proba');
+  
+  public user : User = new User('1','andrei-alexandru.mihai@gmail.com','mandrei09',['admin']);
 }

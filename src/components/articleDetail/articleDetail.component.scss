@@ -1,0 +1,46 @@
+/* Add these styles to your existing CSS */
+
+/* Article styles */
+.article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .article h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .article .article-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .article .article-meta .author {
+    font-style: italic;
+  }
+  
+  .article .article-meta .date {
+    text-align: right;
+  }
+  
+  .article img {
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+  }
+  
+  .article .article-content {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  /* Style anchor links in the article content */
+  .article .article-content a {
+    color: #00f;
+    text-decoration: underline;
+  }
+  

@@ -1,4 +1,4 @@
-import { Breed } from "src/classes/Breed";
+import { Breed } from "src/model/Breed";
 
 export class Cat {
     name : string;
