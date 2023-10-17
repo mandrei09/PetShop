@@ -1,18 +1,28 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CustomINavData } from 'src/model/Custom-nav';
 import { User } from 'src/model/User';
+import { Router } from '@angular/router';
+import { UserService } from 'src/services/UserService/User.service';
 
 @Component({
   selector: 'app-full',
   templateUrl: './full.component.html',
-  styleUrls: ['./full.component.scss']
+  styleUrls: ['./full.component.scss'],
+  providers: [UserService]
 })
 export class FullComponent implements OnInit {
 
-  @Input() user! : User;
+  constructor(private router : Router,
+    private userService : UserService) {
+    this.router = router;
+    this.userService = userService;
+  }
+
+  public user : User = this.userService.user; 
   
   public isExpanded = true;
   public isCollapsed = false;
+
   public customNavItems : CustomINavData[] = [
     {
       badge : undefined,
@@ -54,7 +64,7 @@ export class FullComponent implements OnInit {
       name: 'News',
       title : false,
       url : '/news',
-      variant : '-'
+      variant : '-',
     },
     {
       badge : undefined,
@@ -88,9 +98,6 @@ export class FullComponent implements OnInit {
     }
   ]
 
-  constructor() { }
-
   ngOnInit() {
   }
-
 }

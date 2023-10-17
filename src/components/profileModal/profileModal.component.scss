@@ -1,0 +1,101 @@
+/* Modal overlay styles */
+.mat-dialog-container {
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+  }
+  
+  /* Modal content styles */
+  .uxg-user-profile {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    padding: 20px;
+  }
+  
+  .uxg-menu-header {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .uxg-avatar-hero-block {
+    text-align: center;
+  }
+  
+  .uxg-h6 {
+    font-size: 20px;
+    margin: 5px 0;
+  }
+  
+  .uxg-caption {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0;
+  }
+  
+  .uxg-menu-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Style the "View Profile" button */
+  .viewProfile {
+    background-color: black;
+    color: #fff;
+    border: none;
+    padding: 10px 10px;
+    margin-top : 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .uxg-menu-footer{
+    display: flex;
+  }
+  
+  #viewProfile:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style the "Logout" button */
+  .mat-flat-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+  }
+  
+  .mat-flat-button:hover {
+    background-color: #c82333;
+  }
+
+  #profileButtton {
+    background: transparent;
+    border: none !important;
+    cursor: pointer;
+}
+
+  #profileIcon{
+    color: white;
+  }
+
+
+  

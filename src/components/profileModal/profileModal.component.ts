@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/model/User';
 import { UserService } from 'src/services/UserService/User.service';
 
-
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  selector: 'app-profileModal',
+  templateUrl: './profileModal.component.html',
+  styleUrls: ['./profileModal.component.scss'],
   providers: [UserService]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileModalComponent implements OnInit {
 
   constructor(public userService : UserService) { 
     this.userService = userService;

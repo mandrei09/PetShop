@@ -13,6 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ArticleDetailComponent } from 'src/components/articleDetail/articleDetail.component';
 import { ProfileComponent } from 'src/components/profile/profile.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { ProfileModalComponent } from 'src/components/profileModal/profileModal.component';
+import { User } from 'src/model/User';
+import { UserService } from 'src/services/UserService/User.service';
 
 @NgModule({
   declarations: [			
@@ -20,7 +24,8 @@ import { ProfileComponent } from 'src/components/profile/profile.component';
       FullComponent,
       ArticlesComponent,
       ArticleDetailComponent,
-      ProfileComponent
+      ProfileComponent,
+      ProfileModalComponent
    ],
   imports: [
     BrowserModule,
@@ -31,9 +36,10 @@ import { ProfileComponent } from 'src/components/profile/profile.component';
     MatExpansionModule,
     MatToolbarModule,
     BrowserAnimationsModule,
-    RouterModule
+    RouterModule,
+    MatMenuModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

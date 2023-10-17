@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { User } from 'src/model/User';
+import { UserService } from 'src/services/UserService/User.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
 
+export class AppComponent {
   title = 'PetShop';
-  
-  public user : User = new User('1','andrei-alexandru.mihai@gmail.com','mandrei09',['admin']);
+
+  constructor(private userService : UserService){
+    this.userService = userService;
+  }
 }

@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'news', 
     component : ArticlesComponent,
     data: {
-      title: 'News'
+      title: 'News',
     },
     children: 
     [
@@ -44,6 +44,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'shop', component: ShopComponent},
   { path: 'profile/:id', component: ProfileComponent},
+  { path: '', redirectTo: '/news', pathMatch: 'full'},
 ];
 
 @NgModule({

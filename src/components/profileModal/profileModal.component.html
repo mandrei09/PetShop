@@ -1,0 +1,36 @@
+<button id="profileButtton" mat-stroked-button [matMenuTriggerFor]="menuHero" color="primary" ng-init >
+    <mat-icon [matMenuTriggerFor]="menuHero" id="profileIcon">face</mat-icon>
+</button>
+
+<mat-menu #menuHero="matMenu" class="uxg-user-profile">
+
+    <div class="uxg-menu-header">
+        <div class="uxg-avatar-hero-block">
+            <h6 class="uxg-h6">{{user.username}}</h6>
+            <span class="uxg-caption">{{user.email}}</span>
+        </div>
+    </div>
+
+    <div class="uxg-menu-header">
+        <span class="uxg-caption"> Posts: {{user.posts.length}}</span>
+        <span class="uxg-caption"> Followers: {{user.followers.length}}</span>
+        <span class="uxg-caption"> Following: {{user.following.length}}</span>
+    </div>
+
+    <div class="uxg-menu-footer">
+
+        <a [routerLink]="'profile/' + user.id" class="d-flex">
+            <button mat-button color="primary" dense class="viewProfile">
+                View profile
+            </button>
+        </a>  
+
+        <button mat-button color="primary" dense dense class="viewProfile">
+            <mat-icon>exit_to_app</mat-icon>
+            Logout
+        </button>
+
+    </div>
+
+</mat-menu>
+
