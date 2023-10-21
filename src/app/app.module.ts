@@ -17,6 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ProfileModalComponent } from 'src/components/profileModal/profileModal.component';
 import { UserService } from 'src/services/UserService/User.service';
 
+
 @NgModule({
   declarations: [			
     AppComponent,
@@ -39,6 +40,6 @@ import { UserService } from 'src/services/UserService/User.service';
     MatMenuModule
   ],
   providers: [UserService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

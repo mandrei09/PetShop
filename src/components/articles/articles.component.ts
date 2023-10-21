@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Article } from 'src/model/Article';
 import { User } from 'src/model/User';
 import { UserService } from 'src/services/UserService/User.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-articles',
@@ -11,8 +12,10 @@ import { UserService } from 'src/services/UserService/User.service';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor(private userService : UserService) { 
+  constructor(private userService : UserService,
+    private router : Router) { 
     this.userService = userService;
+    this.router = router;
   }
 
   @Input() inProfile : boolean = false;
@@ -70,6 +73,10 @@ export class ArticlesComponent implements OnInit {
       user : this.user
     }
   ]
+
+  navigateToProfile(id : string){
+    this.router.navigate(['profile/' + id])
+  }
 
   ngOnInit() {
   }
