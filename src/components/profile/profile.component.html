@@ -1,24 +1,74 @@
-<!-- app.component.html -->
-<div class="app-container">
-  <header>
-    <div class="logo">User Profile</div>
-  </header>
-  <div class="profile">
-    <div class="profile-info">
-      <div *ngIf="user.profilePhoto === 'perm_identity'; else elseBlock">
-        <mat-icon>{{ user.profilePhoto }}</mat-icon>
+<section class="section about-section gray-bg" id="about">
+  <div class="container">
+      <div class="row align-items-center flex-row-reverse">
+          <div class="col-lg-6">
+              <div class="about-text go-to">
+                  <h3 class="dark-color">@{{user.username}}</h3>
+                  <h6 class="theme-color lead">Role : {{user.role}}</h6>
+                  <p>{{user.profileDescription}}</p>
+                  <div class="row about-list">
+                      <div class="col-md-6">
+                          <div class="media">
+                              <label>Birthday</label> 
+                              <p>{{user.birthDate | date}} </p>
+                          </div>
+                          <div class="media">
+                              <label>Age</label>
+                              <p>{{user.age}}</p>
+                          </div>
+                          <div class="media">
+                              <label>Address</label>
+                              <p>{{user.location.state}}, {{user.location.city}}, {{user.location.address}}</p>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="media">
+                              <label>E-mail</label>
+                              <p>{{user.email}}</p>
+                          </div>
+                          <div class="media">
+                              <label>Phone</label>
+                              <p>{{user.phoneNumber}}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="about-avatar">
+                  <img src="{{user.profilePhoto}}" title="" alt="">
+              </div>
+          </div>
       </div>
-      <ng-template #elseBlock>
-        <img [src]="user.profilePhoto" alt="User Photo" />
-      </ng-template>
-      <h1>{{ user.username }}</h1>
-      <p>{{ user.email }}</p>
-      <div class="user-roles">
-        <p>Roles:</p>
-        <ul>
-          <li *ngFor="let role of user.roles">{{ role }}</li>
-        </ul>
+      <div class="counter">
+          <div class="row">
+              <div class="col-6 col-lg-3">
+                  <div class="count-data text-center">
+                      <h6 class="count h2" data-to="150" data-speed="150">{{user.followers.length}}</h6>
+                      <p class="m-0px font-w-600">Followers</p>
+                  </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                  <div class="count-data text-center">
+                      <h6 class="count h2" data-to="850" data-speed="850">{{user.following.length}}</h6>
+                      <p class="m-0px font-w-600">Following</p>
+                  </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                  <div class="count-data text-center">
+                      <h6 class="count h2" data-to="190" data-speed="190">{{user.posts.length}}</h6>
+                      <p class="m-0px font-w-600">Posts</p>
+                  </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                <div class="count-data text-center">
+                    <h6 class="count h2" data-to="190" data-speed="190">-1</h6>
+                    <p class="m-0px font-w-600">Likes</p>
+                </div>
+            </div>
+          </div>
       </div>
-    </div>
+      <app-articles [inProfile]="true"></app-articles>
   </div>
-</div>
+</section>
+

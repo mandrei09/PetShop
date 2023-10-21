@@ -2,9 +2,11 @@
   <div *ngFor="let article of articles" class="news-item">
     <img [src]="article.image" alt="{{ article.title }}" />
     <h2>{{ article.title }}</h2>
-    <!-- Adauga ruta pentru profil -->
-    <a [routerLink]="['/news', article.id]">@{{article.user.username }}</a>
+    <a *ngIf="!inProfile" [routerLink]="['/news', article.id]">@{{article.user.username }}</a>
     <h3>{{ article.content }}</h3>
-    <a [routerLink]="['/news', article.id]">Read More</a>
+    <div class="readMore_date">
+      <a [routerLink]="['/news', article.id]">Read More</a>
+      <p>{{ article.date | date }}</p>
+    </div>
   </div>
 </div>

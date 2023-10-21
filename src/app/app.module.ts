@@ -13,9 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ArticleDetailComponent } from 'src/components/articleDetail/articleDetail.component';
 import { ProfileComponent } from 'src/components/profile/profile.component';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { ProfileModalComponent } from 'src/components/profileModal/profileModal.component';
-import { User } from 'src/model/User';
 import { UserService } from 'src/services/UserService/User.service';
 
 @NgModule({
@@ -25,7 +24,7 @@ import { UserService } from 'src/services/UserService/User.service';
       ArticlesComponent,
       ArticleDetailComponent,
       ProfileComponent,
-      ProfileModalComponent
+      ProfileModalComponent,
    ],
   imports: [
     BrowserModule,

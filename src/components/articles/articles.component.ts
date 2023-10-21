@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Article } from 'src/model/Article';
 import { User } from 'src/model/User';
 import { UserService } from 'src/services/UserService/User.service';
@@ -15,13 +15,17 @@ export class ArticlesComponent implements OnInit {
     this.userService = userService;
   }
 
-  public user : User = this.userService.user;   public articles : Article[] = [
+  @Input() inProfile : boolean = false;
+
+  public user : User = this.userService.user;  
+  public articles : Article[] = [
     {
       id : 1,
       title : 'Titlu 1',
       image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
       content : 'Content 1',
       user : this.user,
+      date : new Date('2023-10-21')
     },
     {
       id : 2,

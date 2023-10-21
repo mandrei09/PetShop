@@ -6,17 +6,11 @@
 
     <div class="uxg-menu-header">
         <div class="uxg-avatar-hero-block">
+            <img src="{{user.profilePhoto}}" title="" alt="" width="100" height="100">
             <h6 class="uxg-h6">{{user.username}}</h6>
             <span class="uxg-caption">{{user.email}}</span>
         </div>
     </div>
-
-    <div class="uxg-menu-header">
-        <span class="uxg-caption"> Posts: {{user.posts.length}}</span>
-        <span class="uxg-caption"> Followers: {{user.followers.length}}</span>
-        <span class="uxg-caption"> Following: {{user.following.length}}</span>
-    </div>
-
     <div class="uxg-menu-footer">
 
         <a [routerLink]="'profile/' + user.id" class="d-flex">

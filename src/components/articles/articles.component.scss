@@ -1,6 +1,6 @@
 /* Reset some default styles */
 * {
-  margin-top: 20px;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -49,57 +49,47 @@ nav a:hover {
 }
 
 .news-item {
-  flex: calc(33.33% - 20px); /* 3 articles per row with a 20px gap */
+  flex: 0 0 calc(33.33% - 20px);
+  max-width: calc(33.33% - 20px);
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
   box-sizing: border-box;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  a {
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }
 
-.news-item img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
-
-.news-item h2 {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.news-item p {
-  font-size: 14px;
-}
-
-.news-item a {
-  text-decoration: none;
-  display: block;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.news-item a:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.article {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.article h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.article img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-.article p {
-  font-size: 16px;
+.readMore_date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p{
+    color: gainsboro;
+    font-style: italic;
+  }
 }

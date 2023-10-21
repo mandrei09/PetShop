@@ -4,7 +4,7 @@
   <div class="article-meta">
      <!-- Adauga ruta pentru profil -->
     <a [routerLink]="['/news', article.id]">@{{article.user.username }}</a>
-    <p class="date">{{article.date}}</p>
+    <p class="date">{{article.date | date}}</p>
   </div>
   <img [src]="article.image" alt="{{ article.title }}" />
   <div class="article-content">
