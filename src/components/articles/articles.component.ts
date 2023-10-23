@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Article } from 'src/model/Article';
 import { User } from 'src/model/User';
 import { UserService } from 'src/services/UserService/User.service';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-articles',
@@ -13,14 +13,17 @@ import { Route, Router } from '@angular/router';
 export class ArticlesComponent implements OnInit {
 
   constructor(private userService : UserService,
-    private router : Router) { 
+    private router : Router,
+    private activatedRoute : ActivatedRoute) { 
     this.userService = userService;
     this.router = router;
+    this.activatedRoute = activatedRoute;
   }
 
   @Input() inProfile : boolean = false;
+  public searchBarInput : string | null = '';
 
-  public user : User = this.userService.user;  
+  public user : User = this.userService.getUser();  
   public articles : Article[] = [
     {
       id : 1,
@@ -78,7 +81,11 @@ export class ArticlesComponent implements OnInit {
     this.router.navigate(['profile/' + id])
   }
 
-  ngOnInit() {
+  ngOnInit() { //Asta se adauga pentru fiecare componenta unde vrei sa faci search.
+    this.activatedRoute.queryParamMap.subscribe(queryParams => {
+      this.searchBarInput = queryParams.get('search');
+    });
   }
+  
 
 }

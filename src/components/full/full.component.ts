@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CustomINavData } from 'src/model/Custom-nav';
 import { User } from 'src/model/User';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/services/UserService/User.service';
 
 @Component({
@@ -11,14 +11,17 @@ import { UserService } from 'src/services/UserService/User.service';
   providers: [UserService]
 })
 export class FullComponent implements OnInit {
+  
 
   constructor(private router : Router,
-    private userService : UserService) {
+    private userService : UserService,
+    private activatedRoute : ActivatedRoute) {
     this.router = router;
     this.userService = userService;
+    this.activatedRoute = activatedRoute;
   }
 
-  public user : User = this.userService.user; 
+  public user : User = this.userService.getUser(); 
   
   public isExpanded = true;
   public isCollapsed = false;
@@ -110,4 +113,17 @@ export class FullComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  public searchBarInput : string = '' ;
+
+  modifySearchInput(event: string) {
+    this.searchBarInput = event;
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { search: this.searchBarInput },
+      queryParamsHandling: 'merge',
+    });
+  }
+  
+
 }

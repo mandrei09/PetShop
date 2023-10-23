@@ -16,7 +16,8 @@ import { ProfileComponent } from 'src/components/profile/profile.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfileModalComponent } from 'src/components/profileModal/profileModal.component';
 import { UserService } from 'src/services/UserService/User.service';
-
+import { SearchBarComponent } from 'src/components/searchBar/searchBar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [			
@@ -26,6 +27,7 @@ import { UserService } from 'src/services/UserService/User.service';
       ArticleDetailComponent,
       ProfileComponent,
       ProfileModalComponent,
+      SearchBarComponent
    ],
   imports: [
     BrowserModule,
@@ -37,9 +39,12 @@ import { UserService } from 'src/services/UserService/User.service';
     MatToolbarModule,
     BrowserAnimationsModule,
     RouterModule,
-    MatMenuModule
+    MatMenuModule,
+    FormsModule,
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

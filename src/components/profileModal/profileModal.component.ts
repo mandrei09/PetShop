@@ -14,7 +14,7 @@ export class ProfileModalComponent implements OnInit {
     this.userService = userService;
   }
 
-  public user : User = this.userService.user ;
+  public user : User = this.userService.getUser() ;
 
   ngOnInit() {
   }

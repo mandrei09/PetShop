@@ -15,6 +15,7 @@
         <span class="navbar-dropdown-email">{{ user.username }}</span>
       </div>
       <app-profileModal> </app-profileModal>
+      <app-searchBar (searchInputChanged)="modifySearchInput($event)"></app-searchBar>
     </div>
   </div>
 
@@ -53,18 +54,6 @@
           </mat-accordion>
         </ng-container>
       </mat-nav-list>
-      <!-- <mat-nav-list class="sidebar-group mt-3" dense="true" style="height: auto;margin-bottom: 45px;" *ngIf="roleCheck === 'administrator'">
-        <div class="sidebar-title" *ngIf="isExpanded">
-          <h3>Settings</h3>
-        </div>
-        <li routerLink="/admin" class="sidebar-link-item" routerLinkActive="sidebar-link-item__active">
-          <a class="d-flex align-items-center">
-            <mat-icon>settings</mat-icon>
-
-            <span matLine *ngIf="isExpanded">Admin panel</span>
-          </a>
-        </li>
-      </mat-nav-list> -->
     </mat-sidenav>
 
     <mat-sidenav-content>
