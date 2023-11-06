@@ -1,3 +1,10 @@
-<p>
-  adopt works!
-</p>
+<div class="news-list">
+  <div *ngFor="let cat of unadoptedCats" class="news-item">
+    <img [src]="cat.image" alt="{{ cat.name }}" />
+    <h2>{{cat.name}}</h2> 
+    <h2>{{cat.age}} years old</h2>
+    <div class="readMore_date">
+      <a [routerLink]="['/adopt', cat.id]">Go to cat's profile</a>
+    </div>
+  </div>
+</div>

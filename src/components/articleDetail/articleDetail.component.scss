@@ -41,3 +41,20 @@
     text-decoration: underline;
   }
   
+.count-data{
+  cursor: pointer;
+}
+
+.iconAndNumber {
+  display: inline-flex;
+  align-items: center;
+
+  h6.count {
+    margin-right: 10px; /* Adding some space between the number and icon */
+  }
+
+  // mat-icon {
+  //   flex: 1; /* The icon takes up remaining space */
+  //   text-align: right; /* Align the icon to the right */
+  // }
+}

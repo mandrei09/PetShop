@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from 'src/model/Article';
 import { User } from 'src/model/User';
+import { ArticleService } from 'src/services/ArticleService/Article.service';
 import { UserService } from 'src/services/UserService/User.service';
 
 @Component({
@@ -11,8 +12,9 @@ import { UserService } from 'src/services/UserService/User.service';
 })
 export class ArticleDetailComponent implements OnInit {
 
-  constructor(private userService : UserService) { 
+  constructor(private userService : UserService, private articleService : ArticleService) { 
     this.userService = userService;
+    this.articleService = articleService;
   }
 
   public user : User = this.userService.getUser();
@@ -27,7 +29,64 @@ export class ArticleDetailComponent implements OnInit {
       date : new Date('2023-10-16')
     };
 
+    public articlesLikesCount : number = this.articleService.getArtilesLikesCount(this.article.id);
+    public articlesCommentsCount : number = this.articleService.getArtilesCommentsCount(this.article.id);
+    public articlesSharesCount : number = this.articleService.getArtilesSharesCount(this.article.id);
+    public articlesSavesCount : number = this.articleService.getArtilesSavesCount(this.article.id);
+    
+    public isPostLiked : boolean = false;
+    public isPostSaved : boolean = false;
+
+    public updateArticlesLikesCount(){
+      this.changeLikeCounterStyles();
+      if(!this.isPostLiked)
+        this.articlesLikesCount ++ ; // provizoriu, pana modificam in baza de date
+      else
+        this.articlesLikesCount -- ;
+      this.isPostLiked = !this.isPostLiked;
+      
+    }
+
+    public updateArticlesCommentsCount(){
+      this.articlesCommentsCount ++ ; // provizoriu, pana modificam in baza de date
+    }
+
+    public updateArticlesSharesCount(){
+      this.articlesSharesCount ++ ; // provizoriu, pana modificam in baza de date
+    }
+
+    public updateArticlesSavesCount(){
+      this.changeSavedCounterStyles()
+      if(!this.isPostSaved)
+        this.articlesSavesCount ++ ; // provizoriu, pana modificam in baza de date
+      else
+        this.articlesSavesCount -- ;
+      this.isPostSaved = !this.isPostSaved;
+    }
+
   ngOnInit() {
+  }
+
+  public likeCounterStyles = {
+    color: this.isPostLiked ? 'red' : 'black'
+  };
+  
+  public changeLikeCounterStyles(){
+    if(!this.isPostLiked)
+      this.likeCounterStyles = {color: 'red'};
+    else
+      this.likeCounterStyles = {color: 'black'};
+  }
+
+  public savedCounterStyles = {
+    color: this.isPostSaved ? 'yellow' : 'black'
+  };
+  
+  public changeSavedCounterStyles(){
+    if(!this.isPostSaved)
+      this.savedCounterStyles = {color: 'yellow'};
+    else
+      this.savedCounterStyles = {color: 'black'};
   }
 
 }
