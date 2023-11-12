@@ -31,23 +31,29 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TableDataService } from 'src/services/TableDataService/TableData.service';
 import { ArticleService } from 'src/services/ArticleService/Article.service';
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ProblemsService } from 'src/services/ProblemsService/Problems.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormSendModalComponent } from 'src/components/formSendModal/formSendModal.component';
 
 @NgModule({
   declarations: [			
     AppComponent,
-      FullComponent,
-      ArticlesComponent,
-      ArticleDetailComponent,
-      ProfileComponent,
-      ProfileModalComponent,
-      SearchBarComponent,
-      AdoptComponent,
-      ShopComponent,
-      AdoptDetailComponent,
-      ContactComponent,
-      AdministratorComponent,
-      TableComponent,
+    FullComponent,
+    ArticlesComponent,
+    ArticleDetailComponent,
+    ProfileComponent,
+    ProfileModalComponent,
+    SearchBarComponent,
+    AdoptComponent,
+    ShopComponent,
+    AdoptDetailComponent,
+    ContactComponent,
+    AdministratorComponent,
+    TableComponent,
+    FormSendModalComponent
    ],
   imports: [
     BrowserModule,
@@ -63,14 +69,19 @@ import { ArticleService } from 'src/services/ArticleService/Article.service';
     FormsModule,
     MatInputModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
   ],
   providers: [
     UserService,
     CatService,
     TableHeaderService,
     TableDataService,
-    ArticleService
+    ArticleService,
+    ProblemsService
   ],
   bootstrap: [AppComponent],
 })

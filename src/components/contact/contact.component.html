@@ -1,3 +1,63 @@
-<p>
-  contact works!
-</p>
+<div class="formStartMessage"> 
+  <h2>{{"please complete this form. we will help you in the shortest time!" | uppercase}}</h2>
+</div>
+
+<div class="news-list">
+
+  <div class="news-item">
+    <h5>1. Select the pet you have a problem with:</h5>
+    <mat-form-field appearance="outline">
+      <mat-label>Select your pet:</mat-label>
+      <mat-select [(value)]="selectedPet">
+        <mat-option *ngFor="let pet of user.cats" [value]="pet">
+          {{pet.name}}
+        </mat-option>
+      </mat-select>      
+    </mat-form-field>
+  </div>
+
+  <div class="news-item" *ngIf="selectedPet">
+    <h5>2. Please select the problem you have with {{selectedPet.name}}: </h5>
+    <mat-form-field appearance="outline">
+      <mat-label>Select an option</mat-label>
+      <mat-select [(value)]="selectedProblem">
+        <mat-option *ngFor="let problem of problems" [value]="problem">{{problem}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="news-item" *ngIf="selectedProblem==='Other Reason'">
+    <h5>2.1. Please describe it:</h5>
+    <mat-form-field appearance="outline">
+      <mat-label>Input</mat-label>
+      <input matInput [(ngModel)]="otherProblemInput"> 
+    </mat-form-field>
+  </div>
+
+  <div class="news-item" *ngIf="selectedProblem">
+    <h5>3. Choose the date you want an appointment:</h5>
+    <mat-form-field appearance="outline">
+      <mat-label>Select a date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="news-item" *ngIf="selectedDate">
+    <h5>4. Other details?</h5>
+    <mat-form-field appearance="outline">
+      <mat-label>Details</mat-label>
+      <input matInput [(ngModel)]="otherDetailsInput"> 
+      <!-- otherDetailsInput.value -->
+    </mat-form-field>
+  </div>
+</div>
+
+<div [ngClass]="!selectedPet || !selectedProblem || !selectedDate ? 'sendFormDisabled' : 'sendForm'">
+  <button [disabled]="!selectedPet || !selectedProblem || !selectedDate" id="sendFormButton" (click)="onFormSending()">Send Form!</button>
+</div>
+
+
+

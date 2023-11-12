@@ -1,4 +1,5 @@
 import { Article } from "./Article";
+import { Cat } from "./Cat";
 import { Location } from "./Location";
 
 export class User {
@@ -14,6 +15,7 @@ export class User {
   followers : User[] = [];
   following : User[] = [];
   posts : Article[] = [];
+  cats : Cat[] =[];
   profileDescription? :string;
 
   ageCalcuator(birthdate: Date): number {
@@ -28,7 +30,7 @@ export class User {
   }
 
   constructor(id: string, email: string, phoneNumber : string, username: string, birthDate : Date, role: string, location : Location,
-    followers : User[], following : User[], posts : Article[], profilePhoto?: string, profileDescription? : string) {
+    followers : User[], following : User[], posts : Article[], cats : Cat[], profilePhoto?: string, profileDescription? : string) {
       this.id = id;
       this.email = email;
       this.phoneNumber = phoneNumber;
@@ -40,6 +42,7 @@ export class User {
       this.followers = followers;
       this.following = following;
       this.posts = posts;
+      this.cats = cats;
       this.profilePhoto = profilePhoto;
       this.profileDescription = profileDescription;
     }

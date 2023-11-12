@@ -1,0 +1,10 @@
+<div class="close">
+    <h3 class="title">Send Form</h3>
+    <button class="closeButton" mat-button [mat-dialog-close]="true">Close</button>
+</div>
+
+<button (click)="logg()">sa moara 2 3 insi...</button>
+<h3>Your data is:</h3>
+<div *ngFor="let item of data['parameters']">
+  <p>{{ item.value.name }}: {{ item.value.value}}</p>
+</div>

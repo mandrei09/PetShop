@@ -63,6 +63,7 @@ export class CatService {
         [],
         [],
         [],
+        [],
         'https://example.com/profile.jpg',
         'Some description about the user.'
       )],
