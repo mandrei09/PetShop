@@ -53,7 +53,7 @@ export class ContactComponent implements OnInit {
 
   public getFilters(){
     let formParams = new Array<Parameter>
-    formParams.push(new Parameter('catId',this.selectedPet.id.toString()))
+    formParams.push(new Parameter('catName',this.selectedPet.name))
     if(this.selectedProblem!=='Other Reason')
       formParams.push(new Parameter('selectedProblem',this.selectedProblem))
     else 

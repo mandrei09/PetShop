@@ -37,6 +37,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ProblemsService } from 'src/services/ProblemsService/Problems.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormSendModalComponent } from 'src/components/formSendModal/formSendModal.component';
+import { NotificationService } from 'src/services/NotificationService/Notification.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [			
@@ -74,6 +76,7 @@ import { FormSendModalComponent } from 'src/components/formSendModal/formSendMod
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    ToastrModule.forRoot({tapToDismiss: true, closeButton: true, extendedTimeOut: 10000, progressBar: true, preventDuplicates: true, countDuplicates: true, positionClass: 'toast-bottom-right', newestOnTop: true}),
   ],
   providers: [
     UserService,
@@ -81,7 +84,8 @@ import { FormSendModalComponent } from 'src/components/formSendModal/formSendMod
     TableHeaderService,
     TableDataService,
     ArticleService,
-    ProblemsService
+    ProblemsService,
+    NotificationService
   ],
   bootstrap: [AppComponent],
 })

@@ -1,10 +1,17 @@
-<div class="close">
-    <h3 class="title">Send Form</h3>
-    <button class="closeButton" mat-button [mat-dialog-close]="true">Close</button>
+<div class="content">
+  <h3 class="header">Your data is:</h3>
+  <div class="form-info">
+    <p>Your Cat Name: {{ data['parameters'][0].value }}</p>
+    <p>Your Problem: {{ data['parameters'][1].value }}</p>
+    <p>Your Date: {{ data['parameters'][2].value | date:'yyyy-MM-dd' }}</p>
+    <p *ngIf="data['parameters'][3].value">Additional Details: {{ data['parameters'][3].value }}</p>
+  </div>
+
+  <div class="buttons">
+    <button class="modal-button" mat-button [mat-dialog-close]="true">Close</button>
+    <button class="modal-button" (click)="sendForm()">Send Data!</button>
+  </div>
 </div>
 
-<button (click)="logg()">sa moara 2 3 insi...</button>
-<h3>Your data is:</h3>
-<div *ngFor="let item of data['parameters']">
-  <p>{{ item.value.name }}: {{ item.value.value}}</p>
-</div>
+
+

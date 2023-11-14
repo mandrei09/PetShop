@@ -1,18 +1,18 @@
-.close {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px;
-    opacity: 1; /* Set initial opacity */
+.content {
+    .buttons{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px;
+      opacity: 1; /* Set initial opacity */
   
-    .title {
-      h3 {
-        margin-right: 100px;
+      .title {
+        h3 {
+          margin-right: 10px; /* Adjust the margin as needed */
+        }
       }
-    }
   
-    .closeButton {
-        margin-left: 10px;
+      .modal-button {
         background-color: black;
         border: none;
         color: white;
@@ -22,6 +22,27 @@
         display: inline-block;
         font-size: 16px;
         cursor: pointer;
+      }
+    }
+  
+    .form-info {
+        margin-top: 50px;
+        margin: 10px;
+        padding: 15px;
+        background-color: #fff;
+        color: #000;
+  
+      p {
+        margin: 10px 0;
+        &:hover{
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .header{
+      margin: 20px;
     }
   }
   
