@@ -39,6 +39,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormSendModalComponent } from 'src/components/formSendModal/formSendModal.component';
 import { NotificationService } from 'src/services/NotificationService/Notification.service';
 import { ToastrModule } from 'ngx-toastr';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ModifyUserModalComponent } from 'src/components/modifyUserModal/modifyUserModal.component';
+
 
 @NgModule({
   declarations: [			
@@ -55,7 +58,8 @@ import { ToastrModule } from 'ngx-toastr';
     ContactComponent,
     AdministratorComponent,
     TableComponent,
-    FormSendModalComponent
+    FormSendModalComponent,
+    ModifyUserModalComponent
    ],
   imports: [
     BrowserModule,
@@ -76,6 +80,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatCheckboxModule,
     ToastrModule.forRoot({tapToDismiss: true, closeButton: true, extendedTimeOut: 10000, progressBar: true, preventDuplicates: true, countDuplicates: true, positionClass: 'toast-bottom-right', newestOnTop: true}),
   ],
   providers: [

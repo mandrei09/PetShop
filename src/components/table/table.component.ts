@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -24,12 +24,19 @@ export class TableComponent implements OnInit, AfterViewInit {
   public resultsLength : any;
   public objectKeys = Object.keys;
 
-  public columnHeader = this.tableHeaderService.getCatOwnersHeader();
+  @Input() columnHeader : any; 
   @Input() tableData : any;
   @Input() tableTitle : string = ''
+  @Input() selectionType : string = ''
+  public isChecked : boolean[] = []
+  public selectedItems : any[] = []
+  @Output() selectedItemsChanged = new EventEmitter<any[]>();
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.tableData);
+    this.tableData.forEach(() => {
+      this.isChecked.push(false)
+    });
   }
 
   ngAfterViewInit(){
@@ -46,4 +53,28 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onCheckboxChange(itemIndex : number): void {
+    if(this.selectionType==='single'){
+      for(let i=0;i<this.isChecked.length;i++){
+        if(i!=itemIndex){
+          this.isChecked[i]=false;
+        }
+      }
+      if(this.isChecked.every(value => !value))
+        this.selectedItems = []
+      else
+        this.selectedItems[0] = this.tableData[itemIndex]
+    }
+    else 
+      if(this.selectionType==='multiple')
+      {
+        this.selectedItems = []
+        for(let i=0;i<this.isChecked.length;i++){
+          if(this.isChecked[i]==true){
+            this.selectedItems.push(this.tableData[i])
+          }
+        }
+      }
+    this.selectedItemsChanged.emit(this.selectedItems);
+  }
 }

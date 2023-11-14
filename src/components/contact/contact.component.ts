@@ -43,7 +43,7 @@ export class ContactComponent implements OnInit {
 
   onFormSending(){
     const dialogRef = this.dialog.open(FormSendModalComponent, {
-      panelClass: 'centered-middle-modal', height: '100%', maxHeight: '80%', disableClose: true, width: '700px', position: { bottom: '15%', top: 'auto'},
+      panelClass: 'centered-middle-modal', height: '100%', maxHeight: '81%', disableClose: true, width: '700px', position: { bottom: '15%', top: 'auto'},
       data: {parameters : this.getFilters()}
     });
     dialogRef.afterClosed().subscribe(() => {

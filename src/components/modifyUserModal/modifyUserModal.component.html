@@ -1,0 +1,17 @@
+<div class="content">
+  <h3 class="header">Edit data for user: {{selectedUser.id}}</h3>
+  <!-- <div class="form-info">
+    <p>Your Cat Name: {{ data['parameters'][0].value }}</p>
+    <p>Your Problem: {{ data['parameters'][1].value }}</p>
+    <p>Your Date: {{ data['parameters'][2].value | date:'yyyy-MM-dd' }}</p>
+    <p *ngIf="data['parameters'][3].value">Additional Details: {{ data['parameters'][3].value }}</p>
+  </div> -->
+
+  <div class="buttons">
+    <button class="modal-button" mat-button [mat-dialog-close]="true">Close</button>
+    <button class="modal-button" (click)="saveUser()">Save!</button>
+  </div>
+</div>
+
+
+

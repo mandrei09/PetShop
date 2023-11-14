@@ -11,7 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FormSendModalComponent implements OnInit {
 
-  constructor(
+  constructor
+  (
     public notificationService: NotificationService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any

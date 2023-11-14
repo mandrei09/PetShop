@@ -1,3 +1,13 @@
-<p>
-  administrator works!
-</p>
+<app-table 
+        [tableData]="tableData"
+        [tableTitle]="'Users'"
+        [columnHeader]="columnHeader"
+        [selectionType]="'single'"
+        (selectedItemsChanged)="changeSelectedItems($event)"
+></app-table>
+
+<div class="modify">
+        <button  *ngIf="selectedItems.length" id="modify-button" (click)="onModify()">Modify Selected User!</button>
+</div>
+
+

@@ -36,8 +36,10 @@
       </div>
       <p id="catDescription">{{cat.description}}</p>
       <app-table 
-        [tableData]="cat.owners"
+        [tableData]="tableData"
+        [columnHeader]="columnHeader"
         [tableTitle]="'Past Owners'"
+        [selectionType]="'single'"
       ></app-table>
   </div>
 </section>

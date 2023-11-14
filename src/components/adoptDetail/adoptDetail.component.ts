@@ -12,28 +12,35 @@ import { UserService } from 'src/services/UserService/User.service';
 })
 export class AdoptDetailComponent implements OnInit {
 
-  constructor(private catService : CatService, private userService : UserService, private tableDataService : TableDataService) {
-    this.catService = catService;
-    this.userService = userService;
-    this.tableDataService = tableDataService;
+  constructor(
+    private catService : CatService, 
+    private userService : UserService, 
+    private tableDataService : TableDataService,
+    private tableHeaderService : TableHeaderService) {
+      this.catService = catService;
+      this.userService = userService;
+      this.tableDataService = tableDataService;
+      this.tableHeaderService = tableHeaderService;
   }
 
   public cat : Cat = this.catService.getCats()[0];
   public tableData : any[] = []
+  public columnHeader = this.tableHeaderService.getCatOwnersHeader();
+  
 
   public adoptCat(){
     this.cat.isAdopted = true;
     this.cat.owners.push(this.userService.getUser())
+    //this.tableData = this.cat.owners;
     // De deshis modalul bla bla
   }
 
   ngOnInit() {
-    // // Apply condition on edit and delete button
-    // this.tableDataService.getList().subscribe(res => {
-    //   this.tableData = res.map((item: any) => {
-    //     return item;
-    //   });
-    // });
+    this.tableDataService.getAdoptTableData().subscribe(res => {
+      res.map(item => {
+        this.tableData.push(item)
+      });
+    });
   }
 
 }

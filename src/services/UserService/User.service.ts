@@ -50,6 +50,11 @@ export class UserService {
     return this.user;
   }
 
+  public getAllUsers(){
+    let allUsers : User[] = [this.getUser(),this.getUser(),this.getUser()];
+    return allUsers;
+  }
+
   constructor() 
   {
   }
