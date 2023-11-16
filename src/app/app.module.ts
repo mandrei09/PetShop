@@ -41,6 +41,7 @@ import { NotificationService } from 'src/services/NotificationService/Notificati
 import { ToastrModule } from 'ngx-toastr';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ModifyUserModalComponent } from 'src/components/modifyUserModal/modifyUserModal.component';
+import { RoleService } from 'src/services/RoleService/Role.service';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { ModifyUserModalComponent } from 'src/components/modifyUserModal/modifyU
     TableDataService,
     ArticleService,
     ProblemsService,
-    NotificationService
+    NotificationService,
+    RoleService,
   ],
   bootstrap: [AppComponent],
 })

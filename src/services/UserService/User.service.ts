@@ -4,17 +4,23 @@ import { Location } from 'src/model/Location';
 import { CatService } from '../CatService/Cat.service';
 import { Cat } from 'src/model/Cat';
 import { Breed } from 'src/model/Breed';
+import { RoleService } from '../RoleService/Role.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  constructor(private roleService : RoleService) 
+  {
+   this.roleService = roleService;
+  }
+
   date : Date = new Date('2002-12-09');
   location = new Location(1, "California", "Los Angeles", "123 Main St");
 
 
-  private user : User = new User('andrei','andrei-alexandru.mihai@gmail.com','0726858494','m_andrei09',this.date,'Administrator', this.location, 
+  private user : User = new User('andrei','andrei-alexandru.mihai@gmail.com','0726858494','m_andrei09',this.date,this.roleService.getRoles()[2], this.location, 
   [],
   [],
   [],
@@ -53,10 +59,6 @@ export class UserService {
   public getAllUsers(){
     let allUsers : User[] = [this.getUser(),this.getUser(),this.getUser()];
     return allUsers;
-  }
-
-  constructor() 
-  {
   }
 
 }

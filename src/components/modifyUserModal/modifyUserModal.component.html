@@ -1,14 +1,23 @@
 <div class="content">
-  <h3 class="header">Edit data for user: {{selectedUser.id}}</h3>
-  <!-- <div class="form-info">
-    <p>Your Cat Name: {{ data['parameters'][0].value }}</p>
-    <p>Your Problem: {{ data['parameters'][1].value }}</p>
-    <p>Your Date: {{ data['parameters'][2].value | date:'yyyy-MM-dd' }}</p>
-    <p *ngIf="data['parameters'][3].value">Additional Details: {{ data['parameters'][3].value }}</p>
-  </div> -->
+  <h3 class="header">Edit data for user:
+    <a (click)="navigateToProfile(selectedUser.id)">@{{selectedUser.username}}</a>
+  </h3>
+  <div class="news-list">
 
+    <div class="news-item">
+      <mat-form-field appearance="outline">
+        <mat-label>Update Role:</mat-label>
+        <mat-select [(value)]="newRole">
+          <mat-option *ngFor="let role of roles" [value]="role">
+            {{role}}
+          </mat-option>
+        </mat-select>      
+      </mat-form-field>
+    </div>
+  </div>
   <div class="buttons">
     <button class="modal-button" mat-button [mat-dialog-close]="true">Close</button>
+    <button class="modal-button" id="delete-button" (click)="onDeleteUser()">Delete User</button>
     <button class="modal-button" (click)="saveUser()">Save!</button>
   </div>
 </div>
