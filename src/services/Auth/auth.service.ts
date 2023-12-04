@@ -26,8 +26,8 @@ export class AuthService {
 
   logout(): void {
     this.isUserLoggedIn = false;
-    localStorage.removeItem('STATE');
-    this.router.navigate(["/login"]); 
+    // localStorage.removeItem('STATE');
+    localStorage.setItem("STATE",'false') 
   }
 
   isLoggedIn() {

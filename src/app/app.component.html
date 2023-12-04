@@ -1,3 +1,2 @@
-<app-full>
-    
-</app-full>
+<app-login *ngIf="showLogin"></app-login>
+<app-full *ngIf="!showLogin"></app-full>
