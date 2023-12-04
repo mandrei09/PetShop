@@ -6,54 +6,76 @@ import { AdoptDetailComponent } from 'src/components/adoptDetail/adoptDetail.com
 import { ArticleDetailComponent } from 'src/components/articleDetail/articleDetail.component';
 import { ArticlesComponent } from 'src/components/articles/articles.component';
 import { ContactComponent } from 'src/components/contact/contact.component';
+import { LoginComponent } from 'src/components/login/login.component';
 import { ProfileComponent } from 'src/components/profile/profile.component';
-import { ShopComponent } from 'src/components/shop/shop.component';
+import { AuthService } from 'src/services/Auth/auth.service';
+import { AuthGuard } from './auth.guard';
+import { FullComponent } from 'src/components/full/full.component';
 
 const routes: Routes = [
-  { 
-    path: 'news', 
-    component : ArticlesComponent,
+  {
+    path: 'news',
+    component: ArticlesComponent,
     data: {
       title: 'News',
     },
-    children: 
-    [
+    canActivate: [AuthGuard],
+    children: [
       {
         path: 'all',
         component: ArticlesComponent,
         data: {
-          title: 'All'
-        }
+          title: 'All',
+        },
       },
       {
         path: 'cute',
         component: ArticlesComponent,
         data: {
-          title: 'Cute'
-        }
+          title: 'Cute',
+        },
       },
       {
         path: 'funny',
         component: ArticlesComponent,
         data: {
-          title: 'Funny'
-        }
-      }
-    ]
+          title: 'Funny',
+        },
+      },
+    ],
   },
-  { path: 'news/:id', component: ArticleDetailComponent},
-  { path: 'adopt', component: AdoptComponent},
-  { path: 'adopt/:id', component: AdoptDetailComponent},
-  { path: 'contact', component: ContactComponent },
-  { path: 'shop', component: ShopComponent},
-  { path: 'profile/:id', component: ProfileComponent},
-  { path: 'administrator', component: AdministratorComponent},
-  { path: '', redirectTo: '/news', pathMatch: 'full'},
-  
+  {
+    path: 'news/:id',
+    component: ArticleDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'adopt', component: AdoptComponent, canActivate: [AuthGuard] },
+  {
+    path: 'adopt/:id',
+    component: AdoptDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'contact', component: ContactComponent, canActivate: [AuthGuard] },
+  {
+    path: 'profile/:id',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'administrator',
+    component: AdministratorComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

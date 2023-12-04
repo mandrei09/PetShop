@@ -1,29 +1,35 @@
 .content {
-    .buttons{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 20px;
-      opacity: 1; /* Set initial opacity */
+  .buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    opacity: 1;
+    padding: 0 20px;
   
-      .title {
-        h3 {
-          margin-right: 10px; /* Adjust the margin as needed */
-        }
-      }
-  
-      .modal-button {
-        background-color: black;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        cursor: pointer;
+    .title {
+      h3 {
+        margin-right: 10px;
       }
     }
+  
+    .modal-button {
+      background-color: black;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  }
   
     .form-info {
         margin-top: 50px;

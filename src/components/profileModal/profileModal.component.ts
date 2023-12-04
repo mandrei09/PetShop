@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/model/User';
+import { AuthService } from 'src/services/Auth/auth.service';
 import { UserService } from 'src/services/UserService/User.service';
 
 @Component({
@@ -10,13 +11,23 @@ import { UserService } from 'src/services/UserService/User.service';
 })
 export class ProfileModalComponent implements OnInit {
 
-  constructor(public userService : UserService) { 
+  constructor
+    (
+      private userService : UserService,
+      private authService : AuthService
+    ) 
+  { 
     this.userService = userService;
+    this.authService = authService;
   }
 
   public user : User = this.userService.getUser() ;
 
   ngOnInit() {
+  }
+
+  public logout(){
+    this.authService.logout()
   }
 
 }

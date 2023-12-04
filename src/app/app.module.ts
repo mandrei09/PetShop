@@ -17,9 +17,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ProfileModalComponent } from 'src/components/profileModal/profileModal.component';
 import { UserService } from 'src/services/UserService/User.service';
 import { SearchBarComponent } from 'src/components/searchBar/searchBar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { AdoptComponent } from 'src/components/adopt/adopt.component';
-import { ShopComponent } from 'src/components/shop/shop.component';
 import { AdoptDetailComponent } from 'src/components/adoptDetail/adoptDetail.component';
 import { ContactComponent } from 'src/components/contact/contact.component';
 import { AdministratorComponent } from 'src/components/administrator/administrator.component';
@@ -42,7 +41,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ModifyUserModalComponent } from 'src/components/modifyUserModal/modifyUserModal.component';
 import { RoleService } from 'src/services/RoleService/Role.service';
-
+import { AuthGuard } from './auth.guard';
+import { AuthService } from 'src/services/Auth/auth.service';
+import { LoginComponent } from 'src/components/login/login.component';
 
 @NgModule({
   declarations: [			
@@ -54,13 +55,13 @@ import { RoleService } from 'src/services/RoleService/Role.service';
     ProfileModalComponent,
     SearchBarComponent,
     AdoptComponent,
-    ShopComponent,
     AdoptDetailComponent,
     ContactComponent,
     AdministratorComponent,
     TableComponent,
     FormSendModalComponent,
-    ModifyUserModalComponent
+    ModifyUserModalComponent,
+    LoginComponent,
    ],
   imports: [
     BrowserModule,
@@ -82,6 +83,8 @@ import { RoleService } from 'src/services/RoleService/Role.service';
     MatNativeDateModule,
     MatDialogModule,
     MatCheckboxModule,
+    ReactiveFormsModule,
+
     ToastrModule.forRoot({tapToDismiss: true, closeButton: true, extendedTimeOut: 10000, progressBar: true, preventDuplicates: true, countDuplicates: true, positionClass: 'toast-bottom-right', newestOnTop: true}),
   ],
   providers: [
@@ -93,6 +96,8 @@ import { RoleService } from 'src/services/RoleService/Role.service';
     ProblemsService,
     NotificationService,
     RoleService,
+    AuthGuard,
+    AuthService,
   ],
   bootstrap: [AppComponent],
 })

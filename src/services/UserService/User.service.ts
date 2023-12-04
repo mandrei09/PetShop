@@ -61,4 +61,12 @@ export class UserService {
     return allUsers;
   }
 
+  public updateUser(userId : string, newRole : string){
+    //
+  }
+
+  public deleteUser(userId : string){
+    //
+  }
+
 }

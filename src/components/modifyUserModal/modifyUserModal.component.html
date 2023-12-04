@@ -5,6 +5,8 @@
   <div class="news-list">
 
     <div class="news-item">
+      <h5>Id : {{selectedUser.id}}</h5>
+      <h5>Email : {{selectedUser.email}}</h5>
       <mat-form-field appearance="outline">
         <mat-label>Update Role:</mat-label>
         <mat-select [(value)]="newRole">
@@ -18,7 +20,7 @@
   <div class="buttons">
     <button class="modal-button" mat-button [mat-dialog-close]="true">Close</button>
     <button class="modal-button" id="delete-button" (click)="onDeleteUser()">Delete User</button>
-    <button class="modal-button" (click)="saveUser()">Save!</button>
+    <button class="modal-button" (click)="onSaveUser()">Save!</button>
   </div>
 </div>
 

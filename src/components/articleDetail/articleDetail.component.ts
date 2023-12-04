@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Article } from 'src/model/Article';
+import { Reply } from 'src/model/Reply';
 import { User } from 'src/model/User';
 import { ArticleService } from 'src/services/ArticleService/Article.service';
 import { UserService } from 'src/services/UserService/User.service';
@@ -12,13 +14,18 @@ import { UserService } from 'src/services/UserService/User.service';
 })
 export class ArticleDetailComponent implements OnInit {
 
-  constructor(private userService : UserService, private articleService : ArticleService) { 
+  constructor
+  (
+    private userService : UserService, 
+    private articleService : ArticleService,
+    private router : Router
+  ) { 
     this.userService = userService;
     this.articleService = articleService;
+    this.router = router;
   }
 
   public user : User = this.userService.getUser();
-
   public article : Article = 
     {
       id : 1,
@@ -26,8 +33,16 @@ export class ArticleDetailComponent implements OnInit {
       image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
       content : 'Content 1',
       user : this.user,
-      date : new Date('2023-10-16')
+      date : new Date('2023-10-16'),
+      comments : [
+        new Reply(1, this.user, new Date(), 'This is a sample comment.'),
+        new Reply(1, this.user, new Date(), 'This is a sample comment.'),
+        new Reply(1, this.user, new Date(), 'This is a sample comment.')]
     };
+
+    public navigateToProfile(id : string){
+      this.router.navigate(['profile/' + id])
+    }
 
     public articlesLikesCount : number = this.articleService.getArtilesLikesCount(this.article.id);
     public articlesCommentsCount : number = this.articleService.getArtilesCommentsCount(this.article.id);
@@ -36,6 +51,9 @@ export class ArticleDetailComponent implements OnInit {
     
     public isPostLiked : boolean = false;
     public isPostSaved : boolean = false;
+    public areCommentsShown : boolean = false;
+    public newComment : string = ''
+    public isLeaveAButtonButtonPressed : boolean = false;
 
     public updateArticlesLikesCount(){
       this.changeLikeCounterStyles();
@@ -88,5 +106,14 @@ export class ArticleDetailComponent implements OnInit {
     else
       this.savedCounterStyles = {color: 'black'};
   }
+
+  public showComments(articleId : number){
+    this.areCommentsShown = !this.areCommentsShown;
+  }
+
+  public onLeavingComment(){
+    this.isLeaveAButtonButtonPressed = true;
+  }
+
 
 }

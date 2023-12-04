@@ -46,11 +46,17 @@ export class AdministratorComponent implements OnInit {
 
   public onModify(){
     const dialogRef = this.dialog.open(ModifyUserModalComponent, {
-      panelClass: 'centered-middle-modal', height: '100%', maxHeight: '90%', disableClose: true, width: '1200px', position: { bottom: '15%', top: 'auto'},
+      panelClass: 'centered-middle-modal', height: '100%', maxHeight: '80%', disableClose: true, width: '1000px', position: { bottom: '15%', top: 'auto'},
       data: {parameters : this.selectedItems[0]}
     });
-    dialogRef.afterClosed().subscribe(() => {
-      // this.sendForm();
+    dialogRef.afterClosed().subscribe((res) => {
+      if(res.actionType==='Save'){
+        this.userService.updateUser(this.selectedItems[0].id,res.updatedRole)
+      }
+      else
+        if(res.actionType==='Delete'){
+          this.userService.deleteUser(this.selectedItems[0].id)
+        }
     });
   }
 }

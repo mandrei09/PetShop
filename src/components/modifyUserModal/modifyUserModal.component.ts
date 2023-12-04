@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { User } from 'src/model/User';
@@ -29,7 +29,6 @@ export class ModifyUserModalComponent implements OnInit {
   public roles : any[] = []
   public newRole : string = ''
 
-
   public selectedUser : User = this.data.parameters
 
   ngOnInit() {
@@ -41,19 +40,14 @@ export class ModifyUserModalComponent implements OnInit {
     this.router.navigate(['profile/' + id])
   }
 
-  public saveUser(){
-    
+  public onSaveUser(){
+    const data = { actionType: 'Save', updatedRole: this.newRole };
+    this.dialogRef.close(data)
   }
 
-  onDeleteUser(){
-    /*
-    De adaugat: 
-      userId
-      email
-        pe o singura linie
-          centrate cu tot cu butonul de modificare rol
-      de pus cele 3 butoane jos 
-      de facut functiile de delete si save user.
-    */
+  public onDeleteUser(){
+    const data = { actionType: 'Delete', selectedUserId: this.selectedUser.id };
+    this.dialogRef.close(data)
   }
 }
+

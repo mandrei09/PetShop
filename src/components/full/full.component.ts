@@ -93,16 +93,6 @@ export class FullComponent implements OnInit {
       badge : undefined,
       class : 'mt-2',
       divider : false,
-      icon: 'store',
-      name: 'Shop',
-      title : false,
-      url : '/shop',
-      variant : '-'
-    },
-    {
-      badge : undefined,
-      class : 'mt-2',
-      divider : false,
       icon: 'settings',
       name: 'Admin',
       title : false,
