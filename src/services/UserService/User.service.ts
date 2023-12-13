@@ -20,7 +20,7 @@ export class UserService {
   location = new Location(1, "California", "Los Angeles", "123 Main St");
 
 
-  private user : User = new User('andrei','andrei-alexandru.mihai@gmail.com','0726858494','m_andrei09',this.date,this.roleService.getRoles()[2], this.location, 
+  private user : User = new User('andrei','andrei-alexandru.mihai@gmail.com','0726858494','m_andrei09','admin',this.date,this.roleService.getRoles()[2], this.location, 
   [],
   [],
   [],

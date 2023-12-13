@@ -1,2 +1,9 @@
-<app-login *ngIf="showLogin"></app-login>
-<app-full *ngIf="!showLogin"></app-full>
+<div id="app" class="main-wrapper">
+    <ng-container *ngIf="!showLogin; else fullComponent">
+      <app-login (userLoggedIn)="updateUserState()"></app-login>
+    </ng-container>
+    <ng-template #fullComponent>
+      <app-full (userLoggedIn)="updateUserState()"></app-full>
+    </ng-template>
+</div>
+  

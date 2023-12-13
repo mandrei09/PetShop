@@ -19,7 +19,7 @@ export class AdministratorComponent implements OnInit {
     private tableHeaderService : TableHeaderService,
     private tableDataService : TableDataService,
     private userService : UserService,
-    public dialog: MatDialog
+    private dialog: MatDialog
     ) 
   { 
     this.tableHeaderService = tableHeaderService;

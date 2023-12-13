@@ -39,17 +39,6 @@ h1,h2,h3,h4,h5,h6 {
 mat-sidenav-container{
   margin-top: 60px;
 }
-#app::before {
-  content: '';
-  /* background: red; */
-  position: absolute;
-  width: 465px;
-  height: 465px;
-  z-index: 999;
-  filter: blur(120px);
-  left: -3px;
-  top: -400px !important;
-}
 
 * {
   list-style: none !important;
@@ -488,3 +477,10 @@ mat-sidenav {
     text-align: center;
   }
 }
+
+// .navbar{
+//   display: flex;
+//   position: sticky;
+//   top: 0;
+//   z-index: 1000;
+// }

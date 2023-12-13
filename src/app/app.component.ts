@@ -9,6 +9,7 @@ import { UserService } from 'src/services/UserService/User.service';
 })
 
 export class AppComponent {
+  
   title = 'PetShop';
   showLogin = false;
 
@@ -20,13 +21,12 @@ export class AppComponent {
   {
     this.userService = userService;
     this.authService = authService;
-    this.showLogin = localStorage.getItem('STATE') === 'true';
+    this.showLogin = sessionStorage.getItem('STATE') === 'true';
     this.router = router; 
   }
 
-  ngOnChanges(){
-    alert(1)
-    this.showLogin = localStorage.getItem('STATE') === 'true';
-    this.router.navigate(["/login"]);
+  updateUserState(){
+    this.showLogin = sessionStorage.getItem('STATE') === 'true';
+    
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,11 +15,13 @@ export class LoginComponent implements OnInit {
    password: string = ''
    formData!: FormGroup
 
+   @Output() userLoggedIn = new EventEmitter<boolean>
+
    constructor(private authService : AuthService, private router : Router) { }
 
    ngOnInit() {
       this.formData = new FormGroup({
-         userName: new FormControl("admin"),
+         userName: new FormControl("m_andrei09"),
          password: new FormControl("admin"),
       });
    }
@@ -27,15 +29,10 @@ export class LoginComponent implements OnInit {
    onClickSubmit(data: any) {
       this.userName = data.userName;
       this.password = data.password;
-
-      console.log("Login page: " + this.userName);
-      console.log("Login page: " + this.password);
-
       this.authService.login(this.userName, this.password)
          .subscribe( data => { 
-            console.log("Is Login Success: " + data); 
-      
-           if(data) this.router.navigate(['news']); 
+            this.userLoggedIn.emit(true)
+            if(data) this.router.navigate(['news']); 
       });
    }
 }

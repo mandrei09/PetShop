@@ -10,16 +10,18 @@
             <h6 class="uxg-h6">{{user.username}}</h6>
             <span class="uxg-caption">{{user.email}}</span>
         </div>
+
+        <mat-icon (click)="onClickLikedPosts()" class="like-icon">favorite</mat-icon> 
+        <mat-icon (click)="onClickSavedPosts()" class="star-icon">grade</mat-icon>
     </div>
     <div class="uxg-menu-footer">
-
-        <a [routerLink]="'profile/' + user.id" class="d-flex">
-            <button mat-button color="primary" dense class="viewProfile">
+        <a [routerLink]="'profile/' + user.id">
+            <button mat-button class="viewProfile">
                 View profile
             </button>
         </a>  
 
-        <button mat-button color="primary" dense dense class="viewProfile" (click)="logout()">
+        <button mat-button class="viewProfile" (click)="logout()">
             <mat-icon>exit_to_app</mat-icon>
             Logout
         </button>

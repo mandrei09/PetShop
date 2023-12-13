@@ -44,6 +44,8 @@ import { RoleService } from 'src/services/RoleService/Role.service';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from 'src/services/Auth/auth.service';
 import { LoginComponent } from 'src/components/login/login.component';
+import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.component';
+import { PostsModalComponent } from 'src/components/postsModal/postsModal.component';
 
 @NgModule({
   declarations: [			
@@ -62,6 +64,8 @@ import { LoginComponent } from 'src/components/login/login.component';
     FormSendModalComponent,
     ModifyUserModalComponent,
     LoginComponent,
+    AccesDeniedComponent,
+    PostsModalComponent,
    ],
   imports: [
     BrowserModule,

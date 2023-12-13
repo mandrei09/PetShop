@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="header">
+    <h2>{{title}}</h2>
+    <button class="modal-button" mat-button [mat-dialog-close]="true">
+      <mat-icon class="icon">close</mat-icon>
+    </button>
+  </div>
+  <div class="news-list">
+    <div *ngFor="let post of posts" class="news-item">
+      <img [src]="post.image" alt="{{ post.title }}" />
+      <h2>{{ post.title }}</h2>
+      <a (click)="navigateToProfile(post.user.id)">@{{post.user.username }}</a>
+      <h3>{{ post.content }}</h3>
+      <div class="readMore_date">
+        <a [routerLink]="['/news', post.id]">Read More</a>
+        <p>{{ post.date | date }}</p>
+      </div>
+    </div>
+  </div>
+</div>

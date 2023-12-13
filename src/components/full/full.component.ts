@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CustomINavData } from 'src/model/Custom-nav';
 import { User } from 'src/model/User';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { UserService } from 'src/services/UserService/User.service';
+import { AuthGuard } from 'src/app/auth.guard';
+import { RoleService } from 'src/services/RoleService/Role.service';
 
 @Component({
   selector: 'app-full',
@@ -15,14 +17,17 @@ export class FullComponent implements OnInit {
 
   constructor(private router : Router,
     private userService : UserService,
-    private activatedRoute : ActivatedRoute) {
+    private activatedRoute : ActivatedRoute,
+    private roleService : RoleService) {
     this.router = router;
     this.userService = userService;
     this.activatedRoute = activatedRoute;
+    this.roleService = roleService;
   }
 
   public user : User = this.userService.getUser(); 
-  
+  @Output() userLoggedIn = new EventEmitter<boolean>
+
   public isExpanded = true;
   public isCollapsed = false;
 
@@ -68,6 +73,7 @@ export class FullComponent implements OnInit {
       title : false,
       url : '/news',
       variant : '-',
+      component : 'ArticlesComponent'
     },
     {
       badge : undefined,
@@ -77,7 +83,8 @@ export class FullComponent implements OnInit {
       name: 'Adopt a pet',
       title : false,
       url : '/adopt',
-      variant : '-'
+      variant : '-',
+      component : 'AdoptComponent'
     },
     {
       badge : undefined,
@@ -87,7 +94,8 @@ export class FullComponent implements OnInit {
       name: 'Contact a specialist',
       title : false,
       url : '/contact',
-      variant : '-'
+      variant : '-',
+      component : 'ContactComponent'
     },
     {
       badge : undefined,
@@ -97,11 +105,18 @@ export class FullComponent implements OnInit {
       name: 'Admin',
       title : false,
       url : '/administrator',
-      variant : '-'
+      variant : '-',
+      component : 'AdministratorComponent'
     }
   ]
 
   ngOnInit() {
+  }
+
+  public canNavItemBeDisplayed(sidebarnavItem : CustomINavData){
+    return this.roleService
+      .getComponentAccesRoles(sidebarnavItem.component)
+      .includes(sessionStorage.getItem("ROLE")!) 
   }
 
   public searchBarInput : string = '' ;
@@ -115,5 +130,8 @@ export class FullComponent implements OnInit {
     });
   }
   
+  updateUserState(){
+    this.userLoggedIn.emit(true)
+  }
 
 }

@@ -11,6 +11,7 @@ import { ProfileComponent } from 'src/components/profile/profile.component';
 import { AuthService } from 'src/services/Auth/auth.service';
 import { AuthGuard } from './auth.guard';
 import { FullComponent } from 'src/components/full/full.component';
+import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
     component: ArticlesComponent,
     data: {
       title: 'News',
+      roles : ['User','Editor','Administrator']
     },
     canActivate: [AuthGuard],
     children: [
@@ -26,6 +28,7 @@ const routes: Routes = [
         component: ArticlesComponent,
         data: {
           title: 'All',
+          roles : ['User','Editor','Administrator']
         },
       },
       {
@@ -33,6 +36,7 @@ const routes: Routes = [
         component: ArticlesComponent,
         data: {
           title: 'Cute',
+          roles : ['User','Editor','Administrator']
         },
       },
       {
@@ -40,6 +44,7 @@ const routes: Routes = [
         component: ArticlesComponent,
         data: {
           title: 'Funny',
+          roles : ['User','Editor','Administrator']
         },
       },
     ],
@@ -48,23 +53,27 @@ const routes: Routes = [
     path: 'news/:id',
     component: ArticleDetailComponent,
     canActivate: [AuthGuard],
+    data : {roles : ['User','Editor','Administrator']}
   },
-  { path: 'adopt', component: AdoptComponent, canActivate: [AuthGuard] },
+  { path: 'adopt', component: AdoptComponent, canActivate: [AuthGuard], data : {roles : ['User','Editor','Administrator']}},
   {
     path: 'adopt/:id',
     component: AdoptDetailComponent,
     canActivate: [AuthGuard],
+    data : {roles : ['User','Editor','Administrator']}
   },
-  { path: 'contact', component: ContactComponent, canActivate: [AuthGuard] },
+  { path: 'contact', component: ContactComponent, canActivate: [AuthGuard], data : {roles : ['User','Editor','Administrator']}},
   {
     path: 'profile/:id',
     component: ProfileComponent,
     canActivate: [AuthGuard],
+    data : {roles : ['User','Editor','Administrator']}
   },
   {
     path: 'administrator',
     component: AdministratorComponent,
     canActivate: [AuthGuard],
+    data : {roles : ['Administrator']}
   },
   {
     path: '',
@@ -72,6 +81,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'login', component: LoginComponent },
+  { path: 'acces-denied', component: AccesDeniedComponent },
 ];
 
 @NgModule({

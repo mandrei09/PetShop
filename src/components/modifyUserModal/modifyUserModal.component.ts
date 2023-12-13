@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/model/User';
 import { RoleService } from 'src/services/RoleService/Role.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Role } from 'src/model/Role';
 
 @Component({
   selector: 'app-modifyUserModal',
@@ -26,7 +27,7 @@ export class ModifyUserModalComponent implements OnInit {
     this.dialogRef = dialogRef;
   }
 
-  public roles : any[] = []
+  public roles : Role[] = []
   public newRole : string = ''
 
   public selectedUser : User = this.data.parameters
