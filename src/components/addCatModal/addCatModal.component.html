@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="header">
+    <h2>Add your cat</h2>
+    <button class="modal-button" mat-button [mat-dialog-close]="true">
+      <mat-icon class="icon">close</mat-icon>
+    </button>
+  </div>
+  
+  <div class="news-list">
+  
+    <div class="news-item">
+      <h5>What is your cat's name?</h5>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="name"> 
+      </mat-form-field>
+    </div>
+
+    <div class="news-item">
+      <h5>What is your cat's birthdate?</h5>
+      <mat-form-field appearance="outline">
+        <mat-label>Select a date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="birthDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="news-item">
+      <h5>What is your cat's age?</h5>
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput [(ngModel)]="age"> 
+      </mat-form-field>
+    </div>
+
+    <div class="news-item">
+      <h5>What is your cat's breed?</h5>
+      <mat-form-field appearance="outline">
+        <mat-label>Breed</mat-label>
+        <input matInput [(ngModel)]="breed"> 
+      </mat-form-field>
+    </div>
+
+    <div class="news-item">
+      <h5>What is your cat's gender?</h5>
+      <mat-form-field appearance="outline">
+        <mat-label>Gender:</mat-label>
+        <mat-select [(value)]="gender">
+          <mat-option>Male</mat-option>
+          <mat-option>Female</mat-option>
+        </mat-select>      
+      </mat-form-field>
+    </div>
+
+    <div class="news-item">
+      <h5>Upload a upload with you cat</h5>
+      <input type="file" (change)="onFileChanged($event)">
+    </div>
+
+    <div class="news-item">
+      <h5>Give us a description for your cat!</h5>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="description"> 
+      </mat-form-field>
+    </div>
+
+    <div class="sendForm">
+      <button button id="sendFormButton" (click)="createCat()">Create Cat!</button>
+    </div>
+    
+</div>

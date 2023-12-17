@@ -20,6 +20,20 @@
                               <label>Address</label>
                               <p>{{user.location.state}}, {{user.location.city}}, {{user.location.address}}</p>
                           </div>
+                          <div class="media">
+                            <div class="cats-profile-button">
+                                <div class="view-cats-profile" *ngIf="user.cats.length === 1; else create_cats_profile">
+                                  <button 
+                                  *ngFor="let cat of user.cats" 
+                                  (click)="viewCatsProfile(cat.id)">View {{cat.name}}'s Profile</button>
+                                </div>
+                                <ng-template #create_cats_profile>
+                                  <div class="create-cats-profile">
+                                    <button (click)="createCat()">Add your cat!</button>
+                                  </div>
+                                </ng-template>
+                              </div>
+                          </div>
                       </div>
                       <div class="col-md-6">
                           <div class="media">
@@ -39,6 +53,7 @@
                   <img src="{{user.profilePhoto}}" title="" alt="">
               </div>
           </div>
+          
       </div>
       <div class="counter">
           <div class="row">

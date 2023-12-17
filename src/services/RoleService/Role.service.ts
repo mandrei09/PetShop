@@ -28,7 +28,7 @@ export class RoleService {
     ProfileComponent: { roles: ['User', 'Editor', 'Administrator'] },
     ProfileModalComponent: { roles: ['User', 'Editor', 'Administrator'] },
     AdoptComponent: { roles: ['User', 'Editor', 'Administrator'] },
-    AdoptDetailComponent: { roles: ['User', 'Editor', 'Administrator'] },
+    CatProfileComponent: { roles: ['User', 'Editor', 'Administrator'] },
     ContactComponent: { roles: ['User', 'Editor', 'Administrator'] },
   };
   

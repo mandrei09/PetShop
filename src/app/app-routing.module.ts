@@ -2,13 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdministratorComponent } from 'src/components/administrator/administrator.component';
 import { AdoptComponent } from 'src/components/adopt/adopt.component';
-import { AdoptDetailComponent } from 'src/components/adoptDetail/adoptDetail.component';
+import { CatProfileComponent } from 'src/components/catProfile/catProfile.component';
 import { ArticleDetailComponent } from 'src/components/articleDetail/articleDetail.component';
 import { ArticlesComponent } from 'src/components/articles/articles.component';
 import { ContactComponent } from 'src/components/contact/contact.component';
 import { LoginComponent } from 'src/components/login/login.component';
 import { ProfileComponent } from 'src/components/profile/profile.component';
-import { AuthService } from 'src/services/Auth/auth.service';
 import { AuthGuard } from './auth.guard';
 import { FullComponent } from 'src/components/full/full.component';
 import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.component';
@@ -58,7 +57,13 @@ const routes: Routes = [
   { path: 'adopt', component: AdoptComponent, canActivate: [AuthGuard], data : {roles : ['User','Editor','Administrator']}},
   {
     path: 'adopt/:id',
-    component: AdoptDetailComponent,
+    component: CatProfileComponent,
+    canActivate: [AuthGuard],
+    data : {roles : ['User','Editor','Administrator']}
+  },
+  {
+    path: 'catProfile/:id',
+    component: CatProfileComponent,
     canActivate: [AuthGuard],
     data : {roles : ['User','Editor','Administrator']}
   },

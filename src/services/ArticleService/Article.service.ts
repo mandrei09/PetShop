@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Article } from 'src/model/Article';
 import { UserService } from '../UserService/User.service';
+import { Reply } from 'src/model/Reply';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,10 @@ export class ArticleService {
       content : 'Content 1',
       user : this.user,
       date : new Date('2023-10-21'),
-      comments : []
+      comments : [ 
+        new Reply(1, this.user, new Date(), 'This is a sample comment.'),
+        new Reply(1, this.user, new Date(), 'This is a sample comment.'),
+        new Reply(1, this.user, new Date(), 'This is a sample comment.')]
     },
     {
       id : 2,
@@ -32,7 +36,7 @@ export class ArticleService {
       image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
       content : 'Content 1',
       user : this.user,
-      comments : []
+      comments : [new Reply(1, this.user, new Date(), 'This is a sample comment.')]
     },
     {
       id : 3,
@@ -56,7 +60,7 @@ export class ArticleService {
       image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
       content : 'Content 1',
       user : this.user,
-      comments : []
+      comments : [new Reply(1, this.user, new Date(), 'This is a sample comment.')]
     },
     {
       id : 6,
@@ -86,6 +90,10 @@ export class ArticleService {
 
   getArticles(){
     return this.articles
+  }
+
+  getArticle(id : number){
+    return this.articles[id]
   }
 
   getArtilesLikesCount(articleId : number){

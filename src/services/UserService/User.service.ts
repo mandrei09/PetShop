@@ -24,32 +24,21 @@ export class UserService {
   [],
   [],
   [],
-  [new Cat(
-    1, // ID
-    'Whiskers1', // Name
-    new Date('2019-05-25'), // Birthdate
-    4, // Age
-    new Breed(1,'1',true,200), // Breed (assuming Breed is another class)
-    true, // Is adopted
-    'Male', // Gender
-    'cat.jpg',
-    [],// Image URL
-    'Whiskers is a lovely cat!', // Description
-     // Array of User owners (assuming User is another class)
-  ),
-  new Cat(
-    2, // ID
-    'Whiskers2', // Name
-    new Date('2019-05-25'), // Birthdate
-    4, // Age
-    new Breed(1,'1',true,200), // Breed (assuming Breed is another class)
-    true, // Is adopted
-    'Male', // Gender
-    'cat.jpg',
-    [],// Image URL
-    'Whiskers is a lovely cat!', // Description
-     // Array of User owners (assuming User is another class)
-  )],
+  [
+    // new Cat(
+    //   1, // ID
+    //   'Whiskers1', // Name
+    //   new Date('2019-05-25'), // Birthdate
+    //   4, // Age
+    //   new Breed(1,'1',true,200), // Breed (assuming Breed is another class)
+    //   true, // Is adopted
+    //   'Male', // Gender
+    //   'cat.jpg',
+    //   [],// Image URL
+    //   'Whiskers is a lovely cat!', // Description
+    //   // Array of User owners (assuming User is another class)
+    // )
+  ],
   'https://www.a-zanimals.co.uk/wp-content/uploads/2017/10/Sue-1-1-of-1-1024x1024.jpg','Descriere de test.');
 
   public getUser(){

@@ -19,7 +19,7 @@ import { UserService } from 'src/services/UserService/User.service';
 import { SearchBarComponent } from 'src/components/searchBar/searchBar.component';
 import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { AdoptComponent } from 'src/components/adopt/adopt.component';
-import { AdoptDetailComponent } from 'src/components/adoptDetail/adoptDetail.component';
+import { CatProfileComponent } from 'src/components/catProfile/catProfile.component';
 import { ContactComponent } from 'src/components/contact/contact.component';
 import { AdministratorComponent } from 'src/components/administrator/administrator.component';
 import { CatService } from 'src/services/CatService/Cat.service';
@@ -46,6 +46,7 @@ import { AuthService } from 'src/services/Auth/auth.service';
 import { LoginComponent } from 'src/components/login/login.component';
 import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.component';
 import { PostsModalComponent } from 'src/components/postsModal/postsModal.component';
+import { AddCatModalComponent } from 'src/components/addCatModal/addCatModal.component';
 
 @NgModule({
   declarations: [			
@@ -57,7 +58,7 @@ import { PostsModalComponent } from 'src/components/postsModal/postsModal.compon
     ProfileModalComponent,
     SearchBarComponent,
     AdoptComponent,
-    AdoptDetailComponent,
+    CatProfileComponent,
     ContactComponent,
     AdministratorComponent,
     TableComponent,
@@ -66,6 +67,7 @@ import { PostsModalComponent } from 'src/components/postsModal/postsModal.compon
     LoginComponent,
     AccesDeniedComponent,
     PostsModalComponent,
+    AddCatModalComponent,
    ],
   imports: [
     BrowserModule,

@@ -6,11 +6,11 @@ import { TableHeaderService } from 'src/services/TableHeaderService/TableHeader.
 import { UserService } from 'src/services/UserService/User.service';
 
 @Component({
-  selector: 'app-adoptDetail',
-  templateUrl: './adoptDetail.component.html',
-  styleUrls: ['./adoptDetail.component.scss']
+  selector: 'app-catProfile',
+  templateUrl: './catProfile.component.html',
+  styleUrls: ['./catProfile.component.scss']
 })
-export class AdoptDetailComponent implements OnInit {
+export class CatProfileComponent implements OnInit {
 
   constructor(
     private catService : CatService, 
