@@ -26,9 +26,10 @@ export class ProfileComponent implements OnInit {
     this.dialog = dialog;
   }
 
-  public user : User = this.userService.getUser() ;
+  public user : User | null = null ;
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.user = await this.userService.getUser()
   }
 
   createCat(){
@@ -41,7 +42,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  viewCatsProfile(catId : number){
+  viewCatsProfile(catId : string){
     this.router.navigate(['catProfile/' + catId])
   }
 

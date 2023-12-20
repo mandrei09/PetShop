@@ -32,9 +32,9 @@ export class AdministratorComponent implements OnInit {
   public columnHeader = this.tableHeaderService.getUserTableHeader()
   public selectedItems : any = []
 
-  ngOnInit() {
-    this.tableDataService.getAdministratorTableData().subscribe(res => {
-      res.map(item => {
+  async ngOnInit() {
+     this.tableDataService.getAdministratorTableData().subscribe(async res => {
+      (await res).map(item => {
         this.tableData.push(item)
       });
     });

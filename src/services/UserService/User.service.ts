@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/model/User';
-import { Location } from 'src/model/Location';
-import { CatService } from '../CatService/Cat.service';
-import { Cat } from 'src/model/Cat';
-import { Breed } from 'src/model/Breed';
 import { RoleService } from '../RoleService/Role.service';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { ConfigAPI } from 'src/model/ConfigAPI';
 
 @Injectable({
   providedIn: 'root'
@@ -16,38 +14,58 @@ export class UserService {
    this.roleService = roleService;
   }
 
-  date : Date = new Date('2002-12-09');
-  location = new Location(1, "California", "Los Angeles", "123 Main St");
+  private currentUser! : User 
 
+  public async firebaseGetAllUsers(): Promise<User[]> {
+    try {
+      const usersCollectionRef = collection(ConfigAPI.db, 'Users');
+      const querySnapshot = await getDocs(usersCollectionRef);
+  
+      const users: User[] = [];
+      for (const doc of querySnapshot.docs) {
+        const userData = doc.data();
+        const user = await User.fromFirebase({
+          id: doc.id,
+          ...userData,
+        });
+        if (user !== null) {
+          users.push(user);
+        }
+      }
+      return users;
+    } catch (error) {
+      console.error('Error getting users: ', error);
+      return [];
+    }
+  }
+  
 
-  private user : User = new User('andrei','andrei-alexandru.mihai@gmail.com','0726858494','m_andrei09','admin',this.date,this.roleService.getRoles()[2], this.location, 
-  [],
-  [],
-  [],
-  [
-    // new Cat(
-    //   1, // ID
-    //   'Whiskers1', // Name
-    //   new Date('2019-05-25'), // Birthdate
-    //   4, // Age
-    //   new Breed(1,'1',true,200), // Breed (assuming Breed is another class)
-    //   true, // Is adopted
-    //   'Male', // Gender
-    //   'cat.jpg',
-    //   [],// Image URL
-    //   'Whiskers is a lovely cat!', // Description
-    //   // Array of User owners (assuming User is another class)
-    // )
-  ],
-  'https://www.a-zanimals.co.uk/wp-content/uploads/2017/10/Sue-1-1-of-1-1024x1024.jpg','Descriere de test.');
-
-  public getUser(){
-    return this.user;
+  public async setCurrentUser(username : string, password : string){
+    const users = (await this.firebaseGetAllUsers())
+      .filter(user => user.username === username && user.password === password)
+    this.currentUser = users[0]
+    sessionStorage.setItem('USERID',this.currentUser.id)
   }
 
-  public getAllUsers(){
-    let allUsers : User[] = [this.getUser(),this.getUser(),this.getUser()];
-    return allUsers;
+  public async firebaseGetCurentUser(userId : string): Promise<User | null> {
+    try {
+      const usersCollectionRef = doc(ConfigAPI.db, 'Users',userId);
+      const querySnapshot = await getDoc(usersCollectionRef);
+      const userData = querySnapshot.data();
+      const user = await User.fromFirebase({
+          id: querySnapshot.id,
+          ...userData,
+        });
+      return user;
+    }
+    catch (error) {
+      console.error('Error getting user: ', error);
+      return null;
+    }
+  }
+
+  public async getUser(){
+    return await this.firebaseGetCurentUser(sessionStorage.getItem('USERID')!);
   }
 
   public updateUser(userId : string, newRole : string){

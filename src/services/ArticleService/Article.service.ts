@@ -15,100 +15,102 @@ export class ArticleService {
     this.userService = userService;
   }
 
-  user = this.userService.getUser()
+  //user = this.userService.getUser()
 
   private articles : Article[] = [
-    {
-      id : 1,
-      title : 'Titlu 1',
-      image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-      content : 'Content 1',
-      user : this.user,
-      date : new Date('2023-10-21'),
-      comments : [ 
-        new Reply(1, this.user, new Date(), 'This is a sample comment.'),
-        new Reply(1, this.user, new Date(), 'This is a sample comment.'),
-        new Reply(1, this.user, new Date(), 'This is a sample comment.')]
-    },
-    {
-      id : 2,
-      title : 'Titlu 2',
-      image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-      content : 'Content 1',
-      user : this.user,
-      comments : [new Reply(1, this.user, new Date(), 'This is a sample comment.')]
-    },
-    {
-      id : 3,
-      title : 'Titlu 3',
-      image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-      content : 'Content 1',
-      user : this.user,
-      comments : []
-    },
-    {
-      id : 4,
-      title : 'Titlu 3',
-      image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-      content : 'Content 1',
-      user : this.user,
-      comments : []
-    },
-    {
-      id : 5,
-      title : 'Titlu 3',
-      image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-      content : 'Content 1',
-      user : this.user,
-      comments : [new Reply(1, this.user, new Date(), 'This is a sample comment.')]
-    },
-    {
-      id : 6,
-      title : 'Titlu 3',
-      image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-      content : 'Content 1',
-      user : this.user,
-      comments : []
-    },
-    {
-      id : 7,
-      title : 'Titlu 1',
-      image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-      content : 'Content 1',
-      user : this.user,
-      comments : []
-    },
-    {
-      id : 8,
-      title : 'Titlu 1',
-      image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-      content : 'Content 1',
-      user : this.user,
-      comments : []
-    }
+    // {
+    //   id : '0',
+    //   title : 'Titlu 1',
+    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
+    //   content : 'Content 1',
+    //   user : this.user,
+    //   date : new Date('2023-10-21'),
+    //   comments : [ 
+    //     new Reply('0', this.user, new Date(), 'This is a sample comment.'),
+    //     new Reply('1', this.user, new Date(), 'This is a sample comment.'),
+    //     new Reply('2', this.user, new Date(), 'This is a sample comment.')]
+    // },
+    // {
+    //   id : '1',
+    //   title : 'Titlu 2',
+    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
+    //   content : 'Content 1',
+    //   user : this.user,
+    //   comments : [new Reply('5', this.user, new Date(), 'This is a sample comment.')]
+    // },
+    // {
+    //   id : '2',
+    //   title : 'Titlu 3',
+    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
+    //   content : 'Content 1',
+    //   user : this.user,
+    //   comments : []
+    // },
+    // {
+    //   id : '3',
+    //   title : 'Titlu 3',
+    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
+    //   content : 'Content 1',
+    //   user : this.user,
+    //   comments : []
+    // },
+    // {
+    //   id : '4',
+    //   title : 'Titlu 3',
+    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
+    //   content : 'Content 1',
+    //   user : this.user,
+    //   comments : [new Reply('3', this.user, new Date(), 'This is a sample comment.')]
+    // },
+    // {
+    //   id : '5',
+    //   title : 'Titlu 3',
+    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
+    //   content : 'Content 1',
+    //   user : this.user,
+    //   comments : []
+    // },
+    // {
+    //   id : '6',
+    //   title : 'Titlu 1',
+    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
+    //   content : 'Content 1',
+    //   user : this.user,
+    //   comments : []
+    // },
+    // {
+    //   id : '7',
+    //   title : 'Titlu 1',
+    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
+    //   content : 'Content 1',
+    //   user : this.user,
+    //   comments : []
+    // }
   ]
 
   getArticles(){
     return this.articles
   }
 
-  getArticle(id : number){
-    return this.articles[id]
+  getArticle(id : string){
+    //return this.articles[id]
+    //return null
   }
 
-  getArtilesLikesCount(articleId : number){
+  getArtilesLikesCount(articleId : string){
     return -1
   }
 
-  getArtilesCommentsCount(articleId : number){
-    return -2
+  getArtilesCommentsCount(articleId : string){
+    //return this.articles[articleId].comments.length;
+    return -1
   }
 
-  getArtilesSharesCount(articleId : number){
+  getArtilesSharesCount(articleId : string){
     return -3
   }
 
-  getArtilesSavesCount(articleId : number){
+  getArtilesSavesCount(articleId : string){
     return -4
   }
 
@@ -123,5 +125,13 @@ export class ArticleService {
 
   getSavedPosts(){
     return this.articles
+  }
+
+  addComment(articleId : number,comment : Reply){
+    //this.articles[articleId].comments.push(comment)
+  }
+
+  deleteArticle(articleId : string){
+    this.articles = this.articles.filter(item => item.id != articleId)
   }
 }

@@ -21,6 +21,7 @@
     "@angular/router": "^16.2.0",
     "@coreui/angular": "^4.5.25",
     "bootstrap": "^4.4.1",
+    "firebase": "^10.7.1",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

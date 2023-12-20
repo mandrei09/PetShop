@@ -22,24 +22,25 @@ export class AuthService {
 
   isUserLoggedIn: boolean = false;
   isLogin: boolean = false;
-  user : User = this.userService.getUser()
 
-  login(userName: string, password: string): Observable<any> {
-    this.isUserLoggedIn = userName == this.user.username && password == this.user.password;
+  async login(userName: string, password: string): Promise<Observable<any>> {
+    this.userService.setCurrentUser(userName,password)
+    const user = await this.userService.getUser()
+    this.isUserLoggedIn = user != null && user!= undefined;
     sessionStorage.setItem('STATE',this.isUserLoggedIn ? 'true' : 'false');
-    sessionStorage.setItem('ROLE',this.user.role.title)
+    sessionStorage.setItem('ROLE',user!.role!.title)
     return of(this.isUserLoggedIn).pipe(
       delay(1000),
       tap((val) => {
-        console.log('Is User Authentication is successful: ' + val);
       })
     );
   }
 
   logout(): void {
     this.isUserLoggedIn = false;
-    sessionStorage.removeItem('STATE');
+    sessionStorage.removeItem('STATE')
     sessionStorage.removeItem('ROLE')
+    sessionStorage.removeItem('USERID')
   }
 
   isLoggedIn() {

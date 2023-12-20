@@ -26,7 +26,7 @@ export class ArticlesComponent implements OnInit {
   @Input() inProfile : boolean = false;
   public searchBarInput : string | null = '';
 
-  public user : User = this.userService.getUser();  
+  public user : User | null = null;  
   public articles = this.articleService.getArticles()
 
 
@@ -34,10 +34,11 @@ export class ArticlesComponent implements OnInit {
     this.router.navigate(['profile/' + id])
   }
 
-  ngOnInit() { //Asta se adauga pentru fiecare componenta unde vrei sa faci search.
+  async ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(queryParams => {
       this.searchBarInput = queryParams.get('search');
     });
+    this.user = await this.userService.getUser()
   }
   
 

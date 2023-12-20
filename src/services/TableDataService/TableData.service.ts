@@ -23,7 +23,7 @@ constructor
   }
 
   public getAdministratorTableData(){
-    return of(this.userService.getAllUsers());
+    return of(this.userService.firebaseGetAllUsers());
   }
   
   

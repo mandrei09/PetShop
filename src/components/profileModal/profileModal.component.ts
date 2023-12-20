@@ -26,9 +26,10 @@ export class ProfileModalComponent implements OnInit {
   }
 
   @Output() userLoggedIn = new EventEmitter<boolean>
-  public user : User = this.userService.getUser() ;
+  public user : User | null = null
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.user = await this.userService.getUser()
   }
 
   public logout(){

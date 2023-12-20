@@ -14,11 +14,11 @@ export class RoleService {
 
   constructor() { }
 
-  private roles: Role[] = [
-    new Role(0, 'User'),
-    new Role(1, 'Editor'),
-    new Role(2, 'Administrator')
-  ];
+  // private roles: Role[] = [
+  //   new Role(0, 'User'),
+  //   new Role(1, 'Editor'),
+  //   new Role(2, 'Administrator')
+  // ];
 
   
   private componentAccessRoles : ComponentAccessRoles = {
@@ -33,13 +33,13 @@ export class RoleService {
   };
   
 
-  public getRoles(){
-    return this.roles;
-  }
+  // public getRoles(){
+  //   return this.roles;
+  // }
 
-  public getRole(id : number){
-    return this.roles[id]
-  }
+  // public getRole(id : number){
+  //   return this.roles[id]
+  // }
 
   public getComponentAccesRoles(component: string) {
     return this.componentAccessRoles[component].roles;

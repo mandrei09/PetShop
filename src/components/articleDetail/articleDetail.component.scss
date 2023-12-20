@@ -14,6 +14,9 @@
     justify-content: space-between;
     color: #666;
     font-size: 14px;
+    a{
+      margin-left: 15px;
+    }
   }
   
   .article .article-meta .author {
@@ -100,16 +103,32 @@
       align-items: center;
       margin-bottom: 5px;
 
+      .buttons {
+        display: flex;
+        button{
+          background: transparent;
+          border: none !important;
+          cursor: pointer;
+          &:focus{
+            outline: none;
+          }
+          &:hover{
+            color: red;
+          }
+        }
+      }
+
       .profile-photo {
-        width: 40px; /* Adjust as needed */
-        height: 40px; /* Adjust as needed */
-        border-radius: 50%; /* Ensure the photo is round */
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         margin-right: 10px;
       }
 
       .user-info {
         display: flex;
         flex-direction: column;
+        flex: 1;
 
         .user-id {
           font-weight: bold;
@@ -131,6 +150,22 @@
       p {
         margin: 0;
       }
+    }
+  }
+}
+
+.container{
+  display: flex;
+  justify-content: space-between;
+  button{
+    background: transparent;
+    border: none !important;
+    cursor: pointer;
+    &:focus{
+      outline: none;
+    }
+    &:hover{
+      color: red;
     }
   }
 }

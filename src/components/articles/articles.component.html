@@ -2,7 +2,7 @@
   <div *ngFor="let article of articles" class="news-item">
     <img [src]="article.image" alt="{{ article.title }}" />
     <h2>{{ article.title }}</h2>
-    <a *ngIf="!inProfile" (click)="navigateToProfile(article.user.id)">@{{article.user.username }}</a>
+    <a *ngIf="!inProfile" (click)="navigateToProfile(article.user!.id)">@{{article.user!.username }}</a>
     <h3>{{ article.content }}</h3>
     <div class="readMore_date">
       <a [routerLink]="['/news', article.id]">Read More</a>

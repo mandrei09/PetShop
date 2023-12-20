@@ -1,9 +1,14 @@
-<!-- article.component.html -->
 <div class="article">
-  <h1>{{ article.title }}</h1>
+  <div class="container">
+    <div class="title-wrapper">
+      <h1>{{ article.title }}</h1>
+    </div>
+    <div class="button-wrapper" *ngIf="user!.id===article.user!.id || user!.role!.id==='2'">
+      <button (click)="onDeletingPost()"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>  
   <div class="article-meta">
-     <!-- Adauga ruta pentru profil -->
-    <a [routerLink]="['/profile', article.user.id]">@{{article.user.username }}</a>
+    <a [routerLink]="['/profile', article.user!.id]">@{{article.user!.username }}</a>
     <p class="date">{{article.date | date}}</p>
   </div>
   <img [src]="article.image" alt="{{ article.title }}" />
@@ -11,57 +16,66 @@
     <p>{{ article.content }}</p>
     <div class="counter">
       <div class="row">
-          <div class="col-6 col-lg-3">
-                <div class="count-data text-center">
-                    <div class="iconAndNumber" (click)="updateArticlesLikesCount()">
-                        <h6 [ngStyle]="likeCounterStyles" class="count h2" data-to="150" data-speed="150">{{articlesLikesCount}}</h6>
-                        <mat-icon>favorite</mat-icon>
-                    </div>
-                    <p class="m-0px font-w-600">Likes</p>
-                </div>
-          </div>
-          <div class="col-6 col-lg-3">
-              <div class="count-data text-center">
-                <div class="iconAndNumber" (click)="showComments(article.id)">
-                    <h6 class="count h2" data-to="850" data-speed="850">{{articlesCommentsCount}}</h6>
-                    <mat-icon>comment</mat-icon>
-                </div>
-                <p class="m-0px font-w-600">Comments</p>
-              </div>
-          </div>
-          <div class="col-6 col-lg-3">
-              <div class="count-data text-center">
-                <div class="iconAndNumber" (click)="updateArticlesSharesCount()">
-                    <h6 class="count h2" data-to="190" data-speed="190">{{articlesSharesCount}}</h6>
-                    <mat-icon>share</mat-icon>
-                </div>
-                <p class="m-0px font-w-600">Shares</p>
-              </div>
-          </div>
-          <div class="col-6 col-lg-3">
-            <div class="count-data text-center">
-                <div class="iconAndNumber" (click)="updateArticlesSavesCount()">
-                    <h6 [ngStyle]="savedCounterStyles" class="count h2" data-to="190" data-speed="190">{{articlesSavesCount}}</h6>
-                    <mat-icon>grade</mat-icon>
-                </div>
-                <p class="m-0px font-w-600">Saves</p>
+        <div class="col-6 col-lg-3">
+          <div class="count-data text-center">
+            <div class="iconAndNumber" (click)="updateArticlesLikesCount()">
+              <h6 [ngStyle]="likeCounterStyles" class="count h2" data-to="150" data-speed="150">{{articlesLikesCount}}
+              </h6>
+              <mat-icon>favorite</mat-icon>
             </div>
+            <p class="m-0px font-w-600">Likes</p>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="count-data text-center">
+            <div class="iconAndNumber" (click)="showComments(article.id)">
+              <h6 class="count h2" data-to="850" data-speed="850">{{articlesCommentsCount}}</h6>
+              <mat-icon>comment</mat-icon>
+            </div>
+            <p class="m-0px font-w-600">Comments</p>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="count-data text-center">
+            <div class="iconAndNumber" (click)="updateArticlesSharesCount()">
+              <h6 class="count h2" data-to="190" data-speed="190">{{articlesSharesCount}}</h6>
+              <mat-icon>share</mat-icon>
+            </div>
+            <p class="m-0px font-w-600">Shares</p>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="count-data text-center">
+            <div class="iconAndNumber" (click)="updateArticlesSavesCount()">
+              <h6 [ngStyle]="savedCounterStyles" class="count h2" data-to="190" data-speed="190">{{articlesSavesCount}}
+              </h6>
+              <mat-icon>grade</mat-icon>
+            </div>
+            <p class="m-0px font-w-600">Saves</p>
+          </div>
         </div>
       </div>
     </div>
     <div class="comments" *ngIf="areCommentsShown">
       <div class="comment-input">
-        <button *ngIf="!isLeaveAButtonButtonPressed" id="leave-a-comment-button" (click)="onLeavingComment()">Leave a Comment</button>
-        <textarea *ngIf="isLeaveAButtonButtonPressed" id="leave-a-comment-button" [(ngModel)]="newComment" placeholder="Type your comment here..." class="comment-text-input" rows="2"></textarea>
-        <button id="leave-a-comment-button" (click)="onLeavingComment()">Post</button>
+        <button *ngIf="!isLeaveAButtonButtonPressed" id="leave-a-comment-button" (click)="onLeavingComment()">Leave a
+          Comment</button>
+        <textarea *ngIf="isLeaveAButtonButtonPressed" id="leave-a-comment-button" [(ngModel)]="newComment"
+          placeholder="Type your comment here..." class="comment-text-input" rows="2"></textarea>
+        <button *ngIf="!isEditCommentButtonPressed" id="leave-a-comment-button" (click)="onLeavingComment()">Post</button>
+        <button *ngIf="isEditCommentButtonPressed" id="leave-a-comment-button" (click)="editComment()">Edit Comment</button>
       </div>
       <div class="comment-list">
-        <div class="comment" *ngFor="let comment of article.comments">
+        <div class="comment" *ngFor="let comment of article.comments; let i=index">
           <div class="comment-header">
-            <img class="profile-photo" [src]="comment.user.profilePhoto" alt="Profile">
+            <img class="profile-photo" [src]="comment.user!.profilePhoto" alt="Profile">
             <div class="user-info">
-              <span class="user-id" (click)="navigateToProfile(comment.user.id)">@{{comment.user.username}}</span>
-              <span class="comment-date">{{ comment.date  | date:'medium'}}</span>
+              <span class="user-id" (click)="navigateToProfile(comment.user!.id)">@{{comment.user!.username}}</span>
+              <span class="comment-date">{{ comment.date | date:'medium'}}</span>
+            </div>
+            <div class="buttons" *ngIf="user!.id===article.user!.id">
+              <button (click)="onEditComment(i)"><mat-icon>edit</mat-icon></button>
+              <button (click)="onDeleteComment(comment.id)" *ngIf="user!.role!.id==='2'"><mat-icon>delete</mat-icon></button>
             </div>
           </div>
           <div class="comment-content">

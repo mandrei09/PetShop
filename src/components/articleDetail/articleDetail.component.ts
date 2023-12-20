@@ -25,38 +25,37 @@ export class ArticleDetailComponent implements OnInit {
     this.router = router;
   }
 
-  ngOnInit(){
-    // Retrieve the 'id' parameter from the route
+  async ngOnInit(){
     this.route.params.subscribe((params: Params) => {
-      this.articleId = parseInt(params['id']); // Access the 'id' parameter from the route
-      // Now you can use this.articleId in your component logic
+      this.articleId = params['id']; 
     });
-    this.article = this.articleService.getArticle(this.articleId);
+    //this.article = this.articleService.getArticle(this.articleId);
+    this.articlesLikesCount = this.articleService.getArtilesLikesCount(this.article.id)
+    this.articlesCommentsCount = this.articleService.getArtilesCommentsCount(this.article.id);
+    this.articlesSharesCount = this.articleService.getArtilesSharesCount(this.article.id);
+    this.articlesSavesCount = this.articleService.getArtilesSavesCount(this.article.id);
+    this.user = await this.userService.getUser();
   }
 
-  public user: User = this.userService.getUser();
-  public articleId!: number;
+  public user: User | null = null
+  public articleId!: string;
   public article! : Article
+  public articlesLikesCount!: number
+  public articlesCommentsCount!: number
+  public articlesSharesCount!: number
+  public articlesSavesCount!: number
 
   public navigateToProfile(id: string) {
     this.router.navigate(['profile/' + id]);
   }
-
-  public articlesLikesCount: number = this.articleService.getArtilesLikesCount(
-    this.article.id
-  );
-
-  public articlesCommentsCount: number = this.articleService.getArtilesCommentsCount(this.article.id);
-
-  public articlesSharesCount: number = this.articleService.getArtilesSharesCount(this.article.id);
-
-  public articlesSavesCount: number = this.articleService.getArtilesSavesCount(this.article.id);
 
   public isPostLiked: boolean = false;
   public isPostSaved: boolean = false;
   public areCommentsShown: boolean = false;
   public newComment: string = '';
   public isLeaveAButtonButtonPressed: boolean = false;
+  public isEditCommentButtonPressed: boolean = false;
+  public selectedCommentIndex! : number;
 
   public updateArticlesLikesCount() {
     this.changeLikeCounterStyles();
@@ -100,11 +99,42 @@ export class ArticleDetailComponent implements OnInit {
     else this.savedCounterStyles = { color: 'black' };
   }
 
-  public showComments(articleId: number) {
+  public showComments(articleId: string) {
     this.areCommentsShown = !this.areCommentsShown;
   }
 
   public onLeavingComment() {
     this.isLeaveAButtonButtonPressed = true;
+    if(this.newComment!=='')
+    {
+      let comment = new Reply('1000',this.user,new Date(),this.newComment)
+      //this.articleService.addComment(this.articleId,comment)
+      this.articlesCommentsCount = this.articleService.getArtilesCommentsCount(this.article.id);
+      this.newComment = ''
+    }
+  }
+
+  public onEditComment(index : number){
+    this.isLeaveAButtonButtonPressed = true
+    this.isEditCommentButtonPressed = !this.isEditCommentButtonPressed
+    this.newComment = this.article.comments[index].content
+    this.selectedCommentIndex = index
+  }
+
+  public editComment(){
+    this.article.comments[this.selectedCommentIndex].content = this.newComment
+    this.isEditCommentButtonPressed = !this.isEditCommentButtonPressed
+    this.newComment = ''
+    this.isLeaveAButtonButtonPressed = !this.isLeaveAButtonButtonPressed
+  }
+
+  public onDeleteComment(commentId : string){
+    this.article.comments = this.article.comments.filter(item => item.id != commentId)
+    this.articlesCommentsCount --
+  }
+
+  public onDeletingPost(){
+    this.articleService.deleteArticle(this.articleId)
+    this.router.navigate(["/news"])
   }
 }

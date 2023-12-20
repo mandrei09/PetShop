@@ -6,16 +6,16 @@
 
     <div class="uxg-menu-header">
         <div class="uxg-avatar-hero-block">
-            <img src="{{user.profilePhoto}}" title="" alt="" width="100" height="100">
-            <h6 class="uxg-h6">{{user.username}}</h6>
-            <span class="uxg-caption">{{user.email}}</span>
+            <img src="{{user!.profilePhoto}}" title="" alt="" width="100" height="100">
+            <h6 class="uxg-h6">{{user!.username}}</h6>
+            <span class="uxg-caption">{{user!.email}}</span>
         </div>
 
         <mat-icon (click)="onClickLikedPosts()" class="like-icon">favorite</mat-icon> 
         <mat-icon (click)="onClickSavedPosts()" class="star-icon">grade</mat-icon>
     </div>
     <div class="uxg-menu-footer">
-        <a [routerLink]="'profile/' + user.id">
+        <a [routerLink]="'profile/' + user!.id">
             <button mat-button class="viewProfile">
                 View profile
             </button>

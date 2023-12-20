@@ -30,7 +30,7 @@ export class CatProfileComponent implements OnInit {
 
   public adoptCat(){
     this.cat.isAdopted = true;
-    this.cat.owners.push(this.userService.getUser())
+    //this.cat.owners.push(this.userService.getUser())
     //this.tableData = this.cat.owners;
     // De deshis modalul bla bla
   }

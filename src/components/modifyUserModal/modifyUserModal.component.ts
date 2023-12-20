@@ -33,7 +33,7 @@ export class ModifyUserModalComponent implements OnInit {
   public selectedUser : User = this.data.parameters
 
   ngOnInit() {
-    this.roles=this.roleService.getRoles()
+    //this.roles=this.roleService.getRoles()
   }
 
   public navigateToProfile(id : string){

@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
    ngOnInit() {
       this.formData = new FormGroup({
          userName: new FormControl("m_andrei09"),
-         password: new FormControl("admin"),
+         password: new FormControl("admin09"),
       });
    }
 
-   onClickSubmit(data: any) {
+   async onClickSubmit(data: any) {
       this.userName = data.userName;
       this.password = data.password;
-      this.authService.login(this.userName, this.password)
+      (await this.authService.login(this.userName, this.password))
          .subscribe( data => { 
             this.userLoggedIn.emit(true)
             if(data) this.router.navigate(['news']); 

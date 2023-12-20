@@ -25,7 +25,7 @@ export class ContactComponent implements OnInit {
     this.dialog = dialog;
   }
 
-  public user! : User
+  public user : User | null = null
 
   public problems : string[] = this.problemsService.getProblems();
 
@@ -37,8 +37,8 @@ export class ContactComponent implements OnInit {
   public otherDetailsInput!: string;
 
 
-  ngOnInit() {
-    this.user = this.userService.getUser()
+  async ngOnInit() {
+    this.user = await this.userService.getUser()
   }
 
   onFormSending(){

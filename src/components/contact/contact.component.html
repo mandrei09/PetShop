@@ -9,7 +9,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Select your pet:</mat-label>
       <mat-select [(value)]="selectedPet">
-        <mat-option *ngFor="let pet of user.cats" [value]="pet">
+        <mat-option *ngFor="let pet of user!.cats" [value]="pet">
           {{pet.name}}
         </mat-option>
       </mat-select>      

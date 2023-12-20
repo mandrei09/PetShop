@@ -38,8 +38,10 @@
     <div class="news-item">
       <h5>What is your cat's breed?</h5>
       <mat-form-field appearance="outline">
-        <mat-label>Breed</mat-label>
-        <input matInput [(ngModel)]="breed"> 
+        <mat-label>Breed:</mat-label>
+        <mat-select [(value)]="breed">
+          <mat-option *ngFor="let breed of breeds" [value]="breed">{{breed.name}}</mat-option>
+        </mat-select>      
       </mat-form-field>
     </div>
 
@@ -48,8 +50,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Gender:</mat-label>
         <mat-select [(value)]="gender">
-          <mat-option>Male</mat-option>
-          <mat-option>Female</mat-option>
+          <mat-option *ngFor="let gender of genders" [value]="gender">{{gender.title}}</mat-option>
         </mat-select>      
       </mat-form-field>
     </div>

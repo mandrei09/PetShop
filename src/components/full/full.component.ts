@@ -25,7 +25,11 @@ export class FullComponent implements OnInit {
     this.roleService = roleService;
   }
 
-  public user : User = this.userService.getUser(); 
+  async ngOnInit() {
+    this.user = await this.userService.getUser();
+  }
+
+  public user : User | null = null 
   @Output() userLoggedIn = new EventEmitter<boolean>
 
   public isExpanded = true;
@@ -109,9 +113,6 @@ export class FullComponent implements OnInit {
       component : 'AdministratorComponent'
     }
   ]
-
-  ngOnInit() {
-  }
 
   public canNavItemBeDisplayed(sidebarnavItem : CustomINavData){
     return this.roleService

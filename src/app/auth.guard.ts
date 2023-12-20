@@ -17,8 +17,6 @@ export class AuthGuard implements CanActivate {
          this.router = router;
       }
       
-   public user: User = this.userService.getUser()
-
    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
       if (this.authService.checkAuthentication() && next.data["roles"].includes(sessionStorage.getItem("ROLE")) ) 
@@ -27,7 +25,6 @@ export class AuthGuard implements CanActivate {
       } 
       else 
       {
-        this.router.navigate(["/acces-denied"]); 
         return false;
       }
    }
