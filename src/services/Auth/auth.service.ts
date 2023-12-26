@@ -24,7 +24,7 @@ export class AuthService {
   isLogin: boolean = false;
 
   async login(userName: string, password: string): Promise<Observable<any>> {
-    this.userService.setCurrentUser(userName,password)
+    await this.userService.setCurrentUser(userName,password)
     const user = await this.userService.getUser()
     this.isUserLoggedIn = user != null && user!= undefined;
     sessionStorage.setItem('STATE',this.isUserLoggedIn ? 'true' : 'false');

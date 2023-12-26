@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/model/User';
 import { RoleService } from '../RoleService/Role.service';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { ConfigAPI } from 'src/model/ConfigAPI';
+import { Cat } from 'src/model/Cat';
 
 @Injectable({
   providedIn: 'root'
@@ -64,8 +65,34 @@ export class UserService {
     }
   }
 
+  public async addUserToFirebase(user: User): Promise<string | null> {
+    try {
+      const userData = User.toFirebase(user);
+      const userCollectionRef = collection(ConfigAPI.db, 'Users');
+      const newUserRef = await addDoc(userCollectionRef, userData);
+      return newUserRef.id;
+    } 
+    catch (error) {
+      console.error('Error adding user: ', error);
+      return null;
+    }
+  }
+
   public async getUser(){
     return await this.firebaseGetCurentUser(sessionStorage.getItem('USERID')!);
+  }
+
+  public async addCatToUser(user: User | null, catPath : string): Promise<void> {
+    try {
+      const userDocRef = doc(ConfigAPI.db, 'Users', user!.id); 
+      await updateDoc(userDocRef, {
+        cats: [...user!.cats, catPath] 
+      });
+      
+      console.log('Cat added to user successfully!');
+    } catch (error) {
+      console.error('Error adding cat to user:', error);
+    }
   }
 
   public updateUser(userId : string, newRole : string){

@@ -38,11 +38,11 @@ export class ProfileComponent implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe((res) => {
-      // this.viewCatsProfile(res.id)
     });
   }
 
   viewCatsProfile(catId : string){
+    console.log(this.user)
     this.router.navigate(['catProfile/' + catId])
   }
 

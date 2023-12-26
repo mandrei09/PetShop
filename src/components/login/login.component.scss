@@ -1,16 +1,27 @@
-.form-signin {
-    max-width: 330px;
+.container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
  
-    padding: 15px;
-    margin: 0 auto;
+   .box {
+     padding: 20px;
+     width: 300px;
+ 
+     .inputs {
+       display: flex;
+       flex-direction: column;
+       gap: 10px;
+ 
+       mat-form-field {
+         width: 100%;
+       }
+ 
+       button {
+         width: 100%;
+         margin-top: 10px;
+       }
+     }
+   }
  }
  
- input {
-    margin-bottom: 20px;
- }
-
- button{
-    background-color: black;
-    color: white;
-    border: 0px;
- }

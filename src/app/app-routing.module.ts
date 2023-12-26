@@ -11,6 +11,7 @@ import { ProfileComponent } from 'src/components/profile/profile.component';
 import { AuthGuard } from './auth.guard';
 import { FullComponent } from 'src/components/full/full.component';
 import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.component';
+import { RegisterComponent } from 'src/components/register/register.component';
 
 const routes: Routes = [
   {
@@ -21,32 +22,6 @@ const routes: Routes = [
       roles : ['User','Editor','Administrator']
     },
     canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'all',
-        component: ArticlesComponent,
-        data: {
-          title: 'All',
-          roles : ['User','Editor','Administrator']
-        },
-      },
-      {
-        path: 'cute',
-        component: ArticlesComponent,
-        data: {
-          title: 'Cute',
-          roles : ['User','Editor','Administrator']
-        },
-      },
-      {
-        path: 'funny',
-        component: ArticlesComponent,
-        data: {
-          title: 'Funny',
-          roles : ['User','Editor','Administrator']
-        },
-      },
-    ],
   },
   {
     path: 'news/:id',

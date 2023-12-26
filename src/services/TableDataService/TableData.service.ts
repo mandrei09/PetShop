@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CatService } from '../CatService/Cat.service';
 import { UserService } from '../UserService/User.service';
 import { of } from 'rxjs';
+import { Cat } from 'src/model/Cat';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,11 @@ constructor
     this.userService = userService;
   }
 
-  public getAdoptTableData(){
-    return of(this.catService.getCats()[0].owners);
+  public getAdoptTableData(cat : Cat | null){
+    if(cat)
+      return of(cat.owners);
+    else
+      return of([])
   }
 
   public getAdministratorTableData(){

@@ -7,8 +7,12 @@ import { ConfigAPI} from 'src/model/ConfigAPI'
 import { BreedService } from 'src/services/BreedService/Breed.service';
 import { Gender } from 'src/model/Gender';
 import { GenderService } from 'src/services/GenderService/Gender.service';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { HttpHeaders } from '@angular/common/http';
+import { References } from 'src/model/References';
+import { PublicFunctions } from 'src/model/PublicFunctions';
+import { User } from 'src/model/User';
+import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
+import { CatService } from 'src/services/CatService/Cat.service';
 
 @Component({
   selector: 'app-addCatModal',
@@ -21,21 +25,28 @@ export class AddCatModalComponent implements OnInit {
   (
     private userService : UserService,
     private breedService : BreedService,
-    private genderService : GenderService
+    private genderService : GenderService,
+    private catService : CatService,
+    private router : Router,
+    public dialogRef: MatDialogRef<AddCatModalComponent>
   ) 
   {
     this.userService = userService
     this.breedService = breedService
     this.genderService = genderService
+    this.router = router;
+    this.dialogRef = dialogRef;
+    this.catService = catService;
   }
 
   async ngOnInit() {
     this.breeds = await this.breedService.firebaseGetAllBreeds()
     this.genders = await this.genderService.firebaseGetAllGenders()
+    this.user = await this.userService.getUser()
   }
 
   
-  public user = this.userService.getUser()
+  public user : User | null = null;  
   public breeds : Breed[] = []
   public genders : Gender[] = []
 
@@ -51,50 +62,31 @@ export class AddCatModalComponent implements OnInit {
     this.image = event.target.files[0]
   }
 
-  onUploadImage(image : File){
-    const storage = getStorage();
-    const storageRef = ref(storage,'images/' + image.name);
-    const metadata = {
-      contentType: 'image/jpeg',
-    };
-
-    
-    
-    uploadBytes(storageRef,image,metadata).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-    });
-  }
-
-  
-
-  public async addCattoFirebase(cat: Cat) {
-    try {
-      const catData = Cat.toFirebase(cat); 
-      const catsCollectionRef = collection(ConfigAPI.db, 'Cats');
-      const newCatRef = await addDoc(catsCollectionRef, catData);
-
-    } catch (error) {
-      console.error('Error adding cat: ', error);
-    }
-  }
-
-  createCat(){
-    const pathToPhoto = this.onUploadImage(this.image)
-    
+  async createCat(){
+    let imagePath 
+    if(this.image!=undefined)
+      imagePath = References.catsPhotosRef + this.image.name
+    else 
+      imagePath = References.genericProfilePhoto
+    const downloadURL = await PublicFunctions.onUploadImage(this.image,imagePath)
     let newCat : Cat = 
       new Cat(
-        '500',
+        '',
         this.name,
         this.birthDate,
         this.age,
         this.breed,
         true,
         this.gender,
-        //this.image,
-        '',
-        [],
+        downloadURL,
+        [this.user],
         this.description)
-    this.addCattoFirebase(newCat) 
+    
+    const newCatId = await this.catService.addCattoFirebase(newCat)
+    await this.userService.addCatToUser(this.user,Cat.toFirebasePath(newCatId!)) 
+    this.dialogRef.close()
+    this.router.navigate(['catProfile/' + newCatId])
   }
+  
 
 }

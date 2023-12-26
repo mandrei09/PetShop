@@ -44,12 +44,17 @@ export class Article {
         title: article.title,
         image: article.image,
         content: article.content,
-        user: User.toFirebase(article.user),
+        user: User.toFirebasePath(article.user!.id),
         date: article.date,
         comments: article.comments.map((comment) => Reply.toFirebase(comment))
       };
     }
     return null 
+  }
+
+  static toFirebasePath(articleId: string){
+    const collectionName = 'Posts/'
+    return collectionName + articleId
   }
 
   static async fromFirebase(data: any): Promise<Article> {
@@ -58,7 +63,7 @@ export class Article {
       data.title,
       data.image,
       data.content,
-      await User.fromFireBasePath(data.user._key.toString()),
+      await User.fromFireBasePath(data.user),
       data.date.toDate(),
       data.comments.map((comment: any) => Reply.fromFirebase(comment)),
       data.likes,

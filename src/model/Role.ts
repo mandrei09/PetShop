@@ -13,10 +13,14 @@ export class Role {
     static toFirebase(role: Role | null): any {
       if(role)
         return {
-          id: role.id,
           title: role.title
         };
       return null
+    }
+
+    static toFirebasePath(roleId: string){
+      const collectionName = 'Roles/'
+      return collectionName + roleId
     }
   
     static fromFirebase(data: any): Role {

@@ -3,38 +3,38 @@
       <div class="row align-items-center flex-row-reverse">
           <div class="col-lg-6">
               <div class="about-text go-to">
-                  <h3 class="dark-color">{{cat.name}}</h3>
-                  <h6 class="theme-color lead">Breed : {{cat.breed.name}}</h6>
-                  <h6 *ngIf="cat.isAdopted" class="theme-color lead">Adopted!</h6>
-                  <h6 *ngIf="!cat.isAdopted" class="theme-color lead">Not Adopted!</h6>
+                  <h3 class="dark-color">{{cat!.name}}</h3>
+                  <h6 class="theme-color lead">Breed : {{cat!.breed!.name}}</h6>
+                  <h6 *ngIf="cat!.isAdopted" class="theme-color lead">Adopted!</h6>
+                  <h6 *ngIf="!cat!.isAdopted" class="theme-color lead">Not Adopted!</h6>
                   <div class="row about-list">
                       <div class="col-md-6">
                           <div class="media">
                               <label>Birthday</label> 
-                              <p>{{cat.birthDate| date}} </p>
+                              <p>{{cat!.birthDate| date}} </p>
                           </div>
                           <div class="media">
                               <label>Age</label>
-                              <p>{{cat.age}}</p>
+                              <p>{{cat!.age}}</p>
                           </div>
                           <div class="media">
                               <label>Gender</label>
-                              <p>{{cat.gender}}</p>
+                              <p>{{cat!.gender!.title}}</p>
                           </div>
                       </div>
                       <div class="col-md-6">
-                            <button *ngIf="!cat.isAdopted" id="adoptButton" (click)="adoptCat()"> ADOPT {{cat.name | uppercase}}</button>
+                            <button *ngIf="!cat!.isAdopted" id="adoptButton" (click)="adoptCat()"> ADOPT {{cat!.name | uppercase}}</button>
                       </div>
                   </div>
               </div>
           </div>
           <div class="col-lg-6">
               <div class="about-avatar">
-                  <img src="{{cat.image}}" title="" alt="">
+                  <img src="{{cat!.image}}" title="" alt="">
               </div>
           </div>
       </div>
-      <p id="catDescription">{{cat.description}}</p>
+      <p id="catDescription">{{cat!.description}}</p>
       <app-table 
         [tableData]="tableData"
         [columnHeader]="columnHeader"

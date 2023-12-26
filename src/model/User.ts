@@ -22,7 +22,7 @@ export class User {
   cats: Cat[] = [];
   profileDescription?: string;
 
-  ageCalculator(birthdate: Date): number {
+  static ageCalculator(birthdate: Date): number {
     const today = new Date();
     const birthDate = new Date(birthdate);
     const yearsDiff = today.getFullYear() - birthDate.getFullYear();
@@ -55,7 +55,7 @@ export class User {
     this.username = username;
     this.password = password;
     this.birthDate = birthDate;
-    this.age = this.ageCalculator(this.birthDate);
+    this.age = User.ageCalculator(this.birthDate);
     this.role = role;
     this.location = location;
     this.followers = followers;
@@ -75,8 +75,9 @@ export class User {
         username: user.username,
         password: user.password,
         birthDate: user.birthDate,
-        role: Role.toFirebase(user.role),
+        age: user.age,
         location: Location.toFirebase(user.location),
+        role: Role.toFirebasePath(user.role!.id),
         followers: user.followers.map((follower) => User.toFirebase(follower)),
         following: user.following.map((following) => User.toFirebase(following)),
         posts: user.posts.map((post) => Article.toFirebase(post)),
@@ -88,6 +89,11 @@ export class User {
     return null
   }
 
+  static toFirebasePath(userId: string){
+    const collectionName = 'Users/'
+    return collectionName + userId
+  }
+
    static async fromFirebase(data: any): Promise<User | null> {
     return new User(
       data.id,
@@ -96,12 +102,12 @@ export class User {
       data.username,
       data.password,
       data.birthDate.toDate(),
-      await Role.fromFireBasePath(data.role._key.toString()),
-      await Location.fromFireBasePath(data.location._key.toString()),      
-      data.followers.map((follower: any) => User.fromFirebase(follower)),
-      data.following.map((following: any) => User.fromFirebase(following)),
-      data.posts.map((post: any) => Article.fromFirebase(post)),
-      data.cats.map((cat: any) => Cat.fromFirebase(cat)),
+      await Role.fromFireBasePath(data.role),
+      Location.fromFirebase(data.location),
+      data.followers.length ? await Promise.all(data.followers.map(async (user : string) => await User.fromFireBasePath(user))) : [],
+      data.following.length ? await Promise.all(data.following.map(async (user : string) => await User.fromFireBasePath(user))) : [],      
+      data.posts.length ? await Promise.all(data.posts.map(async (post : string) => await Article.fromFireBasePath(post))) : [],
+      data.cats.length ? await Promise.all(data.cats.map(async (cat : string) => await Cat.fromFireBasePath(cat))) : [],
       data.profilePhoto,
       data.profileDescription
     );

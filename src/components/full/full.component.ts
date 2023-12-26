@@ -29,90 +29,61 @@ export class FullComponent implements OnInit {
     this.user = await this.userService.getUser();
   }
 
+  ngAfterViewInit(){
+    this.customNavItems = [
+      {
+        badge : undefined,
+        class : 'mt-2',
+        divider : false,
+        icon: 'stars',
+        name: 'News',
+        title : false,
+        url : '/news',
+        variant : '-',
+        component : 'ArticlesComponent'
+      },
+      {
+        badge : undefined,
+        class : 'mt-2',
+        divider : false,
+        icon: 'pets',
+        name: 'Adopt a pet',
+        title : false,
+        url : '/adopt',
+        variant : '-',
+        component : 'AdoptComponent'
+      },
+      {
+        badge : undefined,
+        class : 'mt-2',
+        divider : false,
+        icon: 'face',
+        name: 'Contact a specialist',
+        title : false,
+        url : '/contact',
+        variant : '-',
+        component : 'ContactComponent'
+      },
+      {
+        badge : undefined,
+        class : 'mt-2',
+        divider : false,
+        icon: 'settings',
+        name: 'Admin',
+        title : false,
+        url : '/administrator',
+        variant : '-',
+        component : 'AdministratorComponent'
+      }
+    ]
+  }
+
   public user : User | null = null 
   @Output() userLoggedIn = new EventEmitter<boolean>
+  public customNavItems : CustomINavData[] = []
 
   public isExpanded = true;
   public isCollapsed = false;
-
-  public customNavItems : CustomINavData[] = [
-    {
-      badge : undefined,
-      children : [
-        {
-          badge : undefined,
-          class : 'mt-2',
-          divider : false,
-          icon: '',
-          name: 'All',
-          title : false,
-          url : '/news/all',
-          variant : '-'
-        },
-        {
-          badge : undefined,
-          class : 'mt-2',
-          divider : false,
-          icon: '',
-          name: 'Funny',
-          title : false,
-          url : '/news/funny',
-          variant : '-'
-        },
-        {
-          badge : undefined,
-          class : 'mt-2',
-          divider : false,
-          icon: '',
-          name: 'Cute',
-          title : false,
-          url : '/news/cute',
-          variant : '-'
-        }
-      ],
-      class : 'mt-2',
-      divider : false,
-      icon: 'stars',
-      name: 'News',
-      title : false,
-      url : '/news',
-      variant : '-',
-      component : 'ArticlesComponent'
-    },
-    {
-      badge : undefined,
-      class : 'mt-2',
-      divider : false,
-      icon: 'pets',
-      name: 'Adopt a pet',
-      title : false,
-      url : '/adopt',
-      variant : '-',
-      component : 'AdoptComponent'
-    },
-    {
-      badge : undefined,
-      class : 'mt-2',
-      divider : false,
-      icon: 'face',
-      name: 'Contact a specialist',
-      title : false,
-      url : '/contact',
-      variant : '-',
-      component : 'ContactComponent'
-    },
-    {
-      badge : undefined,
-      class : 'mt-2',
-      divider : false,
-      icon: 'settings',
-      name: 'Admin',
-      title : false,
-      url : '/administrator',
-      variant : '-',
-      component : 'AdministratorComponent'
-    }
-  ]
 
   public canNavItemBeDisplayed(sidebarnavItem : CustomINavData){
     return this.roleService

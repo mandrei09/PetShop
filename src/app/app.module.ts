@@ -47,6 +47,7 @@ import { LoginComponent } from 'src/components/login/login.component';
 import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.component';
 import { PostsModalComponent } from 'src/components/postsModal/postsModal.component';
 import { AddCatModalComponent } from 'src/components/addCatModal/addCatModal.component';
+import { RegisterComponent } from 'src/components/register/register.component';
 
 @NgModule({
   declarations: [			
@@ -68,6 +69,7 @@ import { AddCatModalComponent } from 'src/components/addCatModal/addCatModal.com
     AccesDeniedComponent,
     PostsModalComponent,
     AddCatModalComponent,
+    RegisterComponent,
    ],
   imports: [
     BrowserModule,
@@ -90,8 +92,8 @@ import { AddCatModalComponent } from 'src/components/addCatModal/addCatModal.com
     MatDialogModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-
     ToastrModule.forRoot({tapToDismiss: true, closeButton: true, extendedTimeOut: 10000, progressBar: true, preventDuplicates: true, countDuplicates: true, positionClass: 'toast-bottom-right', newestOnTop: true}),
+
   ],
   providers: [
     UserService,

@@ -40,6 +40,10 @@ export class ArticlesComponent implements OnInit {
     });
     this.user = await this.userService.getUser()
   }
+
+  public onAddingPost(){
+    
+  }
   
 
 }
