@@ -48,6 +48,9 @@ import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.com
 import { PostsModalComponent } from 'src/components/postsModal/postsModal.component';
 import { AddCatModalComponent } from 'src/components/addCatModal/addCatModal.component';
 import { RegisterComponent } from 'src/components/register/register.component';
+import { AddArticleModalComponent } from 'src/components/addArticleModal/addArticleModal.component';
+import { TruncatePipe } from './pipes/Truncate/Truncate.pipe';
+import { ReplyService } from 'src/services/ReplyService/Reply.service';
 
 @NgModule({
   declarations: [			
@@ -70,6 +73,8 @@ import { RegisterComponent } from 'src/components/register/register.component';
     PostsModalComponent,
     AddCatModalComponent,
     RegisterComponent,
+    AddArticleModalComponent,
+    TruncatePipe,
    ],
   imports: [
     BrowserModule,
@@ -106,6 +111,8 @@ import { RegisterComponent } from 'src/components/register/register.component';
     RoleService,
     AuthGuard,
     AuthService,
+    TruncatePipe,
+    ReplyService
   ],
   bootstrap: [AppComponent],
 })

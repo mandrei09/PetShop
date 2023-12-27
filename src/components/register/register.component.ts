@@ -76,7 +76,6 @@ export class RegisterComponent implements OnInit {
         location,
         this.followers,
         this.following,
-        this.posts,
         this.cats,
         downloadURL,
         this.profileDescription

@@ -28,6 +28,8 @@ export class ProfileComponent implements OnInit {
 
   public user : User | null = null ;
 
+  public userPosts = []
+
   async ngOnInit() {
     this.user = await this.userService.getUser()
   }
@@ -35,7 +37,7 @@ export class ProfileComponent implements OnInit {
   createCat(){
     const dialogRef = this.dialog.open(AddCatModalComponent, {
       panelClass: 'centered-middle-modal', height: '100%', maxHeight: '100%', disableClose: true, width: '1000px', position: { bottom: '15%', top: 'auto'},
-      data: {}
+      data: {isAdopted : true}
     });
     dialogRef.afterClosed().subscribe((res) => {
     });

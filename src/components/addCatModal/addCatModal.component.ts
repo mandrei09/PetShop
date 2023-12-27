@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Breed } from 'src/model/Breed';
 import { Cat } from 'src/model/Cat';
 import { UserService } from 'src/services/UserService/User.service';
@@ -11,7 +11,7 @@ import { References } from 'src/model/References';
 import { PublicFunctions } from 'src/model/PublicFunctions';
 import { User } from 'src/model/User';
 import { Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CatService } from 'src/services/CatService/Cat.service';
 
 @Component({
@@ -28,7 +28,8 @@ export class AddCatModalComponent implements OnInit {
     private genderService : GenderService,
     private catService : CatService,
     private router : Router,
-    public dialogRef: MatDialogRef<AddCatModalComponent>
+    private dialogRef: MatDialogRef<AddCatModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) 
   {
     this.userService = userService
@@ -76,17 +77,16 @@ export class AddCatModalComponent implements OnInit {
         this.birthDate,
         this.age,
         this.breed,
-        true,
+        this.data.isAdopted,
         this.gender,
         downloadURL,
-        [this.user],
+        this.data.isAdopted ? [this.user] : [],
         this.description)
     
     const newCatId = await this.catService.addCattoFirebase(newCat)
-    await this.userService.addCatToUser(this.user,Cat.toFirebasePath(newCatId!)) 
+    if(this.data.isAdopted)
+      await this.userService.addCatToUser(this.user,Cat.toFirebasePath(newCatId!)) 
     this.dialogRef.close()
     this.router.navigate(['catProfile/' + newCatId])
   }
-  
-
 }

@@ -4,6 +4,7 @@ import { Article } from 'src/model/Article';
 import { Reply } from 'src/model/Reply';
 import { User } from 'src/model/User';
 import { ArticleService } from 'src/services/ArticleService/Article.service';
+import { ReplyService } from 'src/services/ReplyService/Reply.service';
 import { UserService } from 'src/services/UserService/User.service';
 
 @Component({
@@ -18,28 +19,37 @@ export class ArticleDetailComponent implements OnInit {
     private userService: UserService,
     private articleService: ArticleService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private replyService : ReplyService
   ) {
     this.userService = userService;
     this.articleService = articleService;
     this.router = router;
+    this.replyService = replyService;
   }
 
   async ngOnInit(){
-    this.route.params.subscribe((params: Params) => {
-      this.articleId = params['id']; 
-    });
-    //this.article = this.articleService.getArticle(this.articleId);
-    this.articlesLikesCount = this.articleService.getArtilesLikesCount(this.article.id)
-    this.articlesCommentsCount = this.articleService.getArtilesCommentsCount(this.article.id);
-    this.articlesSharesCount = this.articleService.getArtilesSharesCount(this.article.id);
-    this.articlesSavesCount = this.articleService.getArtilesSavesCount(this.article.id);
     this.user = await this.userService.getUser();
+    this.route.params.subscribe(async (params: Params) => {
+      this.articleId = params['id']
+    });
+    this.article = await this.articleService.firebaseGetArticleById(this.articleId);
+  }
+
+  ngAfterViewInit(){
+    this.articlesLikesCount = this.articleService.getArtilesLikesCount(this.article!)
+    this.articlesCommentsCount = this.articleService.getArtilesCommentsCount(this.article!);
+    this.articlesSharesCount = this.articleService.getArtilesSharesCount(this.article!);
+    this.articlesSavesCount = this.articleService.getArtilesSavesCount(this.article!);
+    this.isPostLiked = this.article!.likes.filter(user => user.id === this.user!.id).length !== 0
+    this.isPostSaved = this.article!.saves.filter(user => user.id === this.user!.id).length !== 0
+    this.initLikeCounterStyles()
+    this.initSavedCounterStyles()
   }
 
   public user: User | null = null
-  public articleId!: string;
-  public article! : Article
+  public articleId : string = ''
+  public article : Article | null = null
   public articlesLikesCount!: number
   public articlesCommentsCount!: number
   public articlesSharesCount!: number
@@ -49,7 +59,7 @@ export class ArticleDetailComponent implements OnInit {
     this.router.navigate(['profile/' + id]);
   }
 
-  public isPostLiked: boolean = false;
+  public isPostLiked!: boolean
   public isPostSaved: boolean = false;
   public areCommentsShown: boolean = false;
   public newComment: string = '';
@@ -57,33 +67,51 @@ export class ArticleDetailComponent implements OnInit {
   public isEditCommentButtonPressed: boolean = false;
   public selectedCommentIndex! : number;
 
-  public updateArticlesLikesCount() {
+  public async updateArticlesLikesCount() {
     this.changeLikeCounterStyles();
     if (!this.isPostLiked)
-      this.articlesLikesCount++; // provizoriu, pana modificam in baza de date
-    else this.articlesLikesCount--;
+    {
+      this.articlesLikesCount++; 
+      await this.articleService.addLikeToPost(this.article,User.toFirebasePath(this.user!.id))
+    }
+    else 
+    {
+      this.articlesLikesCount--;
+      await this.articleService.removeLikeFromPost(this.article,User.toFirebasePath(this.user!.id))
+
+    }
     this.isPostLiked = !this.isPostLiked;
   }
 
-  public updateArticlesCommentsCount() {
-    this.articlesCommentsCount++; // provizoriu, pana modificam in baza de date
-  }
-
   public updateArticlesSharesCount() {
-    this.articlesSharesCount++; // provizoriu, pana modificam in baza de date
+    this.articlesSharesCount++; 
   }
 
-  public updateArticlesSavesCount() {
+  public async updateArticlesSavesCount() {
     this.changeSavedCounterStyles();
     if (!this.isPostSaved)
-      this.articlesSavesCount++; // provizoriu, pana modificam in baza de date
-    else this.articlesSavesCount--;
+    {
+      this.articlesSavesCount++; 
+      await this.articleService.addSaveToPost(this.article,User.toFirebasePath(this.user!.id))
+
+    }
+    else
+    {
+      this.articlesSavesCount--;
+      await this.articleService.removeSaveFromPost(this.article,User.toFirebasePath(this.user!.id))
+
+    }
     this.isPostSaved = !this.isPostSaved;
   }
 
   public likeCounterStyles = {
     color: this.isPostLiked ? 'red' : 'black',
   };
+
+  public initLikeCounterStyles() {
+    if (this.isPostLiked) this.likeCounterStyles = { color: 'red' };
+    else this.likeCounterStyles = { color: 'black' };
+  }
 
   public changeLikeCounterStyles() {
     if (!this.isPostLiked) this.likeCounterStyles = { color: 'red' };
@@ -94,6 +122,11 @@ export class ArticleDetailComponent implements OnInit {
     color: this.isPostSaved ? 'yellow' : 'black',
   };
 
+  public initSavedCounterStyles() {
+    if (this.isPostSaved) this.savedCounterStyles = { color: 'yellow' };
+    else this.savedCounterStyles = { color: 'black' };
+  }
+
   public changeSavedCounterStyles() {
     if (!this.isPostSaved) this.savedCounterStyles = { color: 'yellow' };
     else this.savedCounterStyles = { color: 'black' };
@@ -103,13 +136,14 @@ export class ArticleDetailComponent implements OnInit {
     this.areCommentsShown = !this.areCommentsShown;
   }
 
-  public onLeavingComment() {
+  public async onLeavingComment() {
     this.isLeaveAButtonButtonPressed = true;
     if(this.newComment!=='')
     {
-      let comment = new Reply('1000',this.user,new Date(),this.newComment)
-      //this.articleService.addComment(this.articleId,comment)
-      this.articlesCommentsCount = this.articleService.getArtilesCommentsCount(this.article.id);
+      const newComment = new Reply('',this.user,new Date(),this.newComment)
+      const newCommentId = await this.replyService.addReplytoFirebase(newComment)
+      await this.replyService.addReplyToArticle(this.article,Reply.toFirebasePath(newCommentId!)) 
+      this.article = await this.articleService.firebaseGetArticleById(this.articleId);
       this.newComment = ''
     }
   }
@@ -117,24 +151,28 @@ export class ArticleDetailComponent implements OnInit {
   public onEditComment(index : number){
     this.isLeaveAButtonButtonPressed = true
     this.isEditCommentButtonPressed = !this.isEditCommentButtonPressed
-    this.newComment = this.article.comments[index].content
+    this.newComment = this.article!.comments[index].content
     this.selectedCommentIndex = index
   }
 
-  public editComment(){
-    this.article.comments[this.selectedCommentIndex].content = this.newComment
+  public async editComment(){
+    this.article!.comments[this.selectedCommentIndex].content = this.newComment
+    await this.replyService.updateReply(this.article!.comments[this.selectedCommentIndex])
     this.isEditCommentButtonPressed = !this.isEditCommentButtonPressed
     this.newComment = ''
     this.isLeaveAButtonButtonPressed = !this.isLeaveAButtonButtonPressed
   }
 
-  public onDeleteComment(commentId : string){
-    this.article.comments = this.article.comments.filter(item => item.id != commentId)
+  public async onDeleteComment(commentId : string){
+    this.article!.comments = this.article!.comments.filter(item => item.id != commentId)
+    await this.replyService.deleteReplyFromArticle(this.article)
+    await this.replyService.deleteReplyFromFirebase(commentId)
     this.articlesCommentsCount --
   }
 
   public onDeletingPost(){
-    this.articleService.deleteArticle(this.articleId)
+    this.articleService.deleteArticleFromFirebase(this.articleId)
+    this.replyService.deleteAllRepliesFromArticleFromFirebase(this.article!.comments)
     this.router.navigate(["/news"])
   }
 }

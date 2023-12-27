@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Article } from 'src/model/Article';
 import { ArticleService } from 'src/services/ArticleService/Article.service';
 
 @Component({
@@ -22,11 +23,12 @@ export class PostsModalComponent implements OnInit {
     this.router = router
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.posts = await this.articleService.getPosts(this.data.methodIndex)
   }
 
   public title : string = this.data.title
-  public posts = this.articleService.getPosts(this.data.methodIndex)
+  public posts : Article[] | [] = [] 
 
   navigateToProfile(id : string){
     this.router.navigate(['profile/' + id])

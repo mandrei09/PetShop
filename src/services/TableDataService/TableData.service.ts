@@ -19,11 +19,11 @@ constructor
     this.userService = userService;
   }
 
-  public getAdoptTableData(cat : Cat | null){
+   public async getAdoptTableData(cat : Cat | null){
     if(cat)
-      return of(cat.owners);
+      return await of(cat.owners);
     else
-      return of([])
+      return await of([])
   }
 
   public getAdministratorTableData(){

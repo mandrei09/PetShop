@@ -10,9 +10,10 @@ export class Article {
   content?: string;
   user: User | null;
   date?: Date;
-  comments: Reply[] | [];
-  likes : number[] | [];
-  saves : number[] | [];
+  comments: Reply[]
+  likes : User[] | [];
+  saves : User[] | [];
+  shares : User[] | [];
 
   constructor(
     id: string,
@@ -22,8 +23,9 @@ export class Article {
     user: User | null,
     date: Date,
     comments: Reply[] | [],
-    likes : number[] | [],
-    saves : number[] | []
+    likes : User[] | [],
+    saves : User[] | [],
+    shares : User[] | []
   ) 
   {
     this.id = id;
@@ -35,6 +37,7 @@ export class Article {
     this.comments = comments;
     this.likes = likes;
     this.saves = saves
+    this.shares = shares
   }
 
   static toFirebase(article: Article): any {
@@ -46,7 +49,10 @@ export class Article {
         content: article.content,
         user: User.toFirebasePath(article.user!.id),
         date: article.date,
-        comments: article.comments.map((comment) => Reply.toFirebase(comment))
+        comments: article.comments.map((comment) => Reply.toFirebasePath(comment!.id)),
+        likes : article.likes.map((like) => User.toFirebasePath(like!.id)),
+        saves : article.saves.map((save) => User.toFirebasePath(save!.id)),
+        shares : article.shares.map((share) => User.toFirebasePath(share!.id))
       };
     }
     return null 
@@ -65,9 +71,10 @@ export class Article {
       data.content,
       await User.fromFireBasePath(data.user),
       data.date.toDate(),
-      data.comments.map((comment: any) => Reply.fromFirebase(comment)),
-      data.likes,
-      data.saves
+      data.comments.length ? await Promise.all(data.comments.map(async (comment : string) => await Reply.fromFireBasePath(comment))) : [],
+      data.likes.length ? await Promise.all(data.likes.map(async (like : string) => await User.fromFireBasePath(like))) : [],
+      data.saves.length ? await Promise.all(data.saves.map(async (save : string) => await User.fromFireBasePath(save))) : [],
+      data.shares.length ? await Promise.all(data.shares.map(async (share : string) => await User.fromFireBasePath(share))) : [],
     );
   }
 

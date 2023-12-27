@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { Article } from 'src/model/Article';
 import { UserService } from '../UserService/User.service';
 import { Reply } from 'src/model/Reply';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
+import { ConfigAPI } from 'src/model/ConfigAPI';
+import { User } from 'src/model/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
 
+  public collectionName = 'Articles'
   constructor(
     private userService : UserService
   ) 
@@ -15,123 +19,181 @@ export class ArticleService {
     this.userService = userService;
   }
 
-  //user = this.userService.getUser()
-
-  private articles : Article[] = [
-    // {
-    //   id : '0',
-    //   title : 'Titlu 1',
-    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-    //   content : 'Content 1',
-    //   user : this.user,
-    //   date : new Date('2023-10-21'),
-    //   comments : [ 
-    //     new Reply('0', this.user, new Date(), 'This is a sample comment.'),
-    //     new Reply('1', this.user, new Date(), 'This is a sample comment.'),
-    //     new Reply('2', this.user, new Date(), 'This is a sample comment.')]
-    // },
-    // {
-    //   id : '1',
-    //   title : 'Titlu 2',
-    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-    //   content : 'Content 1',
-    //   user : this.user,
-    //   comments : [new Reply('5', this.user, new Date(), 'This is a sample comment.')]
-    // },
-    // {
-    //   id : '2',
-    //   title : 'Titlu 3',
-    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-    //   content : 'Content 1',
-    //   user : this.user,
-    //   comments : []
-    // },
-    // {
-    //   id : '3',
-    //   title : 'Titlu 3',
-    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-    //   content : 'Content 1',
-    //   user : this.user,
-    //   comments : []
-    // },
-    // {
-    //   id : '4',
-    //   title : 'Titlu 3',
-    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-    //   content : 'Content 1',
-    //   user : this.user,
-    //   comments : [new Reply('3', this.user, new Date(), 'This is a sample comment.')]
-    // },
-    // {
-    //   id : '5',
-    //   title : 'Titlu 3',
-    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-    //   content : 'Content 1',
-    //   user : this.user,
-    //   comments : []
-    // },
-    // {
-    //   id : '6',
-    //   title : 'Titlu 1',
-    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-    //   content : 'Content 1',
-    //   user : this.user,
-    //   comments : []
-    // },
-    // {
-    //   id : '7',
-    //   title : 'Titlu 1',
-    //   image : 'https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-jumbo.jpg?quality=75&auto=webp',
-    //   content : 'Content 1',
-    //   user : this.user,
-    //   comments : []
-    // }
-  ]
-
-  getArticles(){
-    return this.articles
+  public async firebaseGetAllArticles(): Promise<Article[]> {
+    try {
+      const articlesCollectionRef = collection(ConfigAPI.db, this.collectionName);
+      const querySnapshot = await getDocs(articlesCollectionRef);
+  
+      const articles: Article[] = [];
+      for (const doc of querySnapshot.docs) {
+        const articleData = doc.data();
+        const article = await Article.fromFirebase({
+          id: doc.id,
+          ...articleData,
+        });
+        if (article !== null) {
+          articles.push(article);
+        }
+      }
+      return articles;
+    } catch (error) {
+      console.error('Error getting articles: ', error);
+      return [];
+    }
   }
 
-  getArticle(id : string){
-    //return this.articles[id]
-    //return null
+  public async firebaseGetArticleById(articleId : string): Promise<Article | null> {
+    try {
+      const articlesCollectionRef = doc(ConfigAPI.db, this.collectionName, articleId);
+      const querySnapshot = await getDoc(articlesCollectionRef);
+      const articleData = querySnapshot.data();
+      const article = await Article.fromFirebase({
+          id: querySnapshot.id,
+          ...articleData,
+        });
+      return article;
+    }
+    catch (error) {
+      console.error('Error getting article: ', error);
+      return null;
+    }
   }
 
-  getArtilesLikesCount(articleId : string){
-    return -1
+  public async addArticletoFirebase(article: Article): Promise<string | null> {
+    try {
+      const articleData = Article.toFirebase(article);
+      const articlesCollectionRef = collection(ConfigAPI.db, this.collectionName);
+      const newCatRef = await addDoc(articlesCollectionRef, articleData);
+      return newCatRef.id;
+    } catch (error) {
+      console.error('Error adding article: ', error);
+      return null;
+    }
   }
 
-  getArtilesCommentsCount(articleId : string){
-    //return this.articles[articleId].comments.length;
-    return -1
+  getArtilesLikesCount(article : Article){
+    return article.likes.length
   }
 
-  getArtilesSharesCount(articleId : string){
-    return -3
+  public async addLikeToPost(article: Article | null, userPath : string): Promise<void> {
+    try {
+      const articleDocRef = doc(ConfigAPI.db, this.collectionName, article!.id); 
+      await updateDoc(articleDocRef, {
+        likes: [...article!.likes, userPath] 
+      });
+      
+      console.log('Post liked!');
+    } catch (error) {
+      console.error('Error liking post:', error);
+    }
   }
 
-  getArtilesSavesCount(articleId : string){
-    return -4
+  public async removeLikeFromPost(article: Article | null, userPath : string): Promise<void> {
+    try {
+      const articleDocRef = doc(ConfigAPI.db, this.collectionName, article!.id);
+      const updatedLikes = article!.likes.filter((user) => User.toFirebasePath(user.id) !== userPath); 
+      await updateDoc(articleDocRef, {
+        likes: updatedLikes
+      });
+      
+      console.log('Post unliked!');
+    } catch (error) {
+      console.error('Error unliking post:', error);
+    }
   }
 
-  getPosts(index : number){
-    if(index == 0) return this.getLikedPosts()
-    else return this.getSavedPosts()
+  public async addSaveToPost(article: Article | null, userPath : string): Promise<void> {
+    try {
+      const articleDocRef = doc(ConfigAPI.db, this.collectionName, article!.id); 
+      await updateDoc(articleDocRef, {
+        saves: [...article!.saves, userPath] 
+      });
+      
+      console.log('Post saved!');
+    } catch (error) {
+      console.error('Error saving post:', error);
+    }
   }
 
-  getLikedPosts(){
-    return this.articles
+  public async removeSaveFromPost(article: Article | null, userPath : string): Promise<void> {
+    try {
+      const articleDocRef = doc(ConfigAPI.db, this.collectionName, article!.id);
+      const updatedSaves = article!.saves.filter((user) => User.toFirebasePath(user.id) !== userPath); 
+      await updateDoc(articleDocRef, {
+        saves: updatedSaves
+      });
+      
+      console.log('Post unsaved!');
+    } catch (error) {
+      console.error('Error unsaving post:', error);
+    }
   }
 
-  getSavedPosts(){
-    return this.articles
+  public async deleteArticleFromFirebase(articleId: string): Promise<void> {
+    try {
+      const articleDocRef = doc(ConfigAPI.db, this.collectionName, articleId);
+      await deleteDoc(articleDocRef);
+      console.log('Article deleted successfully!');
+    } 
+    catch (error) {
+      console.error('Error deleting Article:', error);
+    }
   }
 
-  addComment(articleId : number,comment : Reply){
-    //this.articles[articleId].comments.push(comment)
+  getArtilesCommentsCount(article : Article){
+    return article.comments.length
   }
 
-  deleteArticle(articleId : string){
-    this.articles = this.articles.filter(item => item.id != articleId)
+  getArtilesSharesCount(article : Article){
+    return article.shares.length
+  }
+
+  getArtilesSavesCount(article : Article){
+    return article.saves.length
+  }
+
+  async getPosts(index : number){
+    if(index == 0) return await this.getLikedPosts()
+    else return await this.getSavedPosts()
+  }
+
+  public getArticleLikes(article : Article){
+    return article.likes.map((user : User) => User.toFirebasePath(user.id))
+  }
+
+  public async getLikedPosts() {
+    try {
+      const allArticles = await this.firebaseGetAllArticles();
+      const currentUser = await this.userService.getUser();
+  
+      const likedArticles: Article[] = allArticles.filter((article: Article) =>
+        (this.getArticleLikes(article)).includes(User.toFirebasePath(currentUser!.id))
+      );
+  
+      return likedArticles;
+    } catch (error) {
+      console.error('Error fetching liked posts:', error);
+      return [];
+    }
+  }
+  
+  public getArticleSaves(article : Article){
+    return article.saves.map((user : User) => User.toFirebasePath(user.id))
+  }
+
+  public async getSavedPosts() {
+    try {
+      const allArticles = await this.firebaseGetAllArticles();
+      const currentUser = await this.userService.getUser();
+  
+      const savedArticles: Article[] = allArticles.filter((article: Article) =>
+        (this.getArticleSaves(article)).includes(User.toFirebasePath(currentUser!.id))
+      );
+  
+      return savedArticles;
+    } catch (error) {
+      console.error('Error fetching liked posts:', error);
+      return [];
+    }
   }
 }

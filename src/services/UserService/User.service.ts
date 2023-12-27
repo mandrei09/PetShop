@@ -95,6 +95,19 @@ export class UserService {
     }
   }
 
+  public async deleteCatFromUser(user: User | null): Promise<void> {
+    try {
+      const userDocRef = doc(ConfigAPI.db, 'Users', user!.id); 
+      await updateDoc(userDocRef, {
+        cats: [] 
+      });
+      
+      console.log('Cat deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting cat!', error);
+    }
+  }
+
   public updateUser(userId : string, newRole : string){
     //
   }
