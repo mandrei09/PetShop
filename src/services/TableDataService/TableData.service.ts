@@ -26,8 +26,8 @@ constructor
       return await of([])
   }
 
-  public getAdministratorTableData(){
-    return of(this.userService.firebaseGetAllUsers());
+  public async getAdministratorTableData(){
+    return await of(this.userService.firebaseGetAllUsers());
   }
   
   

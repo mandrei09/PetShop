@@ -11,7 +11,7 @@
         <mat-label>Update Role:</mat-label>
         <mat-select [(value)]="newRole">
           <mat-option *ngFor="let role of roles" [value]="role">
-            {{role}}
+            {{role.title}}
           </mat-option>
         </mat-select>      
       </mat-form-field>

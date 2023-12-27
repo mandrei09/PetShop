@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/model/User';
 import { RoleService } from '../RoleService/Role.service';
-import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { ConfigAPI } from 'src/model/ConfigAPI';
 import { Cat } from 'src/model/Cat';
 
@@ -15,11 +15,12 @@ export class UserService {
    this.roleService = roleService;
   }
 
+  private collectionName = 'Users'
   private currentUser! : User 
 
   public async firebaseGetAllUsers(): Promise<User[]> {
     try {
-      const usersCollectionRef = collection(ConfigAPI.db, 'Users');
+      const usersCollectionRef = collection(ConfigAPI.db, this.collectionName);
       const querySnapshot = await getDocs(usersCollectionRef);
   
       const users: User[] = [];
@@ -50,7 +51,7 @@ export class UserService {
 
   public async firebaseGetCurentUser(userId : string): Promise<User | null> {
     try {
-      const usersCollectionRef = doc(ConfigAPI.db, 'Users',userId);
+      const usersCollectionRef = doc(ConfigAPI.db, this.collectionName, userId);
       const querySnapshot = await getDoc(usersCollectionRef);
       const userData = querySnapshot.data();
       const user = await User.fromFirebase({
@@ -68,7 +69,7 @@ export class UserService {
   public async addUserToFirebase(user: User): Promise<string | null> {
     try {
       const userData = User.toFirebase(user);
-      const userCollectionRef = collection(ConfigAPI.db, 'Users');
+      const userCollectionRef = collection(ConfigAPI.db, this.collectionName);
       const newUserRef = await addDoc(userCollectionRef, userData);
       return newUserRef.id;
     } 
@@ -84,7 +85,7 @@ export class UserService {
 
   public async addCatToUser(user: User | null, catPath : string): Promise<void> {
     try {
-      const userDocRef = doc(ConfigAPI.db, 'Users', user!.id); 
+      const userDocRef = doc(ConfigAPI.db, this.collectionName, user!.id); 
       await updateDoc(userDocRef, {
         cats: [...user!.cats, catPath] 
       });
@@ -97,7 +98,7 @@ export class UserService {
 
   public async deleteCatFromUser(user: User | null): Promise<void> {
     try {
-      const userDocRef = doc(ConfigAPI.db, 'Users', user!.id); 
+      const userDocRef = doc(ConfigAPI.db, this.collectionName, user!.id); 
       await updateDoc(userDocRef, {
         cats: [] 
       });
@@ -108,12 +109,28 @@ export class UserService {
     }
   }
 
-  public updateUser(userId : string, newRole : string){
-    //
+  public async updateRole(userId : string, rolePath : string): Promise<void> {
+    try {
+      const userDocRef = doc(ConfigAPI.db, this.collectionName, userId); 
+      await updateDoc(userDocRef, {
+        role: rolePath 
+      });
+      
+      console.log('Role updated!');
+    } catch (error) {
+      console.error('Error updating role!', error);
+    }
   }
 
-  public deleteUser(userId : string){
-    //
+  public async deleteUserFromFirebase(userId: string): Promise<void> {
+    try {
+      const userDocRef = doc(ConfigAPI.db, this.collectionName, userId);
+      await deleteDoc(userDocRef);
+      console.log('User deleted successfully!');
+    } 
+    catch (error) {
+      console.error('Error deleting User:', error);
+    }
   }
 
 }

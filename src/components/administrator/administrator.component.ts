@@ -33,7 +33,7 @@ export class AdministratorComponent implements OnInit {
   public selectedItems : any = []
 
   async ngOnInit() {
-     this.tableDataService.getAdministratorTableData().subscribe(async res => {
+     (await this.tableDataService.getAdministratorTableData()).subscribe(async res => {
       (await res).map(item => {
         this.tableData.push(item)
       });
@@ -49,13 +49,13 @@ export class AdministratorComponent implements OnInit {
       panelClass: 'centered-middle-modal', height: '100%', maxHeight: '80%', disableClose: true, width: '1000px', position: { bottom: '15%', top: 'auto'},
       data: {parameters : this.selectedItems[0]}
     });
-    dialogRef.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe(async (res) => {
       if(res.actionType==='Save'){
-        this.userService.updateUser(this.selectedItems[0].id,res.updatedRole)
+        await this.userService.updateRole(this.selectedItems[0].id,res.updatedRole)
       }
       else
         if(res.actionType==='Delete'){
-          this.userService.deleteUser(this.selectedItems[0].id)
+          await this.userService.deleteUserFromFirebase(this.selectedItems[0].id)
         }
     });
   }

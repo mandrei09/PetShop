@@ -28,12 +28,12 @@ export class ModifyUserModalComponent implements OnInit {
   }
 
   public roles : Role[] = []
-  public newRole : string = ''
+  public newRole! : Role
 
   public selectedUser : User = this.data.parameters
 
-  ngOnInit() {
-    //this.roles=this.roleService.getRoles()
+  async ngOnInit() {
+    this.roles = await this.roleService.firebaseGetAllRoles()
   }
 
   public navigateToProfile(id : string){
@@ -42,7 +42,7 @@ export class ModifyUserModalComponent implements OnInit {
   }
 
   public onSaveUser(){
-    const data = { actionType: 'Save', updatedRole: this.newRole };
+    const data = { actionType: 'Save', updatedRole: Role.toFirebasePath(this.newRole.id) };
     this.dialogRef.close(data)
   }
 

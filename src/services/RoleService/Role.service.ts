@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { collection, getDocs } from 'firebase/firestore';
+import { ConfigAPI } from 'src/model/ConfigAPI';
 import { Role } from 'src/model/Role';
 
 type ComponentAccessRoles = {
@@ -13,6 +15,7 @@ type ComponentAccessRoles = {
 export class RoleService {
 
   constructor() { }
+  private collectionName = 'Roles'
 
   private componentAccessRoles : ComponentAccessRoles = {
     AdministratorComponent: { roles: ['Administrator'] },
@@ -28,6 +31,28 @@ export class RoleService {
   
   public getComponentAccesRoles(component: string) {
     return this.componentAccessRoles[component].roles;
+  }
+
+  public async firebaseGetAllRoles(): Promise<Role[]> {
+    try {
+      const roleCollectionRef = collection(ConfigAPI.db, this.collectionName);
+      const querySnapshot = await getDocs(roleCollectionRef);
+
+      const roles: Role[] = [];
+      querySnapshot.forEach((doc) => {
+        const roleData = doc.data();
+        const role = Role.fromFirebase({
+          id: doc.id,
+          ...roleData,
+        });
+        roles.push(role);
+      });
+
+      return roles;
+    } catch (error) {
+      console.error('Error getting roles: ', error);
+      return [];
+    }
   }
   
 }
