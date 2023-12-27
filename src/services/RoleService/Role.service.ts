@@ -14,13 +14,6 @@ export class RoleService {
 
   constructor() { }
 
-  // private roles: Role[] = [
-  //   new Role(0, 'User'),
-  //   new Role(1, 'Editor'),
-  //   new Role(2, 'Administrator')
-  // ];
-
-  
   private componentAccessRoles : ComponentAccessRoles = {
     AdministratorComponent: { roles: ['Administrator'] },
     ArticlesComponent: { roles: ['User', 'Editor', 'Administrator'] },
@@ -28,19 +21,11 @@ export class RoleService {
     ProfileComponent: { roles: ['User', 'Editor', 'Administrator'] },
     ProfileModalComponent: { roles: ['User', 'Editor', 'Administrator'] },
     AdoptComponent: { roles: ['User', 'Editor', 'Administrator'] },
-    CatProfileComponent: { roles: ['User', 'Editor', 'Administrator'] },
+    CatProfileComponent: { roles: ['User', 'Editor', 'A,dministrator'] },
+    ProblemsComponent: { roles: ['Editor', 'Administrator'] },
     ContactComponent: { roles: ['User', 'Editor', 'Administrator'] },
   };
   
-
-  // public getRoles(){
-  //   return this.roles;
-  // }
-
-  // public getRole(id : number){
-  //   return this.roles[id]
-  // }
-
   public getComponentAccesRoles(component: string) {
     return this.componentAccessRoles[component].roles;
   }

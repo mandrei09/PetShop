@@ -56,6 +56,7 @@ export class CatProfileComponent implements OnInit {
 
   async setCanYouAdoptCat(){
     this.canYouAdoptCat = !this.user!.cats!.length && !this.cat!.isAdopted 
+      && !this.user!.cats.filter((cat : Cat) => cat.id === this.cat!.id).length
   }
 
   async setCanYouUnadoptCat(){

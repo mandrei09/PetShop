@@ -12,6 +12,7 @@ import { AuthGuard } from './auth.guard';
 import { FullComponent } from 'src/components/full/full.component';
 import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.component';
 import { RegisterComponent } from 'src/components/register/register.component';
+import { ProblemsComponent } from 'src/components/problems/problems.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,12 @@ const routes: Routes = [
     component: AdministratorComponent,
     canActivate: [AuthGuard],
     data : {roles : ['Administrator']}
+  },
+  {
+    path: 'problems',
+    component: ProblemsComponent,
+    canActivate: [AuthGuard],
+    data : {roles : ['Editor','Administrator']}
   },
   {
     path: '',

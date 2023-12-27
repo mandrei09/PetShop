@@ -68,6 +68,17 @@ export class FullComponent implements OnInit {
         badge : undefined,
         class : 'mt-2',
         divider : false,
+        icon: 'report_problem',
+        name: 'Problems',
+        title : false,
+        url : '/problems',
+        variant : '-',
+        component : 'ProblemsComponent'
+      },
+      {
+        badge : undefined,
+        class : 'mt-2',
+        divider : false,
         icon: 'settings',
         name: 'Admin',
         title : false,

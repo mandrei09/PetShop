@@ -51,6 +51,7 @@ import { RegisterComponent } from 'src/components/register/register.component';
 import { AddArticleModalComponent } from 'src/components/addArticleModal/addArticleModal.component';
 import { TruncatePipe } from './pipes/Truncate/Truncate.pipe';
 import { ReplyService } from 'src/services/ReplyService/Reply.service';
+import { ProblemsComponent } from 'src/components/problems/problems.component';
 
 @NgModule({
   declarations: [			
@@ -75,6 +76,7 @@ import { ReplyService } from 'src/services/ReplyService/Reply.service';
     RegisterComponent,
     AddArticleModalComponent,
     TruncatePipe,
+    ProblemsComponent,
    ],
   imports: [
     BrowserModule,
