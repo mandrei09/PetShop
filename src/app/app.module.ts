@@ -52,6 +52,7 @@ import { AddArticleModalComponent } from 'src/components/addArticleModal/addArti
 import { TruncatePipe } from './pipes/Truncate/Truncate.pipe';
 import { ReplyService } from 'src/services/ReplyService/Reply.service';
 import { ProblemsComponent } from 'src/components/problems/problems.component';
+import { UserModalComponent } from 'src/components/userModal/userModal.component';
 
 @NgModule({
   declarations: [			
@@ -77,6 +78,7 @@ import { ProblemsComponent } from 'src/components/problems/problems.component';
     AddArticleModalComponent,
     TruncatePipe,
     ProblemsComponent,
+    UserModalComponent
    ],
   imports: [
     BrowserModule,

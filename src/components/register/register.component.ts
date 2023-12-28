@@ -56,13 +56,14 @@ export class RegisterComponent implements OnInit {
 
   public async createUser(){
     let location  : Location = new Location('',this.locationState,this.locationCity,this.locationAddress)
-    let imagePath 
+    let imagePath, downloadURL 
     if(this.image!=undefined)
+    {
       imagePath = References.usersPhotosRef + this.image.name
+      downloadURL = await PublicFunctions.onUploadImage(this.image,imagePath)
+    }
     else 
-      imagePath = References.genericProfilePhoto
-    
-    const downloadURL = await PublicFunctions.onUploadImage(this.image,imagePath)
+      downloadURL = await PublicFunctions.getDownloadURL(References.genericProfilePhoto)
 
     let newUser : User = 
       new User(

@@ -3,46 +3,52 @@
       <div class="row align-items-center flex-row-reverse">
           <div class="col-lg-6">
               <div class="about-text go-to">
-                  <h3 class="dark-color">@{{user!.username}}</h3>
-                  <h6 class="theme-color lead">Role : {{user!.role!.title}}</h6>
-                  <p>{{user!.profileDescription}}</p>
+                  <h3 class="dark-color">@{{profileUser!.username}}</h3>
+                  <h6 class="theme-color lead">Role : {{profileUser!.role!.title}}</h6>
+                  <p>{{profileUser!.profileDescription}}</p>
                   <div class="row about-list">
                       <div class="col-md-6">
                           <div class="media">
                               <label>Birthday</label> 
-                              <p>{{user!.birthDate | date}} </p>
+                              <p>{{profileUser!.birthDate | date}} </p>
                           </div>
                           <div class="media">
                               <label>Age</label>
-                              <p>{{user!.age}}</p>
+                              <p>{{profileUser!.age}}</p>
                           </div>
                           <div class="media">
                               <label>Address</label>
-                              <p>{{user!.location!.state}}, {{user!.location!.city}}, {{user!.location!.address}}</p>
+                              <p>{{profileUser!.location!.state}}, {{profileUser!.location!.city}}, {{profileUser!.location!.address}}</p>
                           </div>
                           <div class="media">
                             <div class="cats-profile-button">
-                                <div class="view-cats-profile" *ngIf="user!.cats.length === 1; else create_cats_profile">
-                                  <button 
-                                  *ngFor="let cat of user!.cats" 
-                                  (click)="viewCatsProfile(cat.id)">View {{cat.name}}'s Profile</button>
+                                <div class="buttons">
+                                    <div class="view-cats-profile" *ngIf="profileUser!.cats.length === 1; else create_cats_profile">
+                                        <button 
+                                        *ngFor="let cat of profileUser!.cats" 
+                                        (click)="viewCatsProfile(cat.id)">View {{cat.name}}'s Profile</button>
+                                      </div>
+                                      <div class="follow-unfollow-button" *ngIf="areFollowUnfollowButtonsShown"> 
+                                          <button *ngIf="isFollowButtonShown" (click)="follow()">Follow</button>
+                                          <button *ngIf="!isFollowButtonShown" (click)="unfollow()">Unfollow</button>
+                                      </div>
+                                      <ng-template #create_cats_profile>
+                                        <div class="create-cats-profile">
+                                          <button (click)="createCat()">Add your cat!</button>
+                                        </div>
+                                      </ng-template>
                                 </div>
-                                <ng-template #create_cats_profile>
-                                  <div class="create-cats-profile">
-                                    <button (click)="createCat()">Add your cat!</button>
-                                  </div>
-                                </ng-template>
                               </div>
                           </div>
                       </div>
                       <div class="col-md-6">
                           <div class="media">
                               <label>E-mail</label>
-                              <p>{{user!.email}}</p>
+                              <p>{{profileUser!.email}}</p>
                           </div>
                           <div class="media">
                               <label>Phone</label>
-                              <p>{{user!.phoneNumber}}</p>
+                              <p>{{profileUser!.phoneNumber}}</p>
                           </div>
                       </div>
                   </div>
@@ -50,7 +56,7 @@
           </div>
           <div class="col-lg-6">
               <div class="about-avatar">
-                  <img src="{{user!.profilePhoto}}" title="" alt="">
+                  <img src="{{profileUser!.profilePhoto}}" title="" alt="">
               </div>
           </div>
           
@@ -58,32 +64,37 @@
       <div class="counter">
           <div class="row">
               <div class="col-6 col-lg-3">
-                  <div class="count-data text-center">
-                      <h6 class="count h2" data-to="150" data-speed="150">{{user!.followers.length}}</h6>
+                  <div class="count-data text-center" (click)="viewFollowersList()">
+                      <h6 class="count h2" data-to="150" data-speed="150">{{followers}}</h6>
                       <p class="m-0px font-w-600">Followers</p>
                   </div>
               </div>
-              <div class="col-6 col-lg-3">
+              <div class="col-6 col-lg-3" (click)="viewFollowingList()">
                   <div class="count-data text-center">
-                      <h6 class="count h2" data-to="850" data-speed="850">{{user!.following.length}}</h6>
+                      <h6 class="count h2" data-to="850" data-speed="850">{{following}}</h6>
                       <p class="m-0px font-w-600">Following</p>
                   </div>
               </div>
               <div class="col-6 col-lg-3">
                   <div class="count-data text-center">
-                      <h6 class="count h2" data-to="190" data-speed="190">{{userPosts.length}}</h6>
+                      <h6 class="count h2" data-to="190" data-speed="190">{{profileUserPosts.length}}</h6>
                       <p class="m-0px font-w-600">Posts</p>
                   </div>
               </div>
               <div class="col-6 col-lg-3">
                 <div class="count-data text-center">
-                    <h6 class="count h2" data-to="190" data-speed="190">-1</h6>
+                    <h6 class="count h2" data-to="190" data-speed="190">{{totalLikes}}</h6>
                     <p class="m-0px font-w-600">Likes</p>
                 </div>
             </div>
           </div>
       </div>
-      <app-articles [inProfile]="true"></app-articles>
+      <div *ngIf="profileUserPosts.length">
+        <app-articles 
+            [inProfile]="true" 
+            [articles]="profileUserPosts">
+        </app-articles>
+      </div>
   </div>
 </section>
 

@@ -4,6 +4,7 @@ import { RoleService } from '../RoleService/Role.service';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { ConfigAPI } from 'src/model/ConfigAPI';
 import { Cat } from 'src/model/Cat';
+import { UserSimpleDetail } from 'src/model/UserSimpleDetail';
 
 @Injectable({
   providedIn: 'root'
@@ -45,8 +46,14 @@ export class UserService {
   public async setCurrentUser(username : string, password : string){
     const users = (await this.firebaseGetAllUsers())
       .filter(user => user.username === username && user.password === password)
-    this.currentUser = users[0]
-    sessionStorage.setItem('USERID',this.currentUser.id)
+    if(users.length)
+    {
+      this.currentUser = users[0]
+      sessionStorage.setItem('USERID',this.currentUser.id)
+      return true
+    }
+    return false
+    
   }
 
   public async firebaseGetCurentUser(userId : string): Promise<User | null> {
@@ -93,6 +100,32 @@ export class UserService {
       console.log('Cat added to user successfully!');
     } catch (error) {
       console.error('Error adding cat to user:', error);
+    }
+  }
+
+  public async changeFollowers(user: User | null): Promise<void> {
+    try {
+      const userDocRef = doc(ConfigAPI.db, this.collectionName, user!.id); 
+      const followers = user!.followers.map((follower : UserSimpleDetail) => UserSimpleDetail.toFirebasePath(follower.id))
+      await updateDoc(userDocRef, {
+        followers: followers
+      });
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  public async changeFollowing(user: User | null): Promise<void> {
+    try {
+      const userDocRef = doc(ConfigAPI.db, this.collectionName, user!.id); 
+      const following = user!.following.map((user : UserSimpleDetail) => UserSimpleDetail.toFirebasePath(user.id))
+      await updateDoc(userDocRef, {
+        following: following 
+      });
+      
+    } catch (error) {
+      console.error(error);
     }
   }
 

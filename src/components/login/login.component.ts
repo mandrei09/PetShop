@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
    async onClickSubmit() {
 
       (await this.authService.login(this.userName, this.password))
-         .subscribe( data => { 
+         .subscribe( data => {
             this.userLoggedIn.emit(true)
             localStorage.setItem('lastSingedUser.usename', this.userName)
             localStorage.setItem('lastSingedUser.password',this.password)
-            if(data) this.router.navigate(['news']); 
+            if(data) this.router.navigate(['news']);
       });
    }
 

@@ -47,12 +47,14 @@ export class AddArticleModalComponent implements OnInit {
   public shares : User[] = []
 
   async createPost(){
-    let imagePath 
+    let imagePath, downloadURL
     if(this.image!=undefined)
+    {
       imagePath = References.articlesPhotoRef + this.image.name
+      downloadURL = await PublicFunctions.onUploadImage(this.image,imagePath)
+    }
     else 
-      imagePath = References.genericProfilePhoto
-    const downloadURL = await PublicFunctions.onUploadImage(this.image,imagePath)
+      downloadURL = await PublicFunctions.getDownloadURL(References.genericArticlePhoto)
     let newArticle : Article = 
       new Article(
         '',

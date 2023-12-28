@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="header">
+    <h2>{{title}}</h2>
+    <button class="modal-button" mat-button [mat-dialog-close]="true">
+      <mat-icon class="icon">close</mat-icon>
+    </button>
+  </div>
+  <div class="user-list">
+    <div class="user" *ngFor="let user of users; let i=index">
+      <div class="user-header">
+        <img class="profile-photo" [src]="user!.profilePhoto" alt="Profile">
+        <div class="user-info">
+          <span class="user-id" (click)="navigateToProfile(user!.id)">@{{user!.username}}</span>
+        </div>
+        <div class="buttons" *ngIf="showButtons">
+          <button *ngIf = "unfollowButton" (click)="unfollow(user!.id)"><mat-icon>edit</mat-icon></button>
+          <button *ngIf = "!unfollowButton" (click)="removeFromFollow(user!.id)"><mat-icon>edit</mat-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+   
+</div>

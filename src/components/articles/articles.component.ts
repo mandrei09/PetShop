@@ -31,7 +31,7 @@ export class ArticlesComponent implements OnInit {
   public searchBarInput : string | null = '';
 
   public user : User | null = null;  
-  public articles : Article[] | [] = []
+  @Input() public articles : Article[] | [] = []
 
 
   navigateToProfile(id : string){
@@ -43,7 +43,8 @@ export class ArticlesComponent implements OnInit {
       this.searchBarInput = queryParams.get('search');
     });
     this.user = await this.userService.getUser()
-    this.articles = await this.articleService.firebaseGetAllArticles()
+    if(!this.inProfile)
+      this.articles = await this.articleService.firebaseGetAllArticles()
   }
 
   public onAddingPost(){

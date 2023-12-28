@@ -42,6 +42,32 @@ export class ArticleService {
     }
   }
 
+  public async firebaseGetAllArticlesFromUser(userPath : string): Promise<Article[]> {
+    try {
+      const articlesCollectionRef = collection(ConfigAPI.db, this.collectionName);
+      const querySnapshot = await getDocs(articlesCollectionRef);
+  
+      const articles: Article[] = [];
+      for (const doc of querySnapshot.docs) {
+        const articleData = doc.data();
+        if(articleData['user'] === userPath)
+        {
+          const article = await Article.fromFirebase({
+            id: doc.id,
+            ...articleData,
+          });
+          if (article !== null) {
+            articles.push(article);
+          }
+        }
+      }
+      return articles;
+    } catch (error) {
+      console.error('Error getting articles: ', error);
+      return [];
+    }
+  }
+
   public async firebaseGetArticleById(articleId : string): Promise<Article | null> {
     try {
       const articlesCollectionRef = doc(ConfigAPI.db, this.collectionName, articleId);
@@ -63,8 +89,8 @@ export class ArticleService {
     try {
       const articleData = Article.toFirebase(article);
       const articlesCollectionRef = collection(ConfigAPI.db, this.collectionName);
-      const newCatRef = await addDoc(articlesCollectionRef, articleData);
-      return newCatRef.id;
+      const newArticleRef = await addDoc(articlesCollectionRef, articleData);
+      return newArticleRef.id;
     } catch (error) {
       console.error('Error adding article: ', error);
       return null;

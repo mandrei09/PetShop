@@ -4,6 +4,7 @@ import { Cat } from "./Cat";
 import { ConfigAPI } from "./ConfigAPI";
 import { Location } from "./Location";
 import { Role } from "./Role";
+import { UserSimpleDetail } from "./UserSimpleDetail";
 
 export class User {
   id: string;
@@ -15,9 +16,9 @@ export class User {
   age: number;
   location: Location | null;
   role: Role | null;
-  profilePhoto?: string = 'https://thumbor.unica.ro/unsafe/1600x1023/smart/filters:format(webp):contrast(8):quality(75)/https://www.tvmania.ro/wp-content/uploads/2023/01/cine-este-gheboasa-din-echipa-faimosilor-de-la-survivor-romania-2023-1-2.jpg';
-  followers: User[] = [];
-  following: User[] = [];
+  profilePhoto?: string
+  followers: UserSimpleDetail[] = [];
+  following: UserSimpleDetail[] = [];
   cats: Cat[] = [];
   profileDescription?: string;
 
@@ -41,8 +42,8 @@ export class User {
     birthDate: Date,
     role: Role | null,
     location: Location | null,
-    followers: User[],
-    following: User[],
+    followers: UserSimpleDetail[],
+    following: UserSimpleDetail[],
     cats: Cat[],
     profilePhoto?: string,
     profileDescription?: string
@@ -75,8 +76,8 @@ export class User {
         age: user.age,
         location: Location.toFirebase(user.location),
         role: Role.toFirebasePath(user.role!.id),
-        followers: user.followers.map((follower) => User.toFirebase(follower)),
-        following: user.following.map((following) => User.toFirebase(following)),
+        followers: user.followers.map((follower) => UserSimpleDetail.toFirebase(follower)),
+        following: user.following.map((following) => UserSimpleDetail.toFirebase(following)),
         cats: user.cats.map((cat) => Cat.toFirebase(cat)),
         profilePhoto: user.profilePhoto,
         profileDescription: user.profileDescription
@@ -100,8 +101,8 @@ export class User {
       data.birthDate.toDate(),
       await Role.fromFireBasePath(data.role),
       Location.fromFirebase(data.location),
-      data.followers.length ? await Promise.all(data.followers.map(async (user : string) => await User.fromFireBasePath(user))) : [],
-      data.following.length ? await Promise.all(data.following.map(async (user : string) => await User.fromFireBasePath(user))) : [],      
+      data.followers.length ? await Promise.all(data.followers.map(async (user : string) => await UserSimpleDetail.fromFireBasePath(user))) : [],
+      data.following.length ? await Promise.all(data.following.map(async (user : string) => await UserSimpleDetail.fromFireBasePath(user))) : [],      
       data.cats.length ? await Promise.all(data.cats.map(async (cat : string) => await Cat.fromFireBasePath(cat))) : [],
       data.profilePhoto,
       data.profileDescription

@@ -24,16 +24,31 @@ export class AuthService {
   isLogin: boolean = false;
 
   async login(userName: string, password: string): Promise<Observable<any>> {
-    await this.userService.setCurrentUser(userName,password)
-    const user = await this.userService.getUser()
+    if(!await this.userService.setCurrentUser(userName,password))
+    {
+      alert('THE USER/PASSWORD COMBINATION IS INCORRECT!')
+      return of(false).pipe(
+        delay(1000),
+        tap((val) => {
+        })
+      );
+    }
+    else{
+      const user = await this.userService.getUser()
     this.isUserLoggedIn = user != null && user!= undefined;
-    sessionStorage.setItem('STATE',this.isUserLoggedIn ? 'true' : 'false');
-    sessionStorage.setItem('ROLE',user!.role!.title)
+    if(this.isUserLoggedIn)
+    {
+      sessionStorage.setItem('STATE',this.isUserLoggedIn ? 'true' : 'false');
+      sessionStorage.setItem('ROLE',user!.role!.title)
+    }
+    
     return of(this.isUserLoggedIn).pipe(
       delay(1000),
       tap((val) => {
       })
     );
+    }
+    
   }
 
   logout(): void {

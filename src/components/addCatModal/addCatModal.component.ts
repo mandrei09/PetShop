@@ -2,8 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Breed } from 'src/model/Breed';
 import { Cat } from 'src/model/Cat';
 import { UserService } from 'src/services/UserService/User.service';
-import { addDoc, collection, doc, setDoc } from "firebase/firestore"; 
-import { ConfigAPI} from 'src/model/ConfigAPI'
 import { BreedService } from 'src/services/BreedService/Breed.service';
 import { Gender } from 'src/model/Gender';
 import { GenderService } from 'src/services/GenderService/Gender.service';
