@@ -1,5 +1,4 @@
 import { doc, getDoc } from "firebase/firestore";
-import { Article } from "./Article";
 import { Cat } from "./Cat";
 import { ConfigAPI } from "./ConfigAPI";
 import { Location } from "./Location";

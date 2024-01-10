@@ -15,11 +15,15 @@ import { AddArticleModalComponent } from '../addArticleModal/addArticleModal.com
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor(private userService : UserService,
+  constructor
+  (
+    private userService : UserService,
     private router : Router,
     private activatedRoute : ActivatedRoute,
     private articleService : ArticleService,
-    private dialog : MatDialog) { 
+    private dialog : MatDialog
+    ) 
+  { 
     this.userService = userService;
     this.router = router;
     this.activatedRoute = activatedRoute;
@@ -55,6 +59,4 @@ export class ArticlesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((res) => {
     });
   }
-  
-
 }

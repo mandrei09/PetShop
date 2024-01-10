@@ -15,13 +15,15 @@ import { UserService } from 'src/services/UserService/User.service';
 })
 export class ArticleDetailComponent implements OnInit {
 
-  constructor(
+  constructor
+  (
     private userService: UserService,
     private articleService: ArticleService,
     private router: Router,
     private route: ActivatedRoute,
     private replyService : ReplyService
-  ) {
+  ) 
+  {
     this.userService = userService;
     this.articleService = articleService;
     this.router = router;

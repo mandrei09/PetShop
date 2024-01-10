@@ -5,28 +5,28 @@ import { UserService } from 'src/services/UserService/User.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-
-export class AppComponent {
-  
+export class AppComponent 
+{
   title = 'PetShop';
   showLogin = false;
 
-  constructor(
-    private userService : UserService,
-    private authService : AuthService,
-    private router : Router
-    )
+  constructor
+  (
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router
+  ) 
   {
     this.userService = userService;
     this.authService = authService;
     this.showLogin = sessionStorage.getItem('STATE') === 'true';
-    this.router = router; 
+    this.router = router;
   }
 
-  updateUserState(){
+  updateUserState() {
     this.showLogin = sessionStorage.getItem('STATE') === 'true';
-    
   }
+  
 }

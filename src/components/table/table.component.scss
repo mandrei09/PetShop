@@ -1,31 +1,31 @@
 .content {
   h4 {
-    color: black; // Title color
+    color: black;
   }
 
   table {
     th {
-      background-color: black; // Table header background color
-      color: white; // Table header font color
+      background-color: black;
+      color: white;
     }
 
     .mat-row {
       td {
-        color: black; // Table cell font color
+        color: black;
       }
     }
   }
 
   .titleAndSearch {
-      display: flex;
-      justify-content: space-between; // Items will be placed at the start and end of the flex container
-      align-items: center; // Aligns items along the vertical center
-      h4 {
-        margin: 0; // Remove default margins for h4 element
-      }
-      
-      mat-form-field {
-        margin-left: auto; // Push the search box to the right
-      }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h4 {
+      margin: 0;
     }
+
+    mat-form-field {
+      margin-left: auto;
+    }
+  }
 }

@@ -9,9 +9,7 @@ import { ContactComponent } from 'src/components/contact/contact.component';
 import { LoginComponent } from 'src/components/login/login.component';
 import { ProfileComponent } from 'src/components/profile/profile.component';
 import { AuthGuard } from './auth.guard';
-import { FullComponent } from 'src/components/full/full.component';
 import { AccesDeniedComponent } from 'src/components/accesDenied/accesDenied.component';
-import { RegisterComponent } from 'src/components/register/register.component';
 import { ProblemsComponent } from 'src/components/problems/problems.component';
 
 const routes: Routes = [

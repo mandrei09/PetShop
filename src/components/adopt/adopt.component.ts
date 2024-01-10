@@ -38,7 +38,7 @@ export class AdoptComponent implements OnInit {
       panelClass: 'centered-middle-modal', height: '100%', maxHeight: '100%', disableClose: true, width: '1000px', position: { bottom: '15%', top: 'auto'},
       data: {isAdopted : false}
     });
-    dialogRef.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe(() => {
     });
   }
 

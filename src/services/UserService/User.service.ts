@@ -3,7 +3,6 @@ import { User } from 'src/model/User';
 import { RoleService } from '../RoleService/Role.service';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { ConfigAPI } from 'src/model/ConfigAPI';
-import { Cat } from 'src/model/Cat';
 import { UserSimpleDetail } from 'src/model/UserSimpleDetail';
 
 @Injectable({

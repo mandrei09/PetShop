@@ -56,7 +56,9 @@
         </div>
       </div>
     </div>
+
     <div class="comments" *ngIf="areCommentsShown">
+
       <div class="comment-input">
         <button *ngIf="!isLeaveAButtonButtonPressed" id="leave-a-comment-button" (click)="onLeavingComment()">Leave a
           Comment</button>
@@ -65,24 +67,32 @@
         <button *ngIf="!isEditCommentButtonPressed" id="leave-a-comment-button" (click)="onLeavingComment()">Post</button>
         <button *ngIf="isEditCommentButtonPressed" id="leave-a-comment-button" (click)="editComment()">Edit Comment</button>
       </div>
+
       <div class="comment-list">
         <div class="comment" *ngFor="let comment of article!.comments; let i=index">
           <div class="comment-header">
+
             <img class="profile-photo" [src]="comment.user!.profilePhoto" alt="Profile">
+
             <div class="user-info">
               <span class="user-id" (click)="navigateToProfile(comment.user!.id)">@{{comment.user!.username}}</span>
               <span class="comment-date">{{ comment.date | date:'medium'}}</span>
             </div>
+
             <div class="buttons" *ngIf="user!.id===article!.user!.id">
               <button (click)="onEditComment(i)"><mat-icon>edit</mat-icon></button>
               <button (click)="onDeleteComment(comment.id)" *ngIf="user!.role!.id==='2'"><mat-icon>delete</mat-icon></button>
             </div>
+            
           </div>
+
           <div class="comment-content">
             <p>{{ comment.content }}</p>
           </div>
+
         </div>
       </div>
+
     </div>
   </div>
 </div>

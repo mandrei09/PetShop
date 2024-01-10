@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Cat } from 'src/model/Cat';
 import { UserService } from '../UserService/User.service';
-import { User } from 'src/model/User';
-import { Firestore, collection, getDoc, getDocs,doc, addDoc, updateDoc } from 'firebase/firestore';
+import { collection, getDoc, getDocs,doc, addDoc, updateDoc } from 'firebase/firestore';
 import { ConfigAPI } from 'src/model/ConfigAPI';
-import { CardTitleDirective } from '@coreui/angular';
 
 @Injectable({
   providedIn: 'root'

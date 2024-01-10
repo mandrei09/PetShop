@@ -10,13 +10,13 @@
     margin: 0 auto;
     opacity: 1;
     padding: 0 20px;
-  
+
     .title {
       h3 {
         margin-right: 10px;
       }
     }
-  
+
     .modal-button {
       background-color: black;
       border: none;
@@ -30,25 +30,24 @@
       transition: background-color 0.3s ease;
     }
   }
-  
-    .form-info {
-        margin-top: 50px;
-        margin: 10px;
-        padding: 15px;
-        background-color: #fff;
-        color: #000;
-  
-      p {
-        margin: 10px 0;
-        &:hover{
-          font-weight: bold;
-          cursor: pointer;
-        }
+
+  .form-info {
+    margin-top: 50px;
+    margin: 10px;
+    padding: 15px;
+    background-color: #fff;
+    color: #000;
+
+    p {
+      margin: 10px 0;
+      &:hover {
+        font-weight: bold;
+        cursor: pointer;
       }
     }
-
-    .header{
-      margin: 20px;
-    }
   }
-  
+
+  .header {
+    margin: 20px;
+  }
+}

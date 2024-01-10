@@ -12,64 +12,69 @@ import { UserService } from 'src/services/UserService/User.service';
 @Component({
   selector: 'app-addArticleModal',
   templateUrl: './addArticleModal.component.html',
-  styleUrls: ['./addArticleModal.component.scss']
+  styleUrls: ['./addArticleModal.component.scss'],
 })
 export class AddArticleModalComponent implements OnInit {
 
   constructor
   (
-    private userService : UserService,
-    private articleService : ArticleService,
-    private router : Router,
+    private userService: UserService,
+    private articleService: ArticleService,
+    private router: Router,
     public dialogRef: MatDialogRef<AddArticleModalComponent>
   ) 
-  { 
-    this.userService = userService
-    this.articleService = articleService
+  {
+    this.userService = userService;
+    this.articleService = articleService;
   }
 
   async ngOnInit() {
-    this.user = await this.userService.getUser()
+    this.user = await this.userService.getUser();
   }
 
-  onFileChanged(event : any) {
-    this.image = event.target.files[0]
+  onFileChanged(event: any) {
+    this.image = event.target.files[0];
   }
 
-  public title : string = ''
-  public image! : File 
-  public content : string = ''
-  public user : User | null = null
-  public date : Date = new Date()
-  public comments : Reply[] = []
-  public likes : User[] = []
-  public saves : User[] = []
-  public shares : User[] = []
+  public title: string = '';
+  public image!: File;
+  public content: string = '';
+  public user: User | null = null;
+  public date: Date = new Date();
+  public comments: Reply[] = [];
+  public likes: User[] = [];
+  public saves: User[] = [];
+  public shares: User[] = [];
 
-  async createPost(){
-    let imagePath, downloadURL
-    if(this.image!=undefined)
+  async createPost() {
+    let imagePath, downloadURL;
+    if (this.image != undefined) 
     {
-      imagePath = References.articlesPhotoRef + this.image.name
-      downloadURL = await PublicFunctions.onUploadImage(this.image,imagePath)
-    }
-    else 
-      downloadURL = await PublicFunctions.getDownloadURL(References.genericArticlePhoto)
-    let newArticle : Article = 
-      new Article(
-        '',
-        this.title,
-        downloadURL,
-        this.content,
-        this.user,
-        this.date,
-        this.comments,
-        this.likes,
-        this.saves,
-        this.shares)
-    
-    const newArticleId = await this.articleService.addArticletoFirebase(newArticle)
-    this.dialogRef.close()
-    this.router.navigate(['news/' + newArticleId])
+      imagePath = References.articlesPhotoRef + this.image.name;
+      downloadURL = await PublicFunctions.onUploadImage(this.image, imagePath);
+    } 
+    else
+      downloadURL = await PublicFunctions.getDownloadURL(
+        References.genericArticlePhoto
+      );
+      
+    let newArticle: Article = new Article(
+      '',
+      this.title,
+      downloadURL,
+      this.content,
+      this.user,
+      this.date,
+      this.comments,
+      this.likes,
+      this.saves,
+      this.shares
+    );
+
+    const newArticleId = await this.articleService.addArticletoFirebase(
+      newArticle
+    );
+    this.dialogRef.close();
+    this.router.navigate(['news/' + newArticleId]);
   }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Article } from 'src/model/Article';
 import { UserService } from '../UserService/User.service';
-import { Reply } from 'src/model/Reply';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { ConfigAPI } from 'src/model/ConfigAPI';
 import { User } from 'src/model/User';

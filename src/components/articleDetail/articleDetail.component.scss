@@ -1,50 +1,49 @@
 .article {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.article h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.article .article-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 14px;
+  a {
+    margin-left: 15px;
   }
-  
-  .article h1 {
-    font-size: 28px;
-    margin-bottom: 15px;
-  }
-  
-  .article .article-meta {
-    display: flex;
-    justify-content: space-between;
-    color: #666;
-    font-size: 14px;
-    a{
-      margin-left: 15px;
-    }
-  }
-  
-  .article .article-meta .author {
-    font-style: italic;
-  }
-  
-  .article .article-meta .date {
-    text-align: right;
-  }
-  
-  .article img {
-    max-width: 100%;
-    height: auto;
-    margin: 15px 0;
-  }
-  
-  .article .article-content {
-    font-size: 18px;
-    line-height: 1.6;
-  }
-  
-  /* Style anchor links in the article content */
-  .article .article-content a {
-    color: #00f;
-    text-decoration: underline;
-  }
-  
-.count-data{
+}
+
+.article .article-meta .author {
+  font-style: italic;
+}
+
+.article .article-meta .date {
+  text-align: right;
+}
+
+.article img {
+  max-width: 100%;
+  height: auto;
+  margin: 15px 0;
+}
+
+.article .article-content {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.article .article-content a {
+  color: #00f;
+  text-decoration: underline;
+}
+
+.count-data {
   cursor: pointer;
 }
 
@@ -53,15 +52,15 @@
   align-items: center;
 
   h6.count {
-    margin-right: 10px; /* Adding some space between the number and icon */
+    margin-right: 10px;
   }
 }
 
 .comments {
-  .comment-list{
-    max-height: 300px; 
-    overflow-y: auto; 
-    padding-right: 10px; 
+  .comment-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
   }
 
   #leave-a-comment-button {
@@ -105,14 +104,14 @@
 
       .buttons {
         display: flex;
-        button{
+        button {
           background: transparent;
           border: none !important;
           cursor: pointer;
-          &:focus{
+          &:focus {
             outline: none;
           }
-          &:hover{
+          &:hover {
             color: red;
           }
         }
@@ -133,11 +132,11 @@
         .user-id {
           font-weight: bold;
           margin-bottom: 5px;
-          &:hover{
+          &:hover {
             cursor: pointer;
             text-decoration: underline;
           }
-          }
+        }
 
         .comment-date {
           font-size: 12px;
@@ -154,17 +153,17 @@
   }
 }
 
-.container{
+.container {
   display: flex;
   justify-content: space-between;
-  button{
+  button {
     background: transparent;
     border: none !important;
     cursor: pointer;
-    &:focus{
+    &:focus {
       outline: none;
     }
-    &:hover{
+    &:hover {
       color: red;
     }
   }

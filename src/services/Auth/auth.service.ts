@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
 import { UserService } from '../UserService/User.service';
-import { User } from 'src/model/User';
 
 @Injectable({
   providedIn: 'root',

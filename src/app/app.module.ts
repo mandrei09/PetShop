@@ -36,8 +36,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ProblemsService } from 'src/services/ProblemsService/Problems.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormSendModalComponent } from 'src/components/formSendModal/formSendModal.component';
-import { NotificationService } from 'src/services/NotificationService/Notification.service';
-import { ToastrModule } from 'ngx-toastr';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ModifyUserModalComponent } from 'src/components/modifyUserModal/modifyUserModal.component';
 import { RoleService } from 'src/services/RoleService/Role.service';
@@ -55,6 +53,7 @@ import { ProblemsComponent } from 'src/components/problems/problems.component';
 import { UserModalComponent } from 'src/components/userModal/userModal.component';
 
 @NgModule({
+  
   declarations: [			
     AppComponent,
     FullComponent,
@@ -80,6 +79,7 @@ import { UserModalComponent } from 'src/components/userModal/userModal.component
     ProblemsComponent,
     UserModalComponent
    ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -101,9 +101,8 @@ import { UserModalComponent } from 'src/components/userModal/userModal.component
     MatDialogModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot({tapToDismiss: true, closeButton: true, extendedTimeOut: 10000, progressBar: true, preventDuplicates: true, countDuplicates: true, positionClass: 'toast-bottom-right', newestOnTop: true}),
-
   ],
+
   providers: [
     UserService,
     CatService,
@@ -111,13 +110,14 @@ import { UserModalComponent } from 'src/components/userModal/userModal.component
     TableDataService,
     ArticleService,
     ProblemsService,
-    NotificationService,
     RoleService,
     AuthGuard,
     AuthService,
     TruncatePipe,
     ReplyService
   ],
+
   bootstrap: [AppComponent],
+
 })
 export class AppModule { }

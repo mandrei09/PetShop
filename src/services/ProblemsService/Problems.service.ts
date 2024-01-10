@@ -12,14 +12,16 @@ constructor() { }
   private collectionName = 'Forms'
 
   private problems : string[] = 
-    ['Routine Check-ups',
+    [
+    'Routine Check-ups',
     'Vaccinations',
     'Illness or Injury',
     'Parasite Control',
     'Dental Care',
     'Behavioral Concerns',
     'Weight Management',
-    'Other Reason']
+    'Other Reason'
+  ]
 
   public getProblems(){
     return this.problems;

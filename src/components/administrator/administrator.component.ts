@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TableActiveDirective } from '@coreui/angular';
-import { TableItem } from 'src/model/TableItem';
-import { User } from 'src/model/User';
 import { TableDataService } from 'src/services/TableDataService/TableData.service';
 import { TableHeaderService } from 'src/services/TableHeaderService/TableHeader.service';
 import { UserService } from 'src/services/UserService/User.service';

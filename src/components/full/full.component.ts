@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CustomINavData } from 'src/model/Custom-nav';
 import { User } from 'src/model/User';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/services/UserService/User.service';
-import { AuthGuard } from 'src/app/auth.guard';
 import { RoleService } from 'src/services/RoleService/Role.service';
 
 @Component({

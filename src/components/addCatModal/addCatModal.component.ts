@@ -15,76 +15,79 @@ import { CatService } from 'src/services/CatService/Cat.service';
 @Component({
   selector: 'app-addCatModal',
   templateUrl: './addCatModal.component.html',
-  styleUrls: ['./addCatModal.component.scss']
+  styleUrls: ['./addCatModal.component.scss'],
 })
 export class AddCatModalComponent implements OnInit {
 
   constructor
   (
-    private userService : UserService,
-    private breedService : BreedService,
-    private genderService : GenderService,
-    private catService : CatService,
-    private router : Router,
+    private userService: UserService,
+    private breedService: BreedService,
+    private genderService: GenderService,
+    private catService: CatService,
+    private router: Router,
     private dialogRef: MatDialogRef<AddCatModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) 
   {
-    this.userService = userService
-    this.breedService = breedService
-    this.genderService = genderService
+    this.userService = userService;
+    this.breedService = breedService;
+    this.genderService = genderService;
     this.router = router;
     this.dialogRef = dialogRef;
     this.catService = catService;
   }
 
   async ngOnInit() {
-    this.breeds = await this.breedService.firebaseGetAllBreeds()
-    this.genders = await this.genderService.firebaseGetAllGenders()
-    this.user = await this.userService.getUser()
+    this.breeds = await this.breedService.firebaseGetAllBreeds();
+    this.genders = await this.genderService.firebaseGetAllGenders();
+    this.user = await this.userService.getUser();
   }
 
-  
-  public user : User | null = null;  
-  public breeds : Breed[] = []
-  public genders : Gender[] = []
+  public user: User | null = null;
+  public breeds: Breed[] = [];
+  public genders: Gender[] = [];
+  public name!: string;
+  public birthDate!: Date;
+  public age!: number;
+  public breed!: Breed;
+  public gender!: Gender;
+  public description!: string;
+  public image!: File;
 
-  public name! : string;
-  public birthDate! : Date;
-  public age! : number;
-  public breed! : Breed;
-  public gender! : Gender;
-  public description! : string;
-  public image! : File
-
-  onFileChanged(event : any) {
-    this.image = event.target.files[0]
+  onFileChanged(event: any) {
+    this.image = event.target.files[0];
   }
 
-  async createCat(){
-    let imagePath 
-    if(this.image!=undefined)
-      imagePath = References.catsPhotosRef + this.image.name
-    else 
-      imagePath = References.genericProfilePhoto
-    const downloadURL = await PublicFunctions.onUploadImage(this.image,imagePath)
-    let newCat : Cat = 
-      new Cat(
-        '',
-        this.name,
-        this.birthDate,
-        this.age,
-        this.breed,
-        this.data.isAdopted,
-        this.gender,
-        downloadURL,
-        this.data.isAdopted ? [this.user] : [],
-        this.description)
-    
-    const newCatId = await this.catService.addCattoFirebase(newCat)
-    if(this.data.isAdopted)
-      await this.userService.addCatToUser(this.user,Cat.toFirebasePath(newCatId!)) 
-    this.dialogRef.close()
-    this.router.navigate(['catProfile/' + newCatId])
+  async createCat() {
+    let imagePath;
+    if (this.image != undefined)
+      imagePath = References.catsPhotosRef + this.image.name;
+    else imagePath = References.genericProfilePhoto;
+    const downloadURL = await PublicFunctions.onUploadImage(
+      this.image,
+      imagePath
+    );
+    let newCat: Cat = new Cat(
+      '',
+      this.name,
+      this.birthDate,
+      this.age,
+      this.breed,
+      this.data.isAdopted,
+      this.gender,
+      downloadURL,
+      this.data.isAdopted ? [this.user] : [],
+      this.description
+    );
+
+    const newCatId = await this.catService.addCattoFirebase(newCat);
+    if (this.data.isAdopted)
+      await this.userService.addCatToUser(
+        this.user,
+        Cat.toFirebasePath(newCatId!)
+      );
+    this.dialogRef.close();
+    this.router.navigate(['catProfile/' + newCatId]);
   }
 }

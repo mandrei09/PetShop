@@ -20,13 +20,10 @@ export class RegisterComponent implements OnInit {
   (
     private userService : UserService,
     private dialogRef: MatDialogRef<RegisterComponent>,
-    private router : Router,
-
   ) 
   { 
     this.userService = userService
     this.dialogRef = dialogRef
-    this.router = router
   }
 
   ngOnInit() {

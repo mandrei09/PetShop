@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-import { NotificationService } from 'src/services/NotificationService/Notification.service';
 import { ToastrService } from 'ngx-toastr';
 import { Problem } from 'src/model/Problem';
 import { UserService } from 'src/services/UserService/User.service';
@@ -19,7 +18,6 @@ export class FormSendModalComponent implements OnInit {
   (
     private userService : UserService,
     private problemService : ProblemsService,
-    private notificationService: NotificationService,
     private toastr: ToastrService,
     private dialogRef: MatDialogRef<FormSendModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -27,7 +25,6 @@ export class FormSendModalComponent implements OnInit {
   {
     this.userService = userService
     this.problemService = problemService
-    this.notificationService = notificationService; 
     this.toastr = toastr;
     this.dialogRef = dialogRef;
   }
@@ -43,8 +40,6 @@ export class FormSendModalComponent implements OnInit {
   public async sendForm(){
     const newProblemId = await this.problemService.addProblemToFirebase(this.newProblem)
     this.dialogRef.close()
-    // this.toastr.success('Your data was sent succesfully!', '')
-
   }
   
 }
