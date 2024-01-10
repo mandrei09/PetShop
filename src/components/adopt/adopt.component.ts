@@ -27,7 +27,7 @@ export class AdoptComponent implements OnInit {
     this.catService = catService;
   }
 
-  public unadoptedCats : Cat[] = []
+  public unadoptedCats : Cat[] | undefined = undefined
 
   async ngOnInit() {
     this.unadoptedCats = await this.catService.firebaseGetAllUnadoptedCats()

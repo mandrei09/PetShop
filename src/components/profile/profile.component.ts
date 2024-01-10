@@ -39,9 +39,9 @@ export class ProfileComponent implements OnInit {
   public isFollowButtonShown : boolean = false;
   public areFollowUnfollowButtonsShown : boolean = false;
   public profileUserPosts : Article[] | [] = []
-  public totalLikes : number = -1
-  public followers : number = -1
-  public following : number = -1
+  public totalLikes : number = 0
+  public followers : number = 0
+  public following : number = 0
   public profileUserId! : string 
 
   async ngOnInit() {

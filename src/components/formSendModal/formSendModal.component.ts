@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Problem } from 'src/model/Problem';
 import { UserService } from 'src/services/UserService/User.service';
 import { User } from 'src/model/User';
@@ -18,14 +17,12 @@ export class FormSendModalComponent implements OnInit {
   (
     private userService : UserService,
     private problemService : ProblemsService,
-    private toastr: ToastrService,
     private dialogRef: MatDialogRef<FormSendModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) 
   {
     this.userService = userService
     this.problemService = problemService
-    this.toastr = toastr;
     this.dialogRef = dialogRef;
   }
 

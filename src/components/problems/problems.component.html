@@ -1,28 +1,36 @@
-<div class="container">
-  <ng-container *ngIf="problems.length; else noDataFound">
-    <div class="news-list">
-      <div *ngFor="let problem of problems" class="news-item">
-        <div class="problem-date">
-          <h2>{{ problem.selectedProblem | Truncate: 50}}</h2>
-          <p>{{ problem.selectedDate | date }}</p>
-        </div>
-        <div class="user-cat">
-          <a (click)="navigateToUserProfile(problem.user!.id)">
-            @{{ problem.user!.username }}
-          </a>
-          <a (click)="navigateToCatProfile(problem.cat!.id)">
-            @{{ problem.cat!.name }}
-          </a>
-        </div>
-        <div class="details">
-          <p>{{ problem.otherDetails }}</p>
+<ng-container *ngIf="problems === undefined else content">
+  <div class="loading-spinner" >
+    <app-loadingSpinner ></app-loadingSpinner>
+  </div>
+</ng-container>
+<ng-template #content>
+    <div class="container">
+    <ng-container *ngIf="problems?.length; else noDataFound">
+      <div class="news-list">
+        <div *ngFor="let problem of problems" class="news-item">
+          <div class="problem-date">
+            <h2>{{ problem.selectedProblem | Truncate: 50}}</h2>
+            <p>{{ problem.selectedDate | date }}</p>
+          </div>
+          <div class="user-cat">
+            <a (click)="navigateToUserProfile(problem.user!.id)">
+              @{{ problem.user!.username }}
+            </a>
+            <a (click)="navigateToCatProfile(problem.cat!.id)">
+              @{{ problem.cat!.name }}
+            </a>
+          </div>
+          <div class="details">
+            <p>{{ problem.otherDetails }}</p>
+          </div>
         </div>
       </div>
-    </div>
-  </ng-container>
-  <ng-template #noDataFound>
-    <div class="no-data-found">
-      <h1>No problems found!</h1>
-    </div>
-  </ng-template>
-</div>
+    </ng-container>
+    <ng-template #noDataFound>
+      <div class="no-data-found">
+        <h1>No problems found!</h1>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>
+

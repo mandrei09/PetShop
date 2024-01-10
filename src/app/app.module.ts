@@ -51,6 +51,7 @@ import { TruncatePipe } from './pipes/Truncate/Truncate.pipe';
 import { ReplyService } from 'src/services/ReplyService/Reply.service';
 import { ProblemsComponent } from 'src/components/problems/problems.component';
 import { UserModalComponent } from 'src/components/userModal/userModal.component';
+import { LoadingSpinnerComponent } from 'src/components/loadingSpinner/loadingSpinner.component';
 
 @NgModule({
   
@@ -77,7 +78,8 @@ import { UserModalComponent } from 'src/components/userModal/userModal.component
     AddArticleModalComponent,
     TruncatePipe,
     ProblemsComponent,
-    UserModalComponent
+    UserModalComponent,
+    LoadingSpinnerComponent
    ],
 
   imports: [

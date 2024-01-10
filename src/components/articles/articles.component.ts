@@ -35,7 +35,7 @@ export class ArticlesComponent implements OnInit {
   public searchBarInput : string | null = '';
 
   public user : User | null = null;  
-  @Input() public articles : Article[] | [] = []
+  @Input() public articles : Article[] | undefined = undefined
 
 
   navigateToProfile(id : string){

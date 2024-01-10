@@ -29,7 +29,7 @@ export class ProblemsComponent implements OnInit {
     this.problems = await this.problemsService.firebaseGetAllForms()
   }
 
-  public problems : Problem[] | [] = []
+  public problems : Problem[] | undefined = undefined
   public user : User | null = null
 
   navigateToUserProfile(userId : string){

@@ -1,4 +1,7 @@
 <div class="article">
+  <div class="loading-spinner" *ngIf="!article">
+    <app-loadingSpinner ></app-loadingSpinner>
+  </div>
   <div class="container">
     <div class="title-wrapper">
       <h1>{{ article!.title }}</h1>

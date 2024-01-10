@@ -27,7 +27,7 @@ export class UserModalComponent implements OnInit {
   }
 
   public title : string = ''
-  public users : UserSimpleDetail[] = []
+  public users : UserSimpleDetail[] | undefined = undefined
   public currentUser : User | null = null
   public unfollowButton! : boolean 
   public showButtons! : boolean
@@ -51,7 +51,7 @@ export class UserModalComponent implements OnInit {
 
   public async unfollow(userId : string){
     let userToBeRemoved = await this.userService.firebaseGetCurentUser(userId)
-    this.users = this.users.filter(item => item.id != userToBeRemoved!.id)
+    this.users = this.users!.filter(item => item.id != userToBeRemoved!.id)
     this.currentUser!.following = this.currentUser!.following.filter(item => item.id != userToBeRemoved!.id)
     userToBeRemoved!.followers = userToBeRemoved!.followers.filter(item => item.id != this.currentUser!.id)
     await this.userService.changeFollowing(this.currentUser)
@@ -60,7 +60,7 @@ export class UserModalComponent implements OnInit {
 
   public async removeFromFollow(userId : string){
     let userToBeRemoved = await this.userService.firebaseGetCurentUser(userId)
-    this.users = this.users.filter(item => item.id != userToBeRemoved!.id)
+    this.users = this.users!.filter(item => item.id != userToBeRemoved!.id)
     this.currentUser!.followers = this.currentUser!.followers.filter(item => item.id != userToBeRemoved!.id)
     userToBeRemoved!.following = userToBeRemoved!.following.filter(item => item.id != this.currentUser!.id)
     await this.userService.changeFollowing(userToBeRemoved)

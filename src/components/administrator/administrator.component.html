@@ -1,15 +1,21 @@
-<div *ngIf="tableData && tableData.length > 0">
-  <app-table
-    [tableData]="tableData"
-    [tableTitle]="'Users'"
-    [columnHeader]="columnHeader"
-    [selectionType]="'single'"
-    (selectedItemsChanged)="changeSelectedItems($event)"
-  ></app-table>
+<div class="loading-spinner" *ngIf="!tableData.length">
+  <app-loadingSpinner ></app-loadingSpinner>
 </div>
-
-<div class="modify">
-  <button *ngIf="selectedItems.length" id="modify-button" (click)="onModify()">
-    Modify Selected User!
-  </button>
+<div class="container">
+  <div *ngIf="tableData && tableData.length > 0">
+    <app-table
+      [tableData]="tableData"
+      [tableTitle]="'Users'"
+      [columnHeader]="columnHeader"
+      [selectionType]="'single'"
+      (selectedItemsChanged)="changeSelectedItems($event)"
+    ></app-table>
+  </div>
+  
+  <div class="modify">
+    <button *ngIf="selectedItems.length" id="modify-button" (click)="onModify()">
+      Modify Selected User!
+    </button>
+  </div>
+  
 </div>

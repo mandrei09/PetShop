@@ -5,6 +5,9 @@
       <mat-icon class="icon">close</mat-icon>
     </button>
   </div>
+  <div class="loading-spinner" *ngIf="users === undefined">
+    <app-loadingSpinner ></app-loadingSpinner>
+  </div>
   <div class="user-list">
     <div class="user" *ngFor="let user of users; let i=index">
       <div class="user-header">

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Article } from 'src/model/Article';
 import { ArticleService } from 'src/services/ArticleService/Article.service';
@@ -15,12 +15,14 @@ export class PostsModalComponent implements OnInit {
   (
     public articleService : ArticleService,
     public router : Router,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<PostsModalComponent>,
 
   ) 
   { 
     this.articleService = articleService
     this.router = router
+    this.dialogRef = dialogRef;
   }
 
   async ngOnInit() {
@@ -28,10 +30,11 @@ export class PostsModalComponent implements OnInit {
   }
 
   public title : string = this.data.title
-  public posts : Article[] | [] = [] 
+  public posts : Article[] | undefined = undefined 
 
   navigateToProfile(id : string){
     this.router.navigate(['profile/' + id])
+    this.dialogRef.close();
   }
 }
 

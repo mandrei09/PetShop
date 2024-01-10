@@ -56,7 +56,7 @@ export class CatProfileComponent implements OnInit {
 
   async setCanYouAdoptCat(){
     this.canYouAdoptCat = !this.user!.cats!.length && !this.cat!.isAdopted 
-      && !this.user!.cats.filter((cat : Cat) => cat.id === this.cat!.id).length
+      && !(this.cat!.owners!.filter((owner : User | null) => owner!.id === this.user!.id).length)
   }
 
   async setCanYouUnadoptCat(){
@@ -69,14 +69,16 @@ export class CatProfileComponent implements OnInit {
     this.canYouUnadoptCat = true 
     await this.catService.adoptCat(this.cat!.id,true)
     await this.userService.addCatToUser(this.user, Cat.toFirebasePath(this.cat!.id))
+
   }
 
    public async unadoptCat(){
     this.cat!.isAdopted = false;
-    this.canYouAdoptCat = true
+    this.canYouAdoptCat = false
     this.canYouUnadoptCat = false 
     await this.catService.adoptCat(this.cat!.id,false)
     await this.userService.deleteCatFromUser(this.user)
     await this.catService.addOwnerToCat(this.cat,User.toFirebasePath(this.user!.id))
+  
   }
 }

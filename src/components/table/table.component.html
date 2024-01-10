@@ -1,4 +1,5 @@
 <div class="content">
+	<h5>{{tableTitle}}</h5>
 	<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 		<ng-container class="container" [matColumnDef]="tableData" *ngFor="let tableData of objectKeys(columnHeader)">
 			<ng-container [ngSwitch]="tableData">

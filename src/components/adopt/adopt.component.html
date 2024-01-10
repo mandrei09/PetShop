@@ -2,7 +2,10 @@
   <div class="add-cat-button">
     <button (click)="onAddingCat()">Add a Cat</button>    
   </div>
-  <ng-container *ngIf="unadoptedCats.length; else noDataFound">
+  <div class="loading-spinner" *ngIf="unadoptedCats === undefined">
+    <app-loadingSpinner ></app-loadingSpinner>
+  </div>
+  <ng-container *ngIf="unadoptedCats!.length; else noDataFound">
     <div class="news-list">
       <div *ngFor="let cat of unadoptedCats" class="news-item">
         <img [src]="cat.image" alt="{{ cat.name }}" />
@@ -16,7 +19,7 @@
   </ng-container>
   <ng-template #noDataFound>
     <div class="no-data-found">
-      <h1>No cats found!</h1>
+      <h1>No unadopted cats found!</h1>
     </div>
   </ng-template>
 </div>
